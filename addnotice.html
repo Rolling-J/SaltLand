@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="addnotice.css">
+    <link rel="stylesheet" href="bar.css">
+    <title>공지 작성</title>
+</head>
+<body>
+    <header>
+        <a class="logo" href="/p_main.html"><img src="./image/로고.png" alt="logo"></a>
+        <nav>
+            <ul class="nav__links">
+                <li><a href="#">즐길거리</a></li>
+                <li><a href="#">요금/우대혜택</a></li>
+                <li><a href="#">이용가이드</a></li>
+            </ul>
+        </nav>
+        <a class="cta" href="login.html">로그인</a>     
+    </header>
+    <div class="a_box">
+        <p class="category"> 홈>이용가이드>공지 및 알림</p>
+        <div class="center_box">
+            <div class="s_title">
+                <strong class="a" >공지사항</strong>
+            </div>
+        </div>
+    </div>
+    <div class="board_wrap">
+        <div class="board_title">
+            <p>새 글 작성</p>
+        </div>
+        <form action="#">
+            <div class="board_box">
+                <div class="board_header">
+                    <div class="head_text">
+                        <select class="b_cat">
+                            <option>공지</option>
+                            <option>이벤트</option>
+                        </select>
+                        <input type="text" name="b_title">
+                    </div>
+                </div>
+                <div class="board_body">
+                    <div class="body_text">
+                        <textarea name="content" class="b_content" cols="100" rows="25"></textarea>
+                        <p>이미지 파일 선택</p>
+                        <input type="file" name="imgName">
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="personal_btns">
+                    <input type="submit" value="저장" id="btm_buttons">
+                </div>
+                <div class="list_btn">
+                    <a href="noticeboard.html" id="btm_buttons">목록으로</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <footer></footer>
+</body>
+</html>

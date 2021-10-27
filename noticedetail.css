@@ -1,0 +1,127 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+body {
+  font-family: "Noto Sans KR", sans-serif !important;
+}
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .a_box{
+    height: 480px;
+    background: url(https://adventure.lotteworld.com/common/images/icon/attraction_bg1.jpg) no-repeat 50% 0;
+    background-size:cover;
+    position: relative;
+    margin: 0 auto;
+  }
+ 
+ .category{
+    position: absolute;
+    margin-top: 25px;
+    margin-left: 10%;
+    font-size: 16px;
+    color: white;
+  }
+  .center_box{
+    width: 100%;
+    position:absolute;
+    text-align: center;
+    margin-top: 200px;
+  }
+  .s_title{
+    /*
+    margin-left: 825px;
+    position: absolute;
+    margin-top: 200px;
+    text-align: center;
+    color: white;
+    */
+    text-align: center;
+    color: white;
+    padding: 30px 0;
+}
+.s_title> .a{
+  font-size: 50px;
+  text-shadow: 5px -3px 5px rgba(12, 11, 11, 0.342);
+}
+
+/* board detail */
+.board_wrap{
+    width: 1000px;
+    margin: 100px auto 100px;
+}
+.board_box{
+    border-top: 3px solid slateblue;
+    border-bottom: 3px solid slateblue;
+}
+.board_header{
+    table-layout: fixed;
+    padding: 25px;
+    border-bottom: 1px solid slateblue;
+}
+.head_text{
+    display: flex;
+    justify-content: space-between;
+}
+.head_text .b_cat{
+    color:slateblue;
+}
+.head_text .b_title{
+    width: 800px;
+}
+.board_body{
+    min-height: 500px;
+    padding: 40px 45px;
+}
+.board_img{
+    margin-bottom: 25px;
+}
+.board_img img{
+    max-width: 100%;
+}
+
+/* buttons*/
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.personal_btns input,button{
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 10px;
+}
+.personal_btns input{
+    background-color: white;
+}
+.personal_btns button{
+    background-color: red;
+    color: white;
+}
+.list_btn{
+    text-align: center;
+}
+.list_btn a{
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    font-weight: 300;
+    border-radius: 10px;
+}
+.list_btn a{
+    display:inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: slateblue;
+    width: 80px;
+}
+
+footer{
+    height: 80px;
+    background-color: gray;
+}

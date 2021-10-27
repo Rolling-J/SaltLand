@@ -1,0 +1,148 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+    list-style: none;
+    text-decoration: none;
+}
+/*head 설정*/
+#navbar{
+    background-color: indigo;
+    height: 50px;
+}
+/*배경설정*/
+.background{
+    background-image: url(./image/event02.jpg);
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    justify-content: center;
+}
+/*contents-total*/
+.wrap_body{
+    padding-top:50px;
+    padding-bottom: 80px;
+}
+
+/**/
+.content_box{
+    align-items: center;
+    padding: 80px 45px 15px;
+}
+.login_wrap{
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 15px;
+    background-color: rgba(255, 255, 255, 0.842);
+    border: 2px solid lightblue;
+    border-radius: 15px;
+}
+
+.box_head{
+    text-align: center;
+    padding-bottom: 10px;
+}
+.box_head p{
+    font-weight: bold;
+    font-size: 20px;
+}
+.box_body{
+    text-align: center;
+}
+.welcome{
+    font-size: 20px;
+}
+/*play card*/
+.play{
+    background-color: rgb(153, 167, 245);
+    border-radius: 20px;
+    padding: 15px 15px;
+    margin-top: 20px;
+}
+.cards_play{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px
+}
+#play_card{
+    width: 40%;
+    border: 1px solid rgb(132, 148, 240);
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+#play_card p{
+    padding-bottom: 10px;
+}
+#play_card img{
+    max-width: 100%;
+    max-height: 100%;
+}
+/*botton*/
+.btn_box{
+    margin: 30px 0px 40px;
+    width: 60%;
+    margin-left: 20%;
+    text-align: center;
+}
+.btn_box p{
+    font-size: 15px;
+    margin-bottom: 15px;
+    color: gray;
+}
+.btn_box > a{
+    padding: 10px 40px;
+    font-size: 15px;
+    background-color: rgb(132, 148, 240);
+    border-radius: 5px;
+    color: white;
+    margin-top: 20px;
+    transition: all 0.3s ease 0s;
+}
+.btn_box a:hover {
+    background-color: rgba(234, 153, 245, 0.8);
+  }
+/*divine*/
+.divine{
+    height: 2px;
+    width: 70%;
+    margin: 20px 15%;
+    background-color: lightgray;
+}
+/* footer */
+footer{
+	background-color: #24262b;
+    padding: 70px 0;
+}
+.footer_box{
+	max-width: 1170px;
+	margin:auto;
+}
+.footer_content{
+	display: flex;
+	flex-wrap: wrap;
+}
+ul{
+	list-style: none;
+}
+
+.company{
+   width: 25%;
+   padding: 0 15px;
+}
+.company h4{
+	font-size: 18px;
+	color: #ffffff;
+	margin-bottom: 35px;
+	font-weight: 500;
+	position: relative;
+}
+.company h4::before{
+	content: '';
+	position: absolute;
+	left:0;
+	bottom: -10px;
+	background-color: #ff7e28;
+	height: 2px;
+	box-sizing: border-box;
+	width: 50px;
+}

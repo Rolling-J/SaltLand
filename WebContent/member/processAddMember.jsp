@@ -42,10 +42,5 @@
 	<sql:param value="<%=timestamp %>"/>
 </sql:update>
 <c:if test="${resultSet>=1}">
-	<c:redirect url="../regi_success.html" />
-</c:if>
-<!--
-<c:if test="${resultSet>=1}">
 	<c:redirect url="resultMember.jsp?msg=1" />
 </c:if>
--->

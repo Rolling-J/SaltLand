@@ -7,6 +7,22 @@
 <link rel="stylesheet" href="../register.css">
 <link rel="stylesheet" href="../bar.css">
 <link rel="stylesheet" href="../footer.css">
+
+<script type="text/javascript">
+	
+	function checkForm(){
+
+		if(!document.addMember.password.value){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if(document.addMember.password.value != document.addMember.password_confirm.value){
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	}
+</script>
+
 <title>회원 가입</title>
 </head>
 <body>
@@ -20,7 +36,7 @@
                             <p>Salt Land 계정 회원 가입</p>
                          </div>
                         <div class="divine"></div>
-                        <form class="login_box" action="./member/processAddMember.jsp" method="post">
+                        <form class="login_box" name="addMember" action="./member/processAddMember.jsp" onsubmit="return checkForm()" method="post">
                             <div class="container">
                                 <div class="id_pw_box">
                                     <div id="input_box" class="id_box"> 

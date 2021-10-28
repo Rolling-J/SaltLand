@@ -94,10 +94,10 @@ public class BoardDAO {
 				board.setNum(rs.getInt("num"));
 				board.setId(rs.getString("id"));
 				board.setName(rs.getString("name"));
-				board.setSubject(rs.getString("subject"));
+				board.setCategory(rs.getString("category"));
+				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
 				board.setRegist_day(rs.getString("regist_day"));
-				board.setHit(rs.getInt("hit"));
 				board.setIp(rs.getString("ip"));
 				list.add(board); //DTO 형태의 arraylist에 위 DTO 저장
 			
@@ -179,10 +179,10 @@ public class BoardDAO {
 			pstmt.setInt(1, board.getNum());
 			pstmt.setString(2, board.getId());
 			pstmt.setString(3, board.getName());
-			pstmt.setString(4, board.getSubject());
-			pstmt.setString(5, board.getContent());
-			pstmt.setString(6, board.getRegist_day());
-			pstmt.setInt(7, board.getHit());
+			pstmt.setString(4, board.getCategory());
+			pstmt.setString(5, board.getTitle());
+			pstmt.setString(6, board.getContent());
+			pstmt.setString(7, board.getRegist_day());
 			pstmt.setString(8, board.getIp());
 			
 			pstmt.executeUpdate();
@@ -202,12 +202,6 @@ public class BoardDAO {
 	}
 	
 	
-	//선택된 글의 조회수 증가하기
-	public void updateHit(int num) {
-		
-	}
-	
-	
 	//선택된 글 상세 내용 가져오기 (num 받아 해당 번호의 글 DTO에 담기 / page는 왜받지)
 	public BoardDTO getBoardByNum(int num, int page) {
 		Connection conn = null;
@@ -215,7 +209,6 @@ public class BoardDAO {
 		ResultSet rs = null;
 		BoardDTO board = null;
 		
-		updateHit(num);
 		String sql = "select * from board where num = ?";
 		
 		try {
@@ -230,10 +223,10 @@ public class BoardDAO {
 				board.setNum(rs.getInt("num"));
 				board.setId(rs.getString("id"));
 				board.setName(rs.getString("name"));
-				board.setSubject(rs.getString("subject"));
+				board.setCategory(rs.getString("category"));
+				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
 				board.setRegist_day(rs.getString("regist_day"));
-				board.setHit(rs.getInt("hit"));
 				board.setIp(rs.getString("ip"));
 			}
 			
@@ -262,7 +255,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "update board set name=?, subject=?, content=?, where num=?";
+		String sql = "update board set name=?, category=?, subject=?, content=?, where num=?";
 		
 		try {
 			conn = DBConnection.getConnection();
@@ -271,9 +264,10 @@ public class BoardDAO {
 			conn.setAutoCommit(false);
 			
 			pstmt.setString(1, board.getName());
-			pstmt.setString(2, board.getSubject());
-			pstmt.setString(3, board.getContent());
-			pstmt.setInt(4, board.getNum());
+			pstmt.setString(2, board.getCategory());
+			pstmt.setString(3, board.getTitle());
+			pstmt.setString(4, board.getContent());
+			pstmt.setInt(5, board.getNum());
 			
 			pstmt.executeUpdate();
 			conn.commit();
@@ -294,6 +288,28 @@ public class BoardDAO {
 	
 	//선택된 글 삭제하기
 	public void deleteBoard(int num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 		
+		String sql = "delete from board where num=?";
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception ex){
+			System.out.println("deleteBoard() 에러 : " + ex);
+		}finally {
+			try {										
+				if (pstmt != null) 
+					pstmt.close();				
+				if (conn != null) 
+					conn.close();
+			} catch (Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
 	}
 }

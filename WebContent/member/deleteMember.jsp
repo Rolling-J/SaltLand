@@ -6,7 +6,7 @@
 	String sessionId = (String) session.getAttribute("sessionId");
 %>
 
-<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/WebMarketDB" driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
+<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
 
 <sql:update dataSource="${dataSource }" var="resultSet">
 	delete from member where id = ?

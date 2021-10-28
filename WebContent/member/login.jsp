@@ -17,7 +17,15 @@
                             <p>Salt Land 계정으로 로그인</p>
                         </div>
                         <div class="divine"></div>
-                        <form class="login_box" action="../main.html" method="post">
+                        <%
+							String error=request.getParameter("error");
+							if(error!=null){
+								out.println("<div class='alert_login'>");
+								out.println("아이디와 비밀번호를 확인해 주십시오");
+								out.println("</div>");
+							}
+						%>
+                        <form class="login_box" action="./processLoginMember.jsp" method="post">
                             <div id="input_box" class="id_box"> 
                                 <input type="text" name="id" placeholder="아이디">
                             </div>

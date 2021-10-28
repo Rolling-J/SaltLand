@@ -10,7 +10,7 @@
 	String passwd = request.getParameter("password");
 %>
 
-<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/WebMarketDB"
+<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand"
 	driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
 	
 <sql:query dataSource="${dataSource }" var="resultSet">

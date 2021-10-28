@@ -15,7 +15,7 @@ import mvc.model.BoardDAO;
 
 public class BoardController extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	static final int LISTCOUNT = 5;
+	static final int LISTCOUNT = 10;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		doPost(request, response);
@@ -72,12 +72,13 @@ public class BoardController extends HttpServlet{
 		RequestDispatcher rd = request.getRequestDispatcher("./");
 		rd.forward(request, response);
 		}
-		/*
+
 		//선택된 글 삭제하기
+		else if(command.equals("/BoardDeleteAction.do")) {
 		requestBoardDelete(request);
-		RequestDispatcher rd = request.getRequestDispatcher("./");
+		RequestDispatcher rd = request.getRequestDispatcher("/BoardListAction.do");
 		rd.forward(request, response);
-		*/
+		}
 		
 		
 	}
@@ -127,20 +128,19 @@ public class BoardController extends HttpServlet{
 		request.setAttribute("name", name);
 	}
 	//command.equals("/BoardWriteAction.do") true (등록페이지에서 등록 클릭)때 작동
-	//게시글의 리퀘스트를 받아 조회수 0, 등록일시, IP 추가하여 DAO로 업로드
+	//게시글의 리퀘스트를 받아 등록일시, IP 추가하여 DAO로 업로드
 	public void requestBoardWrite(HttpServletRequest request) {
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardDTO board = new BoardDTO();
 		
 		board.setId(request.getParameter("id"));
 		board.setName(request.getParameter("name"));
-		board.setSubject(request.getParameter("subject"));
+		board.setTitle(request.getParameter("title"));
 		board.setContent(request.getParameter("content"));
 		
 		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
 		String regist_day = formatter.format(new java.util.Date());
 		
-		board.setHit(0);
 		board.setRegist_day(regist_day);
 		board.setIp(request.getRemoteAddr());
 		
@@ -171,23 +171,27 @@ public class BoardController extends HttpServlet{
 		
 		board.setNum(num);
 		board.setName(request.getParameter("name"));
-		board.setSubject(request.getParameter("subject"));
+		board.setCategory(request.getParameter("category"));
+		board.setTitle(request.getParameter("title"));
 		board.setContent(request.getParameter("content"));
 		
 		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
 		String regist_day = formatter.format(new java.util.Date());
 		
-		board.setHit(0);
 		board.setRegist_day(regist_day);
 		board.setIp(request.getRemoteAddr());
 		
 		dao.updateBoard(board); //dao에 수정내용 업데이트
 	}
-	/*
+	//선택된 글 삭제하기. command.equals("/BoardDeleteAction.do" true일때 작동.
 	public void requestBoardDelete(HttpServletRequest request) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));	
 		
+		BoardDAO dao = BoardDAO.getInstance();
+		dao.deleteBoard(num);
 	}
-	*/
+	
 	
 	
 	

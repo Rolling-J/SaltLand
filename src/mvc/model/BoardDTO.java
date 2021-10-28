@@ -2,12 +2,12 @@ package mvc.model;
 
 public class BoardDTO {
 	private int num;
+	private String category;
 	private String id;
 	private String name;
-	private String subject;
+	private String title;
 	private String content;
 	private String regist_day;
-	private int hit;
 	private String ip;
 	
 	public BoardDTO() {
@@ -22,6 +22,14 @@ public class BoardDTO {
 		this.num = num;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	public String getId() {
 		return id;
 	}
@@ -38,12 +46,12 @@ public class BoardDTO {
 		this.name = name;
 	}
 
-	public String getSubject() {
-		return subject;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setSubject(String subject) {
-		this.subject = subject;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -60,14 +68,6 @@ public class BoardDTO {
 
 	public void setRegist_day(String regist_day) {
 		this.regist_day = regist_day;
-	}
-
-	public int getHit() {
-		return hit;
-	}
-
-	public void setHit(int hit) {
-		this.hit = hit;
 	}
 
 	public String getIp() {

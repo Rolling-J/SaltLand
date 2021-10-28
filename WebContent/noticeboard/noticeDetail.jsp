@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import = "mvc.model.BoardDTO" %>
+
+<%
+	BoardDTO notice = (BoardDTO) request.getAttribute("board");
+	int num = ((Integer) request.getAttribute("num")).intValue();
+	int nowpage = ((Integer) request.getAttribute("page")).intValue();
+%>
+
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="noticedetail.css">
-    <link rel="stylesheet" href="bar.css">
+    <link rel="stylesheet" href="noticeDetail.css">
+    <link rel="stylesheet" href="../bar.css">
+    
+    
     <title>공지 글</title>
 </head>
 <body>
-    <header>
-        <a class="logo" href="/p_main.html"><img src="./image/로고.png" alt="logo"></a>
-        <nav>
-            <ul class="nav__links">
-                <li><a href="#">즐길거리</a></li>
-                <li><a href="#">요금/우대혜택</a></li>
-                <li><a href="#">이용가이드</a></li>
-            </ul>
-        </nav>
-        <a class="cta" href="login.html">로그인</a>     
-    </header>
+    <jsp:include page="../bar.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>이용가이드>공지 및 알림</p>
         <div class="center_box">
@@ -29,7 +30,7 @@
         </div>
     </div>
     <div class="board_wrap">
-        <form action="addnotice.html">
+        <form name="newUpdate" action="BoardUpdateAction.do?num=<%=notice.getNum() %>&pageNUm=<%=nowpage %>" method="post">
             <div class="board_box">
                 <div class="board_header">
                     <div class="head_text">
@@ -53,15 +54,14 @@
             <div class="buttons">
                 <div class="personal_btns">
                     <input type="submit" value="수정" id="btm_buttons">
-                    <button onclick="" id="btm_buttons">삭제</button>
+                    <a href="#" id="btm_buttons">삭제</a>
                 </div>
                 <div class="list_btn">
-                    <a href="noticeboard.html" id="btm_buttons">목록으로</a>
+                    <a href="/BoardListAction.do?pageNum=1" id="btm_buttons">목록으로</a>
                 </div>
             </div>
         </form>
     </div>
-    <!-- footer -->
-    <footer></footer>
+    <jsp:include page="../footer.jsp"/>
 </body>
 </html>

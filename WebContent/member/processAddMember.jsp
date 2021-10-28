@@ -9,15 +9,19 @@
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
 	String name = request.getParameter("name");
-	String year = request.getParameter("birthyy");
-	String month = request.getParameterValues("birthmm")[0];
-	String day = request.getParameter("birthdd");
+	String year = request.getParameter("b_year");
+	String month = request.getParameter("b_month");
+	String day = request.getParameter("b_day");
 	String birth = year + "/" + month + "/" + day;
     String gender = request.getParameter("gender");
-	String mail1 = request.getParameter("mail1");
-	String mail2 = request.getParameterValues("mail2")[0];
+	String mail1 = request.getParameter("email1");
+	String mail2 = request.getParameter("email2");
 	String mail = mail1 + "@" + mail2;
-	String phone = request.getParameter("phone");
+	String phone0 = request.getParameterValues("phone_0")[0];
+	String phone1 = request.getParameter("phone_1");
+	String phone2 = request.getParameter("phone_2");
+	String phone3 = request.getParameter("phone_3");
+	String phone = phone0 + " / " + phone1 + "-" + phone2 + "-" + phone3;
 	
 	Date currentDatetime = new Date(System.currentTimeMillis());
 	java.sql.Date sqlDate = new java.sql.Date(currentDatetime.getTime());
@@ -27,7 +31,7 @@
 <sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand"
 	driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
 <sql:update dataSource="${dataSource }" var="resultSet">
-	insert into member values(?, ?, ?, ?, ?, ?, ?, ?, ?)
+	insert into member values(?, ?, ?, ?, ?, ?, ?, ?)
 	<sql:param value="<%=id %>"/>
 	<sql:param value="<%=password %>"/>
 	<sql:param value="<%=name %>"/>
@@ -38,7 +42,7 @@
 	<sql:param value="<%=timestamp %>"/>
 </sql:update>
 <c:if test="${resultSet>=1}">
-	<c:redirect url="regi_success.html" />
+	<c:redirect url="../regi_success.html" />
 </c:if>
 <!--
 <c:if test="${resultSet>=1}">

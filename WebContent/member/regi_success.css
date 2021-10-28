@@ -5,14 +5,14 @@
     list-style: none;
     text-decoration: none;
 }
-/*head 설정*/
+/*head �꽕�젙*/
 #navbar{
     background-color: indigo;
     height: 50px;
 }
-/*배경설정*/
+/*諛곌꼍�꽕�젙*/
 .background{
-    background-image: url(./image/event02.jpg);
+    background-image: url(../resources/image/event02.jpg);
     background-repeat: no-repeat;
     background-position: 50% 0;
     justify-content: center;

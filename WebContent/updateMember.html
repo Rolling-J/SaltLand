@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="register.css">
     <link rel="stylesheet" href="bar.css">
     <link rel="stylesheet" href="footer.css">
-    <title>회원 가입</title>
+    <title>회원 수정</title>
 </head>
 <body>
     <header>
-        <a class="logo" href="/p_main.html"><img src="./image/로고.png" alt="logo"></a>
+        <a class="logo" href="main.html"><img src="/image/로고.png" alt="logo"></a>
         <nav>
             <ul class="nav__links">
                 <li><a href="#">즐길거리</a></li>
@@ -30,7 +30,7 @@
                             <p>Salt Land 계정 회원 가입</p>
                          </div>
                         <div class="divine"></div>
-                        <form class="login_box" action="./member/processAddMember.jsp" method="post">
+                        <form class="login_box" action="./member/processUpdateMember.jsp" method="post">
                             <div class="container">
                                 <div class="id_pw_box">
                                     <div id="input_box" class="id_box"> 
@@ -70,19 +70,19 @@
                                     </div>
                                     <div id="input_box" class="email" >
                                         <p>이메일</p>
-                                        <input type="text" name="email_1" placeholder="이메일"> @
-                                        <select name="email_2">
-                                            <option>naver.com</option>
-                                            <option>daum.net</option>
-                                            <option>nate.com</option>
+                                        <input type="text" name="email1" placeholder="이메일"> @
+                                        <select name="email2">
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="daum.net">daum.net</option>
+                                            <option value="nate.com">nate.com</option>
                                         </select>
                                     </div>
                                     <div id="input_box" class="phone" >
                                         <p>전화번호</p>
                                         <select name="phone_0">
-                                            <option>KT</option>
-                                            <option>SK</option>
-                                            <option>LG</option>
+                                            <option value="KT">KT</option>
+                                            <option value="SK">SK</option>
+                                            <option value="LG">LG</option>
                                         </select>
                                         <input type="text" name="phone_1" maxlength="3" size="2"> -
                                         <input type="text" name="phone_2" maxlength="4" size="3"> -

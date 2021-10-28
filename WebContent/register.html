@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="bar.css">
+    <link rel="stylesheet" href="footer.css">
+    <title>회원 가입</title>
+</head>
+<body>
+    <header>
+        <a class="logo" href="main.html"><img src="/image/로고.png" alt="logo"></a>
+        <nav>
+            <ul class="nav__links">
+                <li><a href="#">즐길거리</a></li>
+                <li><a href="#">요금/우대혜택</a></li>
+                <li><a href="#">이용가이드</a></li>
+            </ul>
+        </nav>
+        <a class="cta" href="login.html">로그인</a>     
+    </header>
+    <section id="reserve_main">
+        <div class="background">
+            <div class="wrap_body">
+                <div class="content_box">
+                    <div class="login_wrap">
+                        <div class="box_head">
+                            <p>Salt Land 계정 회원 가입</p>
+                         </div>
+                        <div class="divine"></div>
+                        <form class="login_box" action="./member/processAddMember.jsp" method="post">
+                            <div class="container">
+                                <div class="id_pw_box">
+                                    <div id="input_box" class="id_box"> 
+                                        <p>아이디</p>
+                                        <input type="text" name="id" placeholder="아이디">
+                                    </div>
+                                    <div id="input_box" class="pw_box" >
+                                        <p>비밀번호</p>
+                                        <input type="password" name="password" placeholder="비밀번호">
+                                    </div>
+                                    <div id="input_box" class="pw_box_2" >
+                                        <p>비밀번호 확인</p>
+                                        <input type="password" name="password" placeholder="비밀번호 확인">
+                                    </div>
+                                </div>
+                                <div class="divine_h"></div>
+                                <div class="personal_box">
+                                    <div id="input_box" class="name" >
+                                        <p>이름</p>
+                                        <input type="text" name="name" placeholder="이름">
+                                    </div>
+                                    <div id="input_box" class="birth">
+                                        <p>생년월일</p>
+                                        <input type="text" name="b_year" maxlength="4" placeholder="년(4자)">
+                                             년
+                                        <input type="text" name="b_month" maxlength="2" placeholder="월">
+                                             월
+                                        <input type="text" name="b_day" maxlength="2" placeholder="일">
+                                             일
+                                    </div>
+                                    <div id="input_box" class="gender" >
+                                        <p>성별</p>
+                                        <select name="gender">
+                                            <option value="male">남</option>
+                                            <option value="female">여</option>
+                                        </select>
+                                    </div>
+                                    <div id="input_box" class="email" >
+                                        <p>이메일</p>
+                                        <input type="text" name="email1" placeholder="이메일"> @
+                                        <select name="email2">
+                                            <option value="naver.com">naver.com</option>
+                                            <option value="daum.net">daum.net</option>
+                                            <option value="nate.com">nate.com</option>
+                                        </select>
+                                    </div>
+                                    <div id="input_box" class="phone" >
+                                        <p>전화번호</p>
+                                        <select name="phone_0">
+                                            <option value="KT">KT</option>
+                                            <option value="SK">SK</option>
+                                            <option value="LG">LG</option>
+                                        </select>
+                                        <input type="text" name="phone_1" maxlength="3" size="2"> -
+                                        <input type="text" name="phone_2" maxlength="4" size="3"> -
+                                        <input type="text" name="phone_3" maxlength="4" size="3">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="btn_box">
+                                <input type="submit" value="회원 가입">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="footer_box">
+          <div class="footer_content">
+            <div class="company">
+              <h4>솔트랜드</h4>
+              <div class="list">
+                <p>주소: 어디어디</p>
+                <p>tel-xxx-xxx-xxx</p>
+                <p>고객센터 문의</p>
+                <p>jopixim237@jesdoit.com</p>
+              </div>
+            </div>   
+            <div class="company">
+              <h4>sns</h4>
+              <div class="sns">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+    </footer>
+</body>
+</html>

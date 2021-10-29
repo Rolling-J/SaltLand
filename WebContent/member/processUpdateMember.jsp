@@ -42,5 +42,8 @@
 </sql:update>
 
 <c:if test="${resultSet>=1 }">
+	<%
+		session.setAttribute("sessionId", id);
+	%>
 	<c:redirect url="resultMember.jsp?msg=0" />
 </c:if>

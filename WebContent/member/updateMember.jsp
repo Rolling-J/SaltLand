@@ -7,8 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="updateMember.css">
-    <link rel="stylesheet" href="bar.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="../bar.css">
+    <link rel="stylesheet" href="../footer.css">
 <%
 	String sessionId = (String)session.getAttribute("sessionId"); 
 %>
@@ -94,16 +94,15 @@
 						
 						<c:set var="phone" value="${row.phone }" />
 						<c:set var="phone_0" value="${phone.split(' / ')[0] }" />
-						<c:set var="phone_1" value="${phone.split('-')[1] }" />
-						<c:set var="phone_2" value="${phone.split('-')[2] }" />
-						<c:set var="phone_3" value="${phone.split('-')[3] }" />	
+						<c:set var="phone_1" value="${phone.split('-')[0] }" />
+						<c:set var="phone_2" value="${phone.split('-')[1] }" />
+						<c:set var="phone_3" value="${phone.split('-')[2] }" />	
 							
                         <form class="login_box" name="updateMemberForm" action="./processUpdateMember.jsp" onsubmit="return checkForm()" method="post">
                             <div class="container">
                                 <div class="id_pw_box">
                                     <div id="input_box" class="id_box"> 
-                                        <p>아이디</p>
-                                        <p><c:out value="${row.id }"/></p>
+                                        <p>아이디 : <c:out value="${row.id }"/></p>
                                     </div>
                                     <div id="input_box" class="pw_box" >
                                         <p>비밀번호</p>
@@ -111,7 +110,7 @@
                                     </div>
                                     <div id="input_box" class="pw_box_2" >
                                         <p>비밀번호 확인</p>
-                                        <input type="password" name="password" placeholder="비밀번호 확인">
+                                        <input type="password" name="password_confirm" placeholder="비밀번호 확인">
                                     </div>
                                 </div>
                                 <div class="divine_h"></div>
@@ -122,11 +121,11 @@
                                     </div>
                                     <div id="input_box" class="birth">
                                         <p>생년월일</p>
-                                        <input type="text" name="b_year" maxlength="4" placeholder="년(4자)" value="<c:out value='${row.b_year }' />">
+                                        <input type="text" name="b_year" maxlength="4" placeholder="년(4자)" value="<c:out value='${b_year }' />">
                                              년
-                                        <input type="text" name="b_month" maxlength="2" placeholder="월" value="<c:out value='${row.b_month }' />">
+                                        <input type="text" name="b_month" maxlength="2" placeholder="월" value="<c:out value='${b_month }' />">
                                              월
-                                        <input type="text" name="b_day" maxlength="2" placeholder="일" value="<c:out value='${row.b_day }' />">
+                                        <input type="text" name="b_day" maxlength="2" placeholder="일" value="<c:out value='${b_day }' />">
                                              일
                                     </div>
                                     <div id="input_box" class="gender" >
@@ -138,7 +137,7 @@
                                     </div>
                                     <div id="input_box" class="email" >
                                         <p>이메일</p>
-                                        <input type="text" name="email1" placeholder="이메일"  value="${mail1 }"> @
+                                        <input type="text" name="email1" placeholder="이메일"  value="${email1 }"> @
                                         <select name="email2">
                                             <option value="naver.com">naver.com</option>
                                             <option value="daum.net">daum.net</option>
@@ -160,7 +159,6 @@
                             </div>
                             <div class="btn_box">
                                 <input type="submit" value="회원 수정">
-                                <a href="deleteMember.jsp" class="deleteM_btn">회원탈퇴</a>
                             </div>
                         </form>
                         </c:forEach>

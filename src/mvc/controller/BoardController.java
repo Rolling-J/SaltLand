@@ -33,14 +33,14 @@ public class BoardController extends HttpServlet{
 		//등록된 글 목록 페이지 출력하기
 		if(command.equals("/BoardListAction.do")) {
 			requestBoardList(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./board/list.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/boardList.jsp");
 			rd.forward(request, response);
 		}
 		
 		// 글 등록 페이지 출력하기
 		else if(command.equals("/BoardWriteForm.do")){ //리스트 페이지의 작성 버튼으로부터 request 받음
 		requestLoginName(request);
-		RequestDispatcher rd = request.getRequestDispatcher("./board/writeForm.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/addNotice.jsp");
 		rd.forward(request, response);
 		}
 		
@@ -55,21 +55,21 @@ public class BoardController extends HttpServlet{
 		//선택된 글 상세 페이지 가져오기
 		else if(command.equals("/BoardViewAction.do")) {
 			requestBoardView(request);
-			RequestDispatcher rd = request.getRequestDispatcher("/BoardView.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/DetailView.do");
 			rd.forward(request, response);
 		}
 		
 		//글 상세 페이지 출력하기
-		else if(command.equals("/BoardView.do")) {
+		else if(command.equals("/DetailView.do")) {
 		//조회수 증가 메서드 사용 필요
-		RequestDispatcher rd = request.getRequestDispatcher("./board/view.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/noticeDetail.jsp");
 		rd.forward(request, response);
 		}
 		
 		//선택된 글의 수정 업데이트
 		else if(command.equals("/BoardUpdateAction.do")){
 		requestBoardUpdate(request);
-		RequestDispatcher rd = request.getRequestDispatcher("./");
+		RequestDispatcher rd = request.getRequestDispatcher("/BoardListAction.do");
 		rd.forward(request, response);
 		}
 
@@ -94,12 +94,12 @@ public class BoardController extends HttpServlet{
 			pageNum=Integer.parseInt(request.getParameter("pageNum"));
 		}
 		
-		String items = request.getParameter("items");
+		String category = request.getParameter("category");
 		String text = request.getParameter("text");
 		
-		int total_record = dao.getListCount(items, text);
+		int total_record = dao.getListCount(category, text);
 		// dao.getListCount : board 테이블의 레코드 수 (조건에 맞는 게시판의 글 수를 sql에서 계산하여 숫자로 가져옴)
-		boardlist = dao.getBoardList(pageNum, limit, items, text);
+		boardlist = dao.getBoardList(pageNum, limit, category, text);
 		// dao.getBoardList : board 테이블의 레코드를 num 번호 순서대로(최신글 먼저) 가져오기(각 페이지에 들어갈 게시글 목록 가져오기)
 		int total_page;
 		

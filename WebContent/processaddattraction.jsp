@@ -4,7 +4,7 @@
 <%@ page import="com.oreilly.servlet.multipart.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="dto.attraction"%>
-<%@ page import="dao.attractionbox"%>
+<%@ page import="dao.attractionbox"%> 
 
 <%
 	request.setCharacterEncoding("UTF-8");

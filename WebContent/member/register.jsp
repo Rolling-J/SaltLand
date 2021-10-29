@@ -36,7 +36,7 @@
                             <p>Salt Land 계정 회원 가입</p>
                          </div>
                         <div class="divine"></div>
-                        <form class="login_box" name="addMember" action="./member/processAddMember.jsp" onsubmit="return checkForm()" method="post">
+                        <form class="login_box" name="addMember" action="/SaltProject/member/processAddMember.jsp" onsubmit="return checkForm()" method="post">
                             <div class="container">
                                 <div class="id_pw_box">
                                     <div id="input_box" class="id_box"> 
@@ -49,7 +49,7 @@
                                     </div>
                                     <div id="input_box" class="pw_box_2" >
                                         <p>비밀번호 확인</p>
-                                        <input type="password" name="password" placeholder="비밀번호 확인">
+                                        <input type="password" name="password_confirm" placeholder="비밀번호 확인">
                                     </div>
                                 </div>
                                 <div class="divine_h"></div>

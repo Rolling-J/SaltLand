@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <html>
 <head>
 <link rel="stylesheet" href="./resultMember.css">
+<link rel="stylesheet" href="../bar.css">
+<link rel="stylesheet" href="../footer.css">
 <title>회원 정보</title>
 </head>
 <body>
 	<jsp:include page="../bar.jsp" />
-	<div class="jumbotron">
-		<div class="container">
-			<h1 class="display-3">회원 정보</h1>
-		</div>
-	</div>
-	    <section id="reserve_main">
+	<section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
                 <div class="content_box">
@@ -20,6 +18,8 @@
                         <%
 							String msg = request.getParameter("msg");
 						%>
+						<c:set var="msg" value="<%=msg %>" />
+
 						<c:choose>
 							<c:when test="${msg.equals('0') }">
 								<div class="box_head">
@@ -87,21 +87,8 @@
 		                            </div>
 		                            <div class="play">    
 		                                <div class="card_text">
-		                                    <p>함께 즐겨요</p>
-		                                </div>
-		                                <div class="cards_play">
-		                                    <div id="play_card">
-		                                        <p>놀이기구</p>
-		                                        <div>
-		                                            <img src="../resources/image/허리케인.jpg">
-		                                        </div>
-		                                    </div>
-		                                    <div id="play_card">
-		                                        <p>체험</p>
-		                                        <div>
-		                                            <img src="../resources/image/체험.jpg">
-		                                        </div>
-		                                    </div>
+		                                    <p>매일매일 신나는 SaltLand에 또 방문해 주셨군요!</p>
+		                                    <p>오늘도 즐거운 하루 되세요</p>
 		                                </div>
 		                            </div>
 		                     	</div>

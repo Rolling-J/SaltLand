@@ -111,6 +111,15 @@
     margin-top: 20px;
     transition: all 0.3s ease 0s;
 }
+.btn_box a{
+    font-size: 15px;
+    background-color: rgb(106, 148, 226);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 10px 30px;
+    transition: all 0.3s ease 0s;
+}
 .btn_box input:hover, .btn_a:hover {
     background-color: rgb(106, 196, 226);
   }

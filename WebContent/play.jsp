@@ -2,7 +2,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="dto.attraction"%>
-<%@ page import="dao.attractionbox"%>
+<%@ page import="dao.attractionbox"%> 
 <jsp:useBean id="attractionDAO" class="dao.attractionbox" scope="session" />
 <!DOCTYPE html>
 <html>

@@ -6,9 +6,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="updateMember.css">
-    <link rel="stylesheet" href="bar.css">
-    <link rel="stylesheet" href="footer.css">
+    <link rel="stylesheet" href="memberDetail.css">
+    <link rel="stylesheet" href="../bar.css">
+    <link rel="stylesheet" href="../footer.css">
 <%
 	String sessionId = (String)session.getAttribute("sessionId"); 
 %>
@@ -38,35 +38,32 @@
                             <div class="container">
                                 <div class="personal_box">
                                     <div id="input_box" class="id_box"> 
-                                        <p>아이디</p>
-                                        <p><c:out value="${row.id }"/></p>
+                                        <p>아이디 : <c:out value="${row.id }"/></p>
                                     </div>
                                     <div id="input_box" class="name" >
-                                        <p>이름</p>
-                                        <p><c:out value="${row.name }" /></p>
+                                        <p>이름 : <c:out value="${row.name }" /></p>
                                     </div>
                                     <div id="input_box" class="birth">
-                                        <p>생년월일</p>
-                                        <p><c:out value="${row.birth }" /></p>
+                                        <p>생년월일 : <c:out value="${row.birth }" /></p>
                                     </div>
                                     <div id="input_box" class="gender" >
-                                        <p>성별</p>
                                         <c:choose>
-                                        	<c:when test="${gender.equals(male) }">
+                                        	<c:when test="${row.gender.equals('male') }">
                                         		<p>성별 : 남</p>
                                         	</c:when>
-                                        	<c:when test="${gender.equals(female) }">
+                                        	<c:when test="${row.gender.equals('female') }">
                                         		<p>성별 : 여</p>
                                         	</c:when>
+                                        	<c:otherwise>
+                                        		<p> 미선택 </p>
+                                        	</c:otherwise>
                                         </c:choose>
                                     </div>
                                     <div id="input_box" class="email" >
-                                        <p>이메일</p>
-                                        <p><c:out value="${row.mail }" /></p>
+                                        <p>이메일 : <c:out value="${row.mail }" /></p>
                                     </div>
                                     <div id="input_box" class="phone" >
-                                        <p>전화번호</p>
-                                        <p><c:out value="${row.phone }" /></p>
+                                        <p>전화번호 : <c:out value="${row.phone }" /></p>
                                     </div>
                                 </div>
                                 <!-- divineLine and TicketList will be here
@@ -74,7 +71,9 @@
                                  -->
                             </div>
                             <div class="btn_box">
-                                <a href="updateMember.jsp" class="member_btn">회원수정</a>
+                                	<a href="updateMember.jsp" class="btn_a">회원수정</a>
+                                	<a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
+                                	
                             </div>
                         </div>
                         </c:forEach>

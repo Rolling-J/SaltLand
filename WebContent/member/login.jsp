@@ -30,7 +30,7 @@
                                 <input type="text" name="id" placeholder="아이디">
                             </div>
                             <div id="input_box" class="pw_box" >
-                                <input type="text" name="password" placeholder="비밀번호">
+                                <input type="password" name="password" placeholder="비밀번호">
                             </div>
                             <div class="btn_box">
                                 <input type="submit" value="로그인">
@@ -40,7 +40,7 @@
                         <div class="regi_box">
                             <p>Salt Land 계정이 없으신가요?</p>
                             <div class="regi_btn">
-                                <a href="register.html">회원가입</a>
+                                <a href="register.jsp">회원가입</a>
                             </div>
                         </div>
                     </div>

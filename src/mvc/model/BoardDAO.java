@@ -22,7 +22,7 @@ public class BoardDAO {
 	}
 	
 	//board 테이블의 레코드 수 (조건에 맞는 게시판의 글 수를 sql에서 계산하여 숫자로 가져옴)
-	public int getListCount(String items, String text) {
+	public int getListCount(String category, String text) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,10 +30,10 @@ public class BoardDAO {
 		int x = 0;
 		String sql;
 		
-		if(items == null&& text == null) {
-			sql = "select count(*) from board";
+		if(category == null&& text == null) {
+			sql = "select count(*) from noticeboard";
 		}else {
-			sql = "select count(*) from board where " + items + " like '%'" + text + "'%' ";
+			sql = "select count(*) from noticeboard where " + category + " like '%'" + text + "'%' ";
 		}
 		
 		try {
@@ -75,9 +75,9 @@ public class BoardDAO {
 		String sql;
 		
 		if(items == null && text == null)
-			sql = "select * from board order by num desc";
+			sql = "select * from noticeboard order by num desc";
 		else
-			sql = "select * from board where "+ items + " like '%" + text + "%' order by num desc";
+			sql = "select * from noticeboard where "+ items + " like '%" + text + "%' order by num desc";
 		// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
 		// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
 		// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
@@ -97,6 +97,7 @@ public class BoardDAO {
 				board.setCategory(rs.getString("category"));
 				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
+				board.setFileName(rs.getString("fileName"));
 				board.setRegist_day(rs.getString("regist_day"));
 				board.setIp(rs.getString("ip"));
 				list.add(board); //DTO 형태의 arraylist에 위 DTO 저장
@@ -170,7 +171,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "insert into board values(?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into noticeboard values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			conn = DBConnection.getConnection();
@@ -182,8 +183,9 @@ public class BoardDAO {
 			pstmt.setString(4, board.getCategory());
 			pstmt.setString(5, board.getTitle());
 			pstmt.setString(6, board.getContent());
-			pstmt.setString(7, board.getRegist_day());
-			pstmt.setString(8, board.getIp());
+			pstmt.setString(7, board.getFileName());
+			pstmt.setString(8, board.getRegist_day());
+			pstmt.setString(9, board.getIp());
 			
 			pstmt.executeUpdate();
 		}catch(Exception ex){
@@ -209,7 +211,7 @@ public class BoardDAO {
 		ResultSet rs = null;
 		BoardDTO board = null;
 		
-		String sql = "select * from board where num = ?";
+		String sql = "select * from noticeboard where num = ?";
 		
 		try {
 			conn = DBConnection.getConnection();
@@ -226,6 +228,7 @@ public class BoardDAO {
 				board.setCategory(rs.getString("category"));
 				board.setTitle(rs.getString("title"));
 				board.setContent(rs.getString("content"));
+				board.setFileName(rs.getString("fileName"));
 				board.setRegist_day(rs.getString("regist_day"));
 				board.setIp(rs.getString("ip"));
 			}
@@ -255,7 +258,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "update board set name=?, category=?, subject=?, content=?, where num=?";
+		String sql = "update noticeboard set name=?, category=?, title=?, content=?, fileName=?, where num=?";
 		
 		try {
 			conn = DBConnection.getConnection();
@@ -267,7 +270,8 @@ public class BoardDAO {
 			pstmt.setString(2, board.getCategory());
 			pstmt.setString(3, board.getTitle());
 			pstmt.setString(4, board.getContent());
-			pstmt.setInt(5, board.getNum());
+			pstmt.setString(5, board.getFileName());
+			pstmt.setInt(6, board.getNum());
 			
 			pstmt.executeUpdate();
 			conn.commit();
@@ -291,7 +295,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "delete from board where num=?";
+		String sql = "delete from noticeboard where num=?";
 		
 		try {
 			conn = DBConnection.getConnection();

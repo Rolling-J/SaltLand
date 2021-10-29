@@ -42,5 +42,9 @@
 	<sql:param value="<%=timestamp %>"/>
 </sql:update>
 <c:if test="${resultSet>=1}">
-	<c:redirect url="resultMember.jsp?msg=1" />
+	<c:redirect url="/member/resultMember.jsp?msg=1" /> 
+	<!-- 
+	jstl core url은 프로젝트명을 주소에 넣지 않음.
+	href로 주소를 지정하는 경우에는 프로젝트명까지 입력.
+	 -->
 </c:if>

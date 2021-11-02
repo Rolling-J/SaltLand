@@ -1,25 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="reservation.css">
-    <link rel="stylesheet" href="bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/reservation.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
+    
+    
     <title>티켓 예매</title>
 </head>
 <body>
-    <header>
-        <a class="logo" href="main.html"><img src="../resources/image/로고.png" alt="logo"></a>
-        <nav>
-            <ul class="nav__links">
-                <li><a href="#">즐길거리</a></li>
-                <li><a href="#">요금/우대혜택</a></li>
-                <li><a href="#">이용가이드</a></li>
-            </ul>
-        </nav>
-        <a class="cta" href="login.html">로그인</a>     
-    </header>
+    <jsp:include page="/bar.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
@@ -295,16 +288,13 @@
                         </div>
                     </div>
                     <div class="reserve">
-                        <a href="ticket.html">예매하기</a>
-                        <!--
-                        <button type="button" onclick="">예매하기</button>
-                        -->
+                        <a href="ticketDetail.jsp">예매하기</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <nav id="footer"></nav>
-    <script src="../resources/JS/reservationTab.js"></script>
+    <jsp:include page="/footer.jsp"></jsp:include>
+    <script src="/SaltProject/resources/JS/reservationTab.js"></script>
 </body>
 </html>

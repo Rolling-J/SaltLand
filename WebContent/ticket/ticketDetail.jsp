@@ -1,25 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
+<meta charset="EUC-KR">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="ticket.css">
-    <link rel="stylesheet" href="bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/ticket.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
     <title>티켓 확인</title>
 </head>
 <body>
-    <header>
-        <a class="logo" href="/main.html"><img src="./image/로고.png" alt="logo"></a>
-        <nav>
-            <ul class="nav__links">
-                <li><a href="#">즐길거리</a></li>
-                <li><a href="#">요금/우대혜택</a></li>
-                <li><a href="#">이용가이드</a></li>
-            </ul>
-        </nav>
-        <a class="cta" href="login.html">로그인</a>     
-    </header>
+	<jsp:include page="/bar.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
@@ -58,36 +53,13 @@
                         </div>
                         
                         <div class="btn_box"> <!-- 로그인하러 가기 버튼-->
-                            <a href="main.html">메인으로</a>
+                            <a href="#">예약 취소</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-            <!--하단 영역 -->
-    <footer>
-        <div class="footer_box">
-            <div class="footer_content">
-                <div class="company">
-                    <h4>솔트랜드</h4>
-                    <ul class="list">
-                        <li><a href="#">주소: 어디어디</a></li>
-                        <li><a href="#">tel-xxx-xxx-xxx</a></li>
-                        <li><a href="#">고객센터 문의</a></li>
-                    </ul>
-                </div>
-                <div class="company">
-                    <h4>sns</h4>
-                    <div class="sns">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+	<jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

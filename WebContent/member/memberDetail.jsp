@@ -6,9 +6,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="memberDetail.css">
-    <link rel="stylesheet" href="../bar.css">
-    <link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/memberDetail.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 <%
 	String sessionId = (String)session.getAttribute("sessionId"); 
 %>

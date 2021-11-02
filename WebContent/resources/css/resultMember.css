@@ -12,7 +12,7 @@
 }
 /*諛곌꼍�꽕�젙*/
 .background{
-    background-image: url(../resources/image/event02.jpg);
+    background-image: url(/SaltProject/resources/resources/image/event02.jpg);
     background-repeat: no-repeat;
     background-position: 50% 0;
     justify-content: center;

@@ -51,10 +51,15 @@ body {
     width: 1000px;
     margin: 100px auto 100px;
 }
+.board_title{
+    font-size: 30px;
+    margin-bottom: 30px;
+}
 .board_box{
     border-top: 3px solid slateblue;
     border-bottom: 3px solid slateblue;
 }
+
 .board_header{
     table-layout: fixed;
     padding: 25px;
@@ -67,18 +72,25 @@ body {
 .head_text .b_cat{
     color:slateblue;
 }
+.head_text input{
+    height: 30px;
+}
 .head_text .b_title{
     width: 800px;
+    margin: 0 20px;
 }
 .board_body{
     min-height: 500px;
     padding: 40px 45px;
+    font-weight: 300;
 }
-.board_img{
-    margin-bottom: 25px;
+.body_text p{
+    font-size:14px;
+    color:gray;
 }
-.board_img img{
-    max-width: 100%;
+.body_text textarea{
+    width: 100%;
+    margin: 20px 0;
 }
 
 /* buttons*/
@@ -87,41 +99,34 @@ body {
     justify-content: space-between;
     margin-top: 15px;
 }
-.personal_btns input,button{
-    width: 80px;
-    height: 30px;
-    line-height: 30px;
+.personal_btns input, .personal_btns a{
+	border: none;
     font-size: 14px;
     font-weight: 300;
     border-radius: 10px;
 }
 .personal_btns input{
-    background-color: white;
-}
-.personal_btns button{
-    background-color: red;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
     color: white;
+    background-color: slateblue;
 }
 .list_btn{
     text-align: center;
 }
 .list_btn a{
+	display:inline-block;
     width: 80px;
     height: 30px;
     line-height: 30px;
+    background-color: slateblue;
+    text-decoration: none;
+    color: white;
     font-size: 14px;
     font-weight: 300;
     border-radius: 10px;
 }
-.list_btn a{
-    display:inline-block;
-    text-decoration: none;
-    color: white;
-    background-color: slateblue;
-    width: 80px;
-}
 
-footer{
-    height: 80px;
-    background-color: gray;
-}
+
+

@@ -3,9 +3,9 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <html>
 <head>
-<link rel="stylesheet" href="./resultMember.css">
-<link rel="stylesheet" href="../bar.css">
-<link rel="stylesheet" href="../footer.css">
+<link rel="stylesheet" href="/SaltProject/resources/css/resultMember.css">
+<link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 <title>회원 정보</title>
 </head>
 <body>

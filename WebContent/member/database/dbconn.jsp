@@ -4,7 +4,7 @@
 	Connection conn = null;
 
 	try{
-		String url = "jdbc:mysql://localhost:3306/SaltLand";
+		String url = "jdbc:mysql://localhost:3306/SaltLand?serverTimezone=Asia/Seoul&useSSL=false";
 		String user = "root";
 		String password = "1234";
 		

@@ -61,8 +61,20 @@ public class BoardController extends HttpServlet{
 		
 		//글 상세 페이지 출력하기
 		else if(command.equals("/DetailView.do")) {
-		//조회수 증가 메서드 사용 필요
 		RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/noticeDetail.jsp");
+		rd.forward(request, response);
+		}
+		
+		//선택된 수정 페이지 가져오기
+		else if(command.equals("/UpdateViewAction.do")) {
+			requestBoardView(request);
+			RequestDispatcher rd = request.getRequestDispatcher("/UpdateView.do");
+			rd.forward(request, response);
+		}
+		
+		//글 수정 페이지 출력하기
+		else if(command.equals("/UpdateView.do")) {
+		RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/updateNotice.jsp");
 		rd.forward(request, response);
 		}
 		
@@ -137,6 +149,7 @@ public class BoardController extends HttpServlet{
 		board.setName(request.getParameter("name"));
 		board.setTitle(request.getParameter("title"));
 		board.setContent(request.getParameter("content"));
+		board.setContent(request.getParameter("filename"));
 		
 		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
 		String regist_day = formatter.format(new java.util.Date());
@@ -160,6 +173,7 @@ public class BoardController extends HttpServlet{
 		request.setAttribute("page", pageNum);
 		request.setAttribute("board", board);
 	}
+	
 	//command.equals("/BoardUpdateAction.do" true일때 작동.
 	//기존 내용, 수정 내용 모두 dao에 저장
 	public void requestBoardUpdate(HttpServletRequest request) {

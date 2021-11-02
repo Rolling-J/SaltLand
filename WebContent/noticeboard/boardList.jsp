@@ -87,7 +87,7 @@
 			<div class="paging">
 				<c:set var="pageNum" value="<%=pageNum %>"/>
 				<c:forEach var="i" begin="1" end="<%=total_page %>">
-					<a href="<c:url value="./BoardListAction.do?pageNum=${i }" />" ></a>
+					<a href="<c:url value="./BoardListAction.do?pageNum=${i }" />" ><c:out value="${i }" /></a>
 				</c:forEach>
 			</div>
 	    </div>

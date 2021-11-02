@@ -8,7 +8,7 @@
 }
 /*諛곌꼍�꽕�젙*/
 .background{
-    background-image: url(../resources/image/bg_pc_visual.png);
+    background-image: url(/SaltProject/resources/image/bg_pc_visual.png);
     background-repeat: no-repeat;
     background-position: 50% 0;
     justify-content: center;

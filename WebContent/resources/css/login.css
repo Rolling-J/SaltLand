@@ -1,4 +1,3 @@
-
 *{
     box-sizing: border-box;
     margin:0;
@@ -6,12 +5,23 @@
     list-style: none;
     text-decoration: none;
 }
-/*諛곌꼍�꽕�젙*/
+/*head*/
+#navbar{
+    background-color: indigo;
+    height: 50px;
+}
+/* background */
 .background{
-    background-image: url(./resources/image/bg_pc_visual.png);
+    background-image: url(/SaltProject/resources/image/bg_pc_visual.png);
     background-repeat: no-repeat;
     background-position: 50% 0;
     justify-content: center;
+}
+/* alert */
+.alert_login{
+	background-color: white;
+	border: 2px solid red;
+	border-radius:10px;
 }
 /*contents-total*/
 .wrap_body{
@@ -25,13 +35,14 @@
     padding: 80px 45px 15px;
 }
 .login_wrap{
-    width: 800px;
+    width: 600px;
     margin: 0 auto;
     padding: 20px 15px;
     background-color: rgba(255, 255, 255, 0.842);
     border: 2px solid lightblue;
     border-radius: 15px;
 }
+
 .box_head{
     text-align: center;
     padding-bottom: 10px;
@@ -40,60 +51,20 @@
     font-weight: bold;
     font-size: 20px;
 }
-/*input*/
-.container{
-    display: flex;
-    justify-content: space-around;
-    background-color: lightblue;
-    border-radius: 15px;
-    padding: 15px 30px;
-}
-.container input, .container select{
-    border: none;
-    margin-top: 3px;
-}
-.id_pw_box{
-    height: 60%;
-    width: 40%;
-    margin: 10% 0;
-}
-.personal_box{
-    width: 40%;
+.login_box{
+    padding: 20px 0;
 }
 #input_box{
-    margin: 10px 0;
+    width: 60%;
+    margin: 10px 20%;
 }
-.id_pw_box input{
+#input_box input{
     width: 100%;
     height: 30px;
 }
-.personal_box input{
-    height: 30px;
-    width: 100%;
-}
-.personal_box select{
-    height: 30px;
-}
-.birth input{
-    width: 25%
-}
-.gender select{
-    width: 60px;
-}
-.email input, select{
-    width: 45%
-}
-.phone select{
-    width: 15%;
-}
-.phone input{
-    width: 20%;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-/*botton*/
+/*login button*/
 .btn_box{
-    margin: 30px 0px 40px;
+    margin: 30px 0px 00px;
     width: 60%;
     margin-left: 20%;
 }
@@ -112,16 +83,33 @@
     background-color: rgb(106, 196, 226);
   }
 /*divine*/
- 
 .divine{
-    background-color: lightgray;
     height: 2px;
     width: 70%;
     margin: 20px 15%;
+    background-color: lightgray;
 }
-.divine_h{
-    background-color: white;
-    height: 320px;
-    width: 2px;
-    margin: 10px 15px;
+/*register*/
+.regi_box{
+    text-align: center;
+    margin-bottom: 30px;
+}
+.regi_box p{
+    font-size: 15px;
+    color: gray;
+}
+.regi_btn{
+    margin-top: 10px;
+}
+.regi_box a{
+    font-size: 20px;
+    color: gray;
+    transition: all 0.3s ease 0s;
+}
+.regi_box a:visited{
+    color: gray;
+}
+.regi_box a:hover{
+    font-size: 20px;
+    color: black;
 }

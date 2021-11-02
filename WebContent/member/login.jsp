@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <html>
 <head>
-    <link rel="stylesheet" href="./login.css">
-    <link rel="stylesheet" href="../bar.css">
-	<link rel="stylesheet" href="../footer.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/login.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
     <title>로그인</title>
 </head>
 <body>

@@ -65,7 +65,9 @@ body {
     justify-content: space-between;
 }
 .head_text .b_cat{
+	width: 300px;
     color:slateblue;
+    margin-right: 20px;
 }
 .head_text .b_title{
     width: 800px;

@@ -94,9 +94,10 @@
 						
 						<c:set var="phone" value="${row.phone }" />
 						<c:set var="phone_0" value="${phone.split(' / ')[0] }" />
-						<c:set var="phone_1" value="${phone.split('-')[0] }" />
-						<c:set var="phone_2" value="${phone.split('-')[1] }" />
-						<c:set var="phone_3" value="${phone.split('-')[2] }" />	
+						<c:set var="phonenum" value="${phone.split('/')[1] }" />
+						<c:set var="phone_1" value="${phonenum.split('-')[0] }" />
+						<c:set var="phone_2" value="${phonenum.split('-')[1] }" />
+						<c:set var="phone_3" value="${phonenum.split('-')[2] }" />	
 							
                         <form class="login_box" name="updateMemberForm" action="./processUpdateMember.jsp" onsubmit="return checkForm()" method="post">
                             <div class="container">

@@ -34,7 +34,17 @@
             <div class="board_box">
                 <div class="board_header">
                     <div class="head_text">
-                    	<p class="b_cat"><c:out value="<%=notice.getCategory() %>" /></p>
+                    	<p class="b_cat">
+                    	<c:set var="category" value="<%=notice.getCategory() %>" />
+                    	<c:choose>
+                    		<c:when test="${ category.equals('notice')}">
+                    			<c:out value="공지" />
+                    		</c:when>
+                    		<c:when test="${ category.equals('event')}">
+                    			<c:out value="이벤트" />
+                    		</c:when>
+                    	</c:choose>
+                    	</p>
                     	<p class="b_title"><c:out value="<%=notice.getTitle() %>" /></p>
                     	<p><c:out value="<%=notice.getRegist_day() %>" /></p>
                     </div>
@@ -42,7 +52,8 @@
                 <div class="board_body">
                     <div class="body_text">
                         <div class="board_img">
-                            <img src="./image/event02.jpg">
+                        	<c:out value="<%=notice.getFileName() %>" />
+                            <img src="/SaltProject/resources/image/<%=notice.getFileName() %>">
                         </div>
                         <p><c:out value="<%=notice.getContent() %>" /></p>
                     </div>

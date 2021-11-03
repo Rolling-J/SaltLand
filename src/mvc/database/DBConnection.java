@@ -9,7 +9,7 @@ public class DBConnection {
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		Connection conn = null;
 		
-		String url = "jdbc:mysql://localhost:3306/SaltLand";
+		String url = "jdbc:mysql://localhost:3306/SaltLand?serverTimezone=Asia/Seoul&useSSL=false";
 		String user = "root";
 		String password = "1234";
 		

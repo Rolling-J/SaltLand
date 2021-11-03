@@ -22,8 +22,8 @@
 	int pageNum = ((Integer) request.getAttribute("pageNum")).intValue();
 	int total_page = ((Integer) request.getAttribute("total_page")).intValue();
 %>
-    <jsp:include page="../bar.jsp"></jsp:include>
-    <form action="<c:url value="/BoardListAction.do"/>" method="post">
+    <jsp:include page="/bar.jsp"></jsp:include>
+    <form action="<c:url value="./BoardListAction.do"/>" method="post">
 	    <div class="a_box">
 	        <p class="category"> 홈>이용가이드>공지 및 알림</p>
 	        <div class="center_box">
@@ -32,25 +32,26 @@
 	            </div>
 	            <div class="search_box">
 	                <div class="inp">
-	                    <select name="category" id="">
-	                        <option>전체</option>
+	                    <select name="s_category" id="">
+	                        <option value="all">전체</option>
 	                        <option value="notice">공지</option>
 	                        <option value="event">이벤트</option>
 	                    </select>
-	                    <input type="text" name="text">
-	                    
+	                    <input type="text" name="s_text">
 	                </div>
-	                <input type=submit class="search_btn" value="검색">
-	                <p>전체 <%=total_record %> 건</p>
+	                <input type=submit class="search_btn" value="제목 검색">
 	            </div>
 	        </div>
 	    </div>
 	    <div class="board_box">
-	    	<c:choose>
-		    <c:when test="${!empty sessionId }">
-		        <a href="./BoardWriteForm.do?id=<%=sessionId %>" class="b_add">새글작성</a>
-		    </c:when>
-		    </c:choose>
+	    	<div class="board_head">
+		    	<p>전체 <%=total_record %> 건</p>
+		    	<c:choose>
+				    <c:when test="${!empty sessionId }">
+				        <a href="./BoardWriteForm.do?id=<%=sessionId %>" class="b_add">새글작성</a>
+				    </c:when>
+			    </c:choose>
+		    </div>
 	        <table class="tbl_header">
 	            <thead>
 	                <tr>
@@ -70,7 +71,17 @@
 						%>
 						<tr>
 							<td><%=notice.getNum() %></td>
-							<td><%=notice.getCategory() %></td>
+							<td>
+								<c:set var="category" value="<%=notice.getCategory() %>" />
+	                    		<c:choose>
+		                    		<c:when test="${ category.equals('notice')}">
+		                    			<c:out value="공지" />
+		                    		</c:when>
+		                    		<c:when test="${ category.equals('event')}">
+		                    			<c:out value="이벤트" />
+		                    		</c:when>
+	                    		</c:choose>
+							</td>
 							<td>
 								<a href="./BoardViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>">
 									<%=notice.getTitle() %>
@@ -92,6 +103,6 @@
 			</div>
 	    </div>
 	</form>
-    <jsp:include page="../footer.jsp"></jsp:include>
+    <jsp:include page="/footer.jsp"></jsp:include>
 </body>
 </html>

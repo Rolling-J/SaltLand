@@ -2,6 +2,7 @@ package mvc.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import mvc.model.BoardDTO;
 import mvc.model.BoardDAO;
@@ -106,8 +110,8 @@ public class BoardController extends HttpServlet{
 			pageNum=Integer.parseInt(request.getParameter("pageNum"));
 		}
 		
-		String category = request.getParameter("category");
-		String text = request.getParameter("text");
+		String category = request.getParameter("s_category");
+		String text = request.getParameter("s_text");
 		
 		int total_record = dao.getListCount(category, text);
 		// dao.getListCount : board 테이블의 레코드 수 (조건에 맞는 게시판의 글 수를 sql에서 계산하여 숫자로 가져옴)
@@ -139,21 +143,35 @@ public class BoardController extends HttpServlet{
 		
 		request.setAttribute("name", name);
 	}
+	
 	//command.equals("/BoardWriteAction.do") true (등록페이지에서 등록 클릭)때 작동
 	//게시글의 리퀘스트를 받아 등록일시, IP 추가하여 DAO로 업로드
-	public void requestBoardWrite(HttpServletRequest request) {
+	public void requestBoardWrite(HttpServletRequest request) throws IOException {
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardDTO board = new BoardDTO();
+
+		String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		int maxSize = 5*1024*1024;
+		String encType = "utf-8";
 		
-		board.setId(request.getParameter("id"));
-		board.setName(request.getParameter("name"));
-		board.setTitle(request.getParameter("title"));
-		board.setContent(request.getParameter("content"));
-		board.setContent(request.getParameter("filename"));
+		MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		String fname = (String)files.nextElement();
+		String fileName = multi.getFilesystemName(fname);
+		
+		int num = dao.getNumRecentBoard();
 		
 		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
-		String regist_day = formatter.format(new java.util.Date());
+		String regist_day = formatter.format(new java.util.Date());		
 		
+		board.setNum(num);
+		board.setId(multi.getParameter("id"));
+		board.setName(multi.getParameter("name"));
+		board.setCategory(multi.getParameter("category"));
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFileName(fileName);
 		board.setRegist_day(regist_day);
 		board.setIp(request.getRemoteAddr());
 		
@@ -175,33 +193,37 @@ public class BoardController extends HttpServlet{
 	}
 	
 	//command.equals("/BoardUpdateAction.do" true일때 작동.
-	//기존 내용, 수정 내용 모두 dao에 저장
-	public void requestBoardUpdate(HttpServletRequest request) {
+	//기존 내용, 수정 내용 모두 dto에 저장
+	public void requestBoardUpdate(HttpServletRequest request) throws IOException {
 		int num = Integer.parseInt(request.getParameter("num"));
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardDTO board = new BoardDTO();
 		
+		String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		int maxSize = 5*1024*1024;
+		String encType = "utf-8";
+		
+		MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
+		
+		Enumeration files = multi.getFileNames();
+		String fname = (String)files.nextElement();
+		String fileName = multi.getFilesystemName(fname);
+		
 		board.setNum(num);
-		board.setName(request.getParameter("name"));
-		board.setCategory(request.getParameter("category"));
-		board.setTitle(request.getParameter("title"));
-		board.setContent(request.getParameter("content"));
+		board.setName(multi.getParameter("name"));
+		board.setCategory(multi.getParameter("category"));
+		board.setTitle(multi.getParameter("title"));
+		board.setFileName(fileName);
+		board.setContent(multi.getParameter("content"));
 		
-		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
-		String regist_day = formatter.format(new java.util.Date());
-		
-		board.setRegist_day(regist_day);
-		board.setIp(request.getRemoteAddr());
-		
-		dao.updateBoard(board); //dao에 수정내용 업데이트
+		dao.updateBoard(board); //dto에 수정내용 업데이트
 	}
 	//선택된 글 삭제하기. command.equals("/BoardDeleteAction.do" true일때 작동.
 	public void requestBoardDelete(HttpServletRequest request) {
 		int num = Integer.parseInt(request.getParameter("num"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));	
-		
+
 		BoardDAO dao = BoardDAO.getInstance();
 		dao.deleteBoard(num);
 	}

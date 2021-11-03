@@ -3,6 +3,7 @@
 
 <%
 	String name = (String) request.getAttribute("name");
+	String sessionId = (String) session.getAttribute("sessionId");
 %>
 
 <html>
@@ -47,14 +48,15 @@
         <div class="board_title">
             <p>새 글 작성</p>
         </div>
-        <form name="newWrite" action="./BoardWriteAction.do" class="" method="post" onsubmit="return checkForm()">
+        <form name="newWrite" action="./BoardWriteAction.do" class="" method="post" enctype="multipart/form-data" onsubmit="return checkForm()">
             <div class="board_box">
                 <div class="board_header">
                     <div class="head_text">
-                        <select class="b_cat">
-                            <option>공지</option>
-                            <option>이벤트</option>
+                        <select class="b_cat" name="category">
+                            <option value="notice">공지</option>
+                            <option value="event">이벤트</option>
                         </select>
+                        <input type="hidden" name="id" value="<%=sessionId %>">
                         <input type="text" name="title" class="b_title" placeholder="제목">
                         <input type="text" name="name" placeholder="작성자명 [ex) boardGM]">
                     </div>

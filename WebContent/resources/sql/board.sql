@@ -13,6 +13,7 @@ create table noticeboard(
 )default charset=utf8;
 
 select * from noticeboard;
+select * from noticeboard where category='event';
 select * from noticeboard where id like '%001%';
 select count(*) from noticeboard;
 insert into noticeboard values( 1, 'admin', 'boardGM', 'notice','notice001','content001','event02.jpg','2021.10.22', '000.000.000.000'),

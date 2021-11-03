@@ -4,8 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Enumeration;
 
 import mvc.database.DBConnection;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.*;
 
 public class BoardDAO {
 	
@@ -30,17 +34,20 @@ public class BoardDAO {
 		int x = 0;
 		String sql;
 		
-		if(category == null&& text == null) {
+		System.out.println("category="+category);
+		System.out.println("text="+text);
+		
+		if((category == null||category.equals("all"))&& (text == null||text.equals(""))) {
 			sql = "select count(*) from noticeboard";
 		}else {
-			sql = "select count(*) from noticeboard where " + category + " like '%'" + text + "'%' ";
+			sql = "select count(*) from noticeboard where category='" + category + "' and title like '%" + text + "%' ";
 		}
 		
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
+			System.out.println(sql);
 			if(rs.next())
 				x = rs.getInt(1); //count(*) 결과값이 1열로 나오므로 1번째 열 숫자를 받아옴
 		}catch(Exception ex){
@@ -63,21 +70,21 @@ public class BoardDAO {
 	
 	
 	//board 테이블의 레코드 가져오기(각 페이지에 들어갈 게시글 목록 가져오기)
-	public ArrayList<BoardDTO> getBoardList(int page, int limit, String items, String text){
+	public ArrayList<BoardDTO> getBoardList(int page, int limit, String category, String text){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		int total_record = getListCount(items, text);
+		int total_record = getListCount(category, text);
 		int start = (page - 1) * limit; //각 페이지의 첫 게시글의 순서번호를 가져오기 위한 숫자 변수.
 		int index = start + 1; //각 페이지의 첫 게시글의 순서번호.
 		
 		String sql;
 		
-		if(items == null && text == null)
+		if((category == null||category.equals("all"))&& (text == null||text.equals("")))
 			sql = "select * from noticeboard order by num desc";
 		else
-			sql = "select * from noticeboard where "+ items + " like '%" + text + "%' order by num desc";
+			sql = "select * from noticeboard where category='"+ category + "' and title like '%" + text + "%' order by num desc";
 		// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
 		// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
 		// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
@@ -87,7 +94,7 @@ public class BoardDAO {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			
+			System.out.println(sql);
 			while(rs.absolute(index)) { //absolute(숫자) : 해당 인덱스(저장요소)의 레코드로 바로 이동
 				BoardDTO board = new BoardDTO();
 				
@@ -171,6 +178,7 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
+		
 		String sql = "insert into noticeboard values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
@@ -201,6 +209,43 @@ public class BoardDAO {
 			}
 		}
 		
+	}
+	
+	public int getNumRecentBoard() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select num from noticeboard order by num desc";
+		// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
+		// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
+		
+		int newNum = 0;
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+				newNum = rs.getInt(1); //count(*) 결과값이 1열로 나오므로 1번째 열 숫자를 받아옴
+		}catch(Exception ex){
+			System.out.println("getListCount() 에러 : " + ex);
+		}finally {
+			try {
+				if (rs != null) 
+					rs.close();							
+				if (pstmt != null) 
+					pstmt.close();				
+				if (conn != null) 
+					conn.close();
+			}catch(Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
+		
+		newNum++;
+		return newNum;
 	}
 	
 	
@@ -258,23 +303,43 @@ public class BoardDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "update noticeboard set name=?, category=?, title=?, content=?, fileName=?, where num=?";
+		String sql = "";
 		
 		try {
-			conn = DBConnection.getConnection();
-			pstmt = conn.prepareStatement(sql);
 			
-			conn.setAutoCommit(false);
-			
-			pstmt.setString(1, board.getName());
-			pstmt.setString(2, board.getCategory());
-			pstmt.setString(3, board.getTitle());
-			pstmt.setString(4, board.getContent());
-			pstmt.setString(5, board.getFileName());
-			pstmt.setInt(6, board.getNum());
-			
-			pstmt.executeUpdate();
-			conn.commit();
+			if(board.getFileName()!=null) {
+				sql = "update noticeboard set name=?, category=?, title=?, content=?, fileName=? where num=?";
+				conn = DBConnection.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				
+				conn.setAutoCommit(false);
+				
+				pstmt.setString(1, board.getName());
+				pstmt.setString(2, board.getCategory());
+				pstmt.setString(3, board.getTitle());
+				pstmt.setString(4, board.getContent());
+				pstmt.setString(5, board.getFileName());
+				pstmt.setInt(6, board.getNum());
+				
+				pstmt.executeUpdate();
+				conn.commit();
+			}else {
+				sql = "update noticeboard set name=?, category=?, title=?, content=? where num=?";
+				conn = DBConnection.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				
+				conn.setAutoCommit(false);
+				
+				pstmt.setString(1, board.getName());
+				pstmt.setString(2, board.getCategory());
+				pstmt.setString(3, board.getTitle());
+				pstmt.setString(4, board.getContent());
+				pstmt.setInt(5, board.getNum());
+				
+				pstmt.executeUpdate();
+				conn.commit();
+			}
+				
 		}catch(Exception ex){
 			System.out.println("updateBoard() 에러 : "+ ex);
 		}finally {

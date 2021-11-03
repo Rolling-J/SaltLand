@@ -20,11 +20,11 @@
 }
 
 /**/
-.content_box{
+.content_wrap{
     align-items: center;
     padding: 80px 45px 15px;
 }
-.login_wrap{
+.content_box{
     width: 800px;
     margin: 0 auto;
     padding: 20px 15px;
@@ -40,22 +40,21 @@
     font-weight: bold;
     font-size: 20px;
 }
-/*input*/
-.container{
+/*info_box total*/
+.info_box{
+	display: none;
+}
+.info_box.selected{
+	display: block;
+}
+
+/*info - personal box*/
+.ps_container{
     display: flex;
     justify-content: space-around;
     background-color: lightblue;
     border-radius: 15px;
     padding: 15px 30px;
-}
-.container input, .container select{
-    border: none;
-    margin-top: 3px;
-}
-.id_pw_box{
-    height: 60%;
-    width: 40%;
-    margin: 10% 0;
 }
 .personal_box{
     width: 40%;

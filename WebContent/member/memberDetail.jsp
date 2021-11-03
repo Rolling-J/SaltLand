@@ -25,58 +25,63 @@
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
-                <div class="content_box">
-                    <div class="login_wrap">
+                <div class="content_wrap">
+                    <div class="content_box">
                         <div class="box_head">
                             <p>회원 정보</p>
                          </div>
                         <div class="divine"></div>
-                        
-                        <c:forEach var="row" items="${resultSet.rows}">
-							
-                        <div class="login_box">
-                            <div class="container">
-                                <div class="personal_box">
-                                    <div id="input_box" class="id_box"> 
-                                        <p>아이디 : <c:out value="${row.id }"/></p>
-                                    </div>
-                                    <div id="input_box" class="name" >
-                                        <p>이름 : <c:out value="${row.name }" /></p>
-                                    </div>
-                                    <div id="input_box" class="birth">
-                                        <p>생년월일 : <c:out value="${row.birth }" /></p>
-                                    </div>
-                                    <div id="input_box" class="gender" >
-                                        <c:choose>
-                                        	<c:when test="${row.gender.equals('male') }">
-                                        		<p>성별 : 남</p>
-                                        	</c:when>
-                                        	<c:when test="${row.gender.equals('female') }">
-                                        		<p>성별 : 여</p>
-                                        	</c:when>
-                                        	<c:otherwise>
-                                        		<p> 미선택 </p>
-                                        	</c:otherwise>
-                                        </c:choose>
-                                    </div>
-                                    <div id="input_box" class="email" >
-                                        <p>이메일 : <c:out value="${row.mail }" /></p>
-                                    </div>
-                                    <div id="input_box" class="phone" >
-                                        <p>전화번호 : <c:out value="${row.phone }" /></p>
-                                    </div>
-                                </div>
-                                <!-- divineLine and TicketList will be here
-                                <div class="divine_h"></div>
-                                 -->
-                            </div>
-                            <div class="btn_box">
-                                	<a href="updateMember.jsp" class="btn_a">회원수정</a>
-                                	<a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
-                                	
-                            </div>
+                        <!-- two taps -->
+                        <div class="tap_box">
+                        	<a class="tapBtn selected">회원 정보</a>
+                        	<a class="tapBtn">티켓 예약 정보</a>
                         </div>
-                        </c:forEach>
+                        <!-- tap containers -->
+                        <div class="info_box selected"> <!-- login tap container -->
+                        	<c:forEach var="row" items="${resultSet.rows}">
+	                            <div class="ps_container">
+	                                <div class="personal_box">
+	                                    <div id="input_box" class="id_box"> 
+	                                        <p>아이디 : <c:out value="${row.id }"/></p>
+	                                    </div>
+	                                    <div id="input_box" class="name" >
+	                                        <p>이름 : <c:out value="${row.name }" /></p>
+	                                    </div>
+	                                    <div id="input_box" class="birth">
+	                                        <p>생년월일 : <c:out value="${row.birth }" /></p>
+	                                    </div>
+	                                    <div id="input_box" class="gender" >
+	                                        <c:choose>
+	                                        	<c:when test="${row.gender.equals('male') }">
+	                                        		<p>성별 : 남</p>
+	                                        	</c:when>
+	                                        	<c:when test="${row.gender.equals('female') }">
+	                                        		<p>성별 : 여</p>
+	                                        	</c:when>
+	                                        	<c:otherwise>
+	                                        		<p> 미선택 </p>
+	                                        	</c:otherwise>
+	                                        </c:choose>
+	                                    </div>
+	                                    <div id="input_box" class="email" >
+	                                        <p>이메일 : <c:out value="${row.mail }" /></p>
+	                                    </div>
+	                                    <div id="input_box" class="phone" >
+	                                        <p>전화번호 : <c:out value="${row.phone }" /></p>
+	                                    </div>
+	                                </div>
+	                                <!-- divineLine and TicketList will be here
+	                                <div class="divine_h"></div>
+	                                 -->
+	                            </div>
+	                            <div class="btn_box">
+	                                	<a href="updateMember.jsp" class="btn_a">회원수정</a>
+	                                	<a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
+	                            </div>
+                            </c:forEach>
+                        </div><!-- login tap container end -->
+                        <div class="info_box">
+                        </div>
                     </div>
                 </div>
             </div>

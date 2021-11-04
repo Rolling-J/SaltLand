@@ -47,3 +47,9 @@
 	%>
 	<c:redirect url="resultMember.jsp?msg=0" />
 </c:if>
+<c:if test="${resultSet<1 }">
+	<%
+	System.out.println("update error");
+	System.out.println(id);
+	 %>
+</c:if>

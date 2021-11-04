@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
   }
-  /* 시간 */
+  /* main? */
   .far{
     color: rebeccapurple;
     font-size: 25px;
@@ -27,7 +27,7 @@
   font-size: 21px;
 }
 
-/* 구분선 */
+/* 援щ텇�꽑 */
 .line{
   align-items: center;
   margin-left: 230px;
@@ -39,7 +39,7 @@
   font-size: 35px;
 }
 
-/* 정보창 */
+/* �젙蹂댁갹 */
 #information {
   padding: 15px 0;
   background-color: #f4f3f0;
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: center;
 }
-/* 테마별 */
+/* �뀒留덈퀎 */
 #information .place {
   padding: 35px 20px 30px;
   box-sizing: border-box;
@@ -63,7 +63,7 @@
 .info_title{
   font-size: 25px;
 }
-  /* 테마태그 */
+  /* �뀒留덊깭洹� */
 
   .tema_box{
     display: flex;   
@@ -101,7 +101,7 @@
     color: white;
   }
 
-/* 게시글 */
+/* 寃뚯떆湲� */
 #information .table  {
   padding: 35px 20px 30px;
   box-sizing: border-box;
@@ -111,7 +111,7 @@
   margin: 35px 35px;
   border-top: 15px solid rgb(155, 89, 182);
 }
-/* 예약 */
+/* �삁�빟 */
 #information .check_box  {
   box-sizing: border-box;
   width: 325px;
@@ -253,7 +253,7 @@
   opacity: 1;
 }
 
-/* 구분선 */
+/* 援щ텇�꽑 */
 
 .hr-play {
 	display: flex;
@@ -274,7 +274,7 @@
 	margin: 0px 16px;
 }
 
-/* 더 많은 어트랙션 */
+/* �뜑 留롮� �뼱�듃�옓�뀡 */
 
 .play{
   background: url(https://adventure.lotteworld.com/common/images/icon/mainCon3_bg.jpg);
@@ -302,7 +302,7 @@
 }
 
 
-/* 카드박스 */
+/* 移대뱶諛뺤뒪 */
 
 .card_box{
   margin: auto;
@@ -335,7 +335,7 @@
   float: left;
   margin: 15px 5px;
 }
-/* 더 많은 어트랙션 보기 버튼 */
+/* �뜑 留롮� �뼱�듃�옓�뀡 蹂닿린 踰꾪듉 */
 
 #play_btn2 a{
   text-decoration: none;
@@ -360,7 +360,7 @@
  
 }
  
-/* 하단 영역 */
+/* �븯�떒 �쁺�뿭 */
 
 
 

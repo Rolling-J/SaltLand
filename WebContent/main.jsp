@@ -29,7 +29,7 @@
      
 </head>
 <body>
-   <jsp:include page="bar.jsp"/>
+   <jsp:include page="menu.jsp"/>
     <!-- 슬라이드 이미지 -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -80,7 +80,7 @@
             <div class="tema_box">
             <ul class="tema">
               <!-- <li class="tema_list">서바이벌</li> -->
-              <li><button id="tema_btn"><a href="play.jsp">서바이벌</a></button> </li>
+              <li><button id="tema_btn"><a href="attractions.jsp">서바이벌</a></button> </li>
               <li><button id="tema_btn2"><a href="#">어드벤쳐</a></button> </li>
               <li><button id="tema_btn"><a href="#">키디존</a></button> </li>
             </ul>
@@ -179,7 +179,7 @@
             </div>
             <button id="play_btn2"><a href="play.html">더 많은 어트랙션보기</a></button>
         </div>
-  
+  		<%response.setIntHeader("Refresh", 5);%>
         <!--하단 영역 -->
         <div id="footer"></div>
 

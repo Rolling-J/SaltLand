@@ -10,3 +10,4 @@ CREATE TABLE IF NOT EXISTS attraction(
     primary key(name)    
 )default charset=utf8;
 select*from attraction;
+

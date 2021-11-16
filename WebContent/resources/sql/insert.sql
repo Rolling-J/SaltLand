@@ -11,4 +11,3 @@ INSERT INTO attraction VALUES('황야의 무법자', '말 모양의 시뮬레이
 INSERT INTO attraction VALUES('회전목마', '64필의 아름다운 백마를 타고 떠나는 로맨틱한 여행!', '포토존', '50명', '제한 없음', '제한 없음','회전목마.png');
 INSERT INTO attraction VALUES('스윙팡팡', '로티와 친구들과 함께 빙글빙글 돌아가는 바구니를 타고 동화나라를 방문했어요. 동화나라 방문을 축하해 주는 힘찬 헹가래를 위, 아래로 퉁! 퉁! 튕기는 재미가 가득', '키디존', '10명', '9세~64세', '130cm~190cm','스윙팡팡.png');
 select*from attraction;
-

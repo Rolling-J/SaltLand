@@ -4,15 +4,16 @@
 <%@ page import="com.oreilly.servlet.multipart.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="dbconn.jsp" %>
+<%@ include file="/resources/database/dbconn.jsp" %>
 <%
+	request.setCharacterEncoding("UTF-8");
+
 	String filename = "";
-	String realFolder = "C:\\upload";
+	String realFolder = "D:\\Study_Programming\\Web_programming\\SaltLand\\WebContent\\resources\\image";
 	String encType = "utf-8";
 	int maxSize = 5 * 1024 * 1024;
 	
-	MultipartRequest multi = new MultipartRequest(request, realFolder, 
-	maxSize, encType, new DefaultFileRenamePolicy());		
+	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());		
 			
 	String name = multi.getParameter("name");
 	String info = multi.getParameter("info");

@@ -1,44 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
+<%@ page import="dto.attraction"%>
+<%@ page import="dao.attractionbox"%>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="at.css">
     <script src="https://kit.fontawesome.com/a3555d8f42.js" crossorigin="anonymous"></script> 
     <title>Document</title>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-         $("#bar").load("bar.html")    
-      });
-    </script>
+    <link rel="stylesheet" href="./resources/css/dp.css" />
+    
+    
+    
+    <%
+		String name = request.getParameter("id");	
+	%>
+	<%@ include file="/resources/database/dbconn.jsp" %>
+    <%  
+		PreparedStatement pstmt = null;
+ 		ResultSet rs = null;
+
+		String sql = "select * from attraction where id=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, name);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+		
+    %> 
 </head>
 <body>
-    <div id="bar"></div>
-    <div class="a_box">
-        <p class="category"> 홈>즐길거리>어트랙션</p>
+<div class="all">
+    <jsp:include page="/menu.jsp"/>
+    <div class="a_box"> 
+   <!--  <img src="/a/resources/image/<%=rs.getString("filename")%>" style="width:50px; height:50px;"> -->
+   		<div></div>
+        <div class="category"><p>홈>즐길거리>어트랙션</p></div>
         <div class="s_title">
-            <strong class="a"> 허리케인</strong>
-            <p class="pb">구름이 맞닿을 듯한 높이까지 올라갔다<br>
-                한 순간에 떨어지는 스릴만점 어트랙션입니다.</p>
+            <strong class="a"><%=rs.getString("name")%></strong>
+            <p class="pb"><%=rs.getString("info")%></p>
         </div>
     </div>
     
 
-    <div class="at_box">
+    <div class="at_box">  
         <div class="ride">
             <div class="r_box">
                 <i class="fas fa-user-circle"></i><br>
                 <p class="rp">탑승 인원</p><br>
-                <strong class="pe">40명</strong>
+                <strong class="pe"><%=rs.getString("ride")%></strong>
             </div>
         </div>
         <div class="ride_info">
             <div class="r_box">
                 <i class="fas fa-user-circle"></i><br>
                 <strong>이용 정보</strong>
-                <p>키 130cm이상~190cm이하<br>65세 이하 탑승 가능</p>
+                <p><%=rs.getString("tall")%><br><%=rs.getString("age")%></p>
             </div>
         </div>
         <div class="care">
@@ -53,18 +73,19 @@
                 <div class="ti3"><img src="https://wwwcdn.everland.com/web/upload/images/favorite/22_imgEtcLimit0.png" alt="조건" style="width:403px; height:50px;"></div>
             </div>
         </div>
-        <!-- <div class="care">
-            <div class="r_box">
-                <strong class="ti">유의사항</strong>
-                     <ul class="list">
-                        <li>임산부 탑승 금지</li>
-                        <li>2</li>
-                        <li>3</li>
-                    </ul>
-                </div>
-        </div> -->
-
-
-    </div>
+   </div>
+   <%
+	}
+	if (rs != null)
+		rs.close();
+	if (pstmt != null)
+			pstmt.close();
+	if (conn != null)
+		conn.close();
+%>
+   
+   
+   <jsp:include page="/footer.jsp"/>
+   </div>
 </body>
 </html>

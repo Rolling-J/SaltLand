@@ -81,14 +81,14 @@
             <ul class="tema">
               <!-- <li class="tema_list">서바이벌</li> -->
               <li><button id="tema_btn"><a href="attractions.jsp">서바이벌</a></button> </li>
-              <li><button id="tema_btn2"><a href="#">어드벤쳐</a></button> </li>
-              <li><button id="tema_btn"><a href="#">키디존</a></button> </li>
+              <li><button id="tema_btn2"><a href="attractions.jsp">어드벤쳐</a></button> </li>
+              <li><button id="tema_btn"><a href="attractions.jsp">키디존</a></button> </li>
             </ul>
             <ul class="tema">
               <!-- <li class="tema_list">서바이벌</li> -->
-              <li><button id="tema_btn2"><a href="#">호러</a></button> </li>
-              <li><button id="tema_btn"><a href="#">체험관</a></button> </li>
-              <li><button id="tema_btn2"><a href="#">포토존</a></button> </li>
+              <li><button id="tema_btn2"><a href="attractions.jsp">호러</a></button> </li>
+              <li><button id="tema_btn"><a href="attractions.jsp">체험관</a></button> </li>
+              <li><button id="tema_btn2"><a href="attractions.jsp">포토존</a></button> </li>
             </ul>
           </div>
           </div>
@@ -100,7 +100,9 @@
             <hr>
           </div>   
            <div>
-             <p>오늘 퍼레이드 정보</p><hr>
+             <p><a href="#">공지</a></p><hr>
+             <p><a href="#">이번 달 이벤트</a></p><hr>
+             <p><a href="#">이벤트기간 티켓 가격</a></p><hr>
            </div>
           </div>
 
@@ -122,7 +124,7 @@
                  <div class="train-stop gray"></div>
                  <div class="train-line"></div>
                  <div class="train-stop green">
-                  <p><a href="bus.html" data-tooltip="△△△정류장">a</a></p>
+                  <p><a href="bus.jsp" data-tooltip="△△△정류장">a</a></p>
                  </div>
                  <div class="train-line"></div>
                  <div class="train-stop gray"></div>
@@ -132,7 +134,7 @@
            </div>
              <div class="bus">
               <i class="fas fa-bus"></i>
-              <strong class="bus_station">위치확인하기</strong>
+              <strong class="bus_station"><a href="bus.jsp">위치확인하기</a></strong>
              </div>
 
           </div>
@@ -177,11 +179,11 @@
                 </div>
               </div>
             </div>
-            <button id="play_btn2"><a href="play.html">더 많은 어트랙션보기</a></button>
+            <button id="play_btn2"><a href="attractions.jsp">더 많은 어트랙션보기</a></button>
         </div>
   		<%response.setIntHeader("Refresh", 5);%>
         <!--하단 영역 -->
-        <div id="footer"></div>
+        <jsp:include page="footer.jsp"/>
 
 </body>
 </html>

@@ -120,19 +120,19 @@ header {
 }
 
 .card_box{
- width: 1200px;
- margin: auto;
- margin-top: 100px;
- margin-bottom: 100px;
- display: flex;
+  width: 1300px;
+  margin:auto;
+  margin-top:5%;
+  margin-bottom:10%;
 }
+
 .card_box>.card1{
-  width: 500px;
-  height: 350px;
-  background-color: rgba(255, 255, 255, 0.849);
-  border: 1px solid #e1e1e1;
-  float: left;
-  margin: 10px;
+   width: 300px;
+   height: 350px;
+   background-color: rgba(255, 255, 255, 0.849);
+   border: 1px solid #e1e1e1;
+   display: inline-block;
+   margin: 10px;
 }
 a { 
   text-decoration:none;
@@ -159,6 +159,15 @@ a {
   background-color: rgb(101, 39, 160);
   color: white;
 } 
+.eidt_btn{
+  width: 80px;
+  height: 20px;
+  text-align: center;
+  border: none;
+  border-radius: 35px;
+  background-color: rgb(101, 39, 160);
+  color: white;
+}
 
 /* .card1{
   color: rgb(12, 11, 11) ;
@@ -181,52 +190,3 @@ a {
   background-color: rgb(89, 182, 109);
   border-radius: 50px;
 } */
-footer{
-	background-color: #24262b;
-    padding: 70px 0;
-}
-.footer_box{
-	max-width: 1170px;
-	margin:auto;
-}
-.footer_content{
-	display: flex;
-  justify-content: space-between;
-}
-
-.company{
-   width: 25%;
-   padding: 0 15px;
-}
-.company h4{
-	font-size: 18px;
-	color: #ffffff;
-	margin-bottom: 35px;
-	position: relative;
-}
-.company h4::before{
-	content: '';
-	position: absolute;
-	left:0;
-	bottom: -10px;
-	background-color: #9d68ff;
-	height: 2px;
-	box-sizing: border-box;
-	width: 50px;
-}
-.list{
-  color: white;
-}
-
-.company .sns a{
-	display: inline-block;
-	height: 40px;
-	width: 40px;
-	background-color: rgba(255,255,255,0.2);
-	margin:0 10px 10px 0;
-	text-align: center;
-	line-height: 40px;
-	border-radius: 50%;
-	color: #ffffff;
-	transition: all 0.5s ease;
-}

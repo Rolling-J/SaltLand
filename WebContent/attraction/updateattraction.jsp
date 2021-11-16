@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="dto.Attraction"%>
-<%@ page import="dao.attractionbox"%>
-<%@ page import="java.sql.*"%>
-    
+<%@ page import="java.sql.*"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,23 +13,37 @@
   <link rel="stylesheet" href="./resources/css/add.css" />
 </head>
 <body>
-  <jsp:include page="menu.jsp"/>
+  <jsp:include page="/menu.jsp"/>
+	<%@ include file="/resources/database/dbconn.jsp" %>>
+ 	<%
+  		String name = request.getParameter("id");
+  
+ 		PreparedStatement pstmt = null;
+	 	ResultSet rs = null;
+
+		String sql = "select * from attraction where id=?";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, name);
+		rs = pstmt.executeQuery();
+		if (rs.next()) {
+  %>
 
 <!-- 테스트 -->
 <div class="a_box">
-	<a href="logout.jsp" class="btn btn-sm btn-success pull-right">로그아웃</a>
-	<form name ="newattraction" action="processaddattraction.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
+	<!--<a href="logout.jsp" class="btn btn-sm btn-success pull-right">로그아웃</a>-->
+	<form name ="newattraction" action="processaddattraction.jsp" 
+	class="form-horizontal" method="post" enctype="multipart/form-data">
   <h1>어트랙션 등록</h1>
   <form id="a_name">
     <div class="search">
       <label id="name-label" for="name">어트랙션 명</label>
-      <input type="text" name="name" id="name" class="s_box" placeholder="어트랙션 이름을 입력해주세요." required/>
+      <input type="text" name="name" id="name" class="s_box" value='<%=rs.getString("name")%>'placeholder="어트랙션 이름을 입력해주세요." required/>
     </div>
  
    <div class="search">
       <p>설명</p> 
       <textarea id="info" name="info" class="info" rows="5" cols="50" placeholder="어트랙션 설명을 입력해주세요.">
-      </textarea>
+      <%=rs.getString("info")%></textarea>
     </div>
 
     <div class="search">
@@ -89,10 +100,16 @@
       <input type="reset" value="다시" class="s_btn">
     </div>
   </form>
-  </form>
-
-
 </div>
-<div id="footer"></div>
+<%
+	}
+	if (rs != null)
+		rs.close();
+	if (pstmt != null)
+			pstmt.close();
+	if (conn != null)
+		conn.close();
+%>
+<jsp:include page="/footer.jsp"/>
 </body>
 </html>

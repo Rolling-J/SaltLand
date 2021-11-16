@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="dbconn.jsp"%>
+<%@ include file="/resources/database/dbconn.jsp" %>
 <%
 	String name = request.getParameter("name");
 	

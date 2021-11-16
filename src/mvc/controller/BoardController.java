@@ -150,7 +150,8 @@ public class BoardController extends HttpServlet{
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardDTO board = new BoardDTO();
 
-		String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		//String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		String realFolder = "D:\\Study_Programming\\Web_programming\\SaltLand\\WebContent\\resources\\image";
 		int maxSize = 5*1024*1024;
 		String encType = "utf-8";
 		
@@ -201,7 +202,8 @@ public class BoardController extends HttpServlet{
 		BoardDAO dao = BoardDAO.getInstance();
 		BoardDTO board = new BoardDTO();
 		
-		String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		//String realFolder = "D:\\SaltLand\\SaltLand\\WebContent\\resources\\image";
+		String realFolder = "D:\\Study_Programming\\Web_programming\\SaltLand\\WebContent\\resources\\image";
 		int maxSize = 5*1024*1024;
 		String encType = "utf-8";
 		

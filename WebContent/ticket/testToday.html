@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 id="testToday"></h1>
+    <script type="text/javascript">
+        
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth()+1;
+        var day = time.getDate(); 
+        
+    function testToday(){    
+        var time = new Date();
+        var year = time.getFullYear();
+        var month = time.getMonth()+1;
+        var day = time.getDate(); 
+        document.write(year + "/" + harold(month) + "/" + harold(day));
+        document.getElementById("testToday").innerHTML = year + "/" + harold(month) + "/" + harold(day)
+    }
+    testToday();
+    function harold(standIn) {
+        if (standIn < 10) {standIn = '0' + standIn}                 
+        return standIn;
+        }
+    
+    
+    
+    </script>
+</body>
+</html>

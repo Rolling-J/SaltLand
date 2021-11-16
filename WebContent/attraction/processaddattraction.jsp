@@ -4,18 +4,17 @@
 <%@ page import="com.oreilly.servlet.multipart.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.*"%>
-<%@ include file="dbconn.jsp" %>
-
+<%@ include file="/resources/database/dbconn.jsp" %>
 <%
 	request.setCharacterEncoding("UTF-8");
 
 	String filename = "";
-	String realFolder = "C:\\upload";
+	String realFolder = "D:\\Study_Programming\\Web_programming\\SaltLand\\WebContent\\resources\\image";
 	String encType = "utf-8";
 	int maxSize = 5 * 1024 * 1024;
 	
 	MultipartRequest multi = new MultipartRequest(request, realFolder, maxSize, encType, new DefaultFileRenamePolicy());
-	
+	String id = multi.getParameter("id");
 	String name = multi.getParameter("name");
 	String info = multi.getParameter("info");
 	String tag = multi.getParameter("tag");
@@ -29,15 +28,16 @@
 	
 	PreparedStatement pstmt = null;
 
-	String sql = "insert into attraction values(?,?,?,?,?,?,?)";
+	String sql = "insert into attraction values(?,?,?,?,?,?,?,?)";
 	pstmt= conn.prepareStatement(sql);
-	pstmt.setString(1, name);
-	pstmt.setString(2, info);
-	pstmt.setString(3, tag);
-	pstmt.setString(4, ride);
-	pstmt.setString(5, age);
-	pstmt.setString(6, tall );
-	pstmt.setString(7, filename);
+	pstmt.setString(1, id);
+	pstmt.setString(2, name);
+	pstmt.setString(3, info);
+	pstmt.setString(4, tag);
+	pstmt.setString(5, ride);
+	pstmt.setString(6, age);
+	pstmt.setString(7, tall );
+	pstmt.setString(8, filename);
 	pstmt.executeUpdate();
 
 

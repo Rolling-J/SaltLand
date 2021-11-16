@@ -24,7 +24,7 @@
 %>
 </head>
 <body>
-   <jsp:include page="menu.jsp"/>
+   <jsp:include page="/menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>즐길거리>어트랙션</p>
         <div class="s_title">
@@ -64,7 +64,7 @@
     		
     		
     <div class="card_box">
-    <%@include file="dbconn.jsp"%>
+    <%@ include file="/resources/database/dbconn.jsp" %>
     <%
     	PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -78,20 +78,20 @@
             <div class="in_card">
                 <span class="tag"><%=rs.getString("tag")%></span>
             </div>    
-                 <img src="c:/upload/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
+                 <img src="/a/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
             <div class="con">
                 <h4 class="con1"><%=rs.getString("name")%></h4>
             </div>   
             <%
              if(edit.equals("update")){
             %>
-            <a href="./updateattraction.jsp?name=<%=rs.getString("name") %>"
-            class="s_btn" role= "button">수정 &raquo;></a>
+            <a href="./updateattraction.jsp?id=<%=rs.getString("id") %>"
+            class="eidt_btn" role= "button">수정</a>
              <% 
              } else if(edit.equals("delete")){
              %>
              <a href="#" onclick="deleteConfirm('<%=rs.getString("name")%>')" 
-             class="s_btn" role= "button">삭제 &raquo;></a>
+             class="eidt_btn" role= "button">삭제</a>
              <%
              }
              %>       
@@ -107,36 +107,7 @@
     %>
     </div>
 
+<jsp:include page="/footer.jsp"/>
 
-<footer>
-    <div class="footer_box">
-
-      <div class="footer_content">
-
-        <div class="company">
-          <h4>솔트랜드</h4>
-          <div class="list">
-            <p>주소: 어디어디</p>
-            <p>tel-xxx-xxx-xxx</p>
-            <p>고객센터 문의</p>
-            <p>jopixim237@jesdoit.com</p>
-          </div>
-        </div>
-        
-        <div class="company">
-          <h4>sns</h4>
-          <div class="sns">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-  </div>
-</footer>
 </body>
 </html>

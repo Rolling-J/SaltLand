@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/SaltProject/resources/css/updateMember.css">
-    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 <%
 	String sessionId = (String)session.getAttribute("sessionId"); 
+	
 %>
 <sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234" />
 <sql:query dataSource="${dataSource}" var="resultSet">
@@ -18,11 +19,62 @@
 	<sql:param value="<%=sessionId %>" />
 </sql:query>
 
+<script type="text/javascript">
+	function init(){
+		setComboMailValue("${email2}");
+		setComboPhoneValue("${phone_0}");
+		setComboGenderValue("${gender}");
+		console.log("${gender}");
+	}
+	
+	function setComboMailValue(val){
+		var selectMail = document.getElementById('email2');
+		for(i=0; j= selectMail.length; i<j; i++){
+			if(selectMail.options[i].value == val){
+				selectMail.options[i].selected = true;
+				
+				break;
+			}
+		}
+	}
+	
+	function setComboPhoneValue(val){
+		var selectPhone = document.getElementById('phone_0');
+		for(i=0; j= selectPhone.length; i<j; i++){
+			if(selectPhone.options[i].value == val){
+				selectPhone.options[i].selected = true;
+				break;
+			}
+		}
+	}
+	
+	function setComboGenderValue(val){
+		var selectGender = document.getElementById('gender');
+		for(i=0; j= selectGender.length; i<j; i++){
+			if(selectGender.options[i].value.equals(val)){
+				selectGender.options[i].selected = true;
+				break;
+			}
+		}
+	}
+	
+	function checkForm(){
+
+		if(!document.updateMemberForm.password.value){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		if(document.updateMemberForm.password.value != document.updateMemberForm.password_confirm.value){
+			alert("비밀번호를 동일하게 입력하세요");
+			return false;
+		}
+	}
+</script>
 
     <title>회원 수정</title>
 </head>
 <body onload="init()">
-    <jsp:include page="../bar.jsp"></jsp:include>
+    <jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
@@ -121,57 +173,6 @@
         </div>
     </section>
     <jsp:include page="../footer.jsp"></jsp:include>
-    <script type="text/javascript">
-	function init(){
-		setComboMailValue("${email2}");
-		setComboPhoneValue("${phone_0}");
-		setComboGenderValue("${gender}");
-		console.log("${gender}");
-	}
-	
-	function setComboMailValue(val){
-		var selectMail = document.getElementById('email2');
-		for(i=0; j= selectMail.length; i<j; i++){
-			if(selectMail.options[i].value == val){
-				selectMail.options[i].selected = true;
-				
-				break;
-			}
-		}
-	}
-	
-	function setComboPhoneValue(val){
-		var selectPhone = document.getElementById('phone_0');
-		console.log("${gender}");
-		for(i=0; j= selectPhone.length; i<j; i++){
-			if(selectPhone.options[i].value == val){
-				selectPhone.options[i].selected = true;
-				break;
-			}
-		}
-	}
-	
-	function setComboGenderValue(val){
-		var selectGender = document.getElementById('gender');
-		for(i=0; j= selectGender.length; i<j; i++){
-			if(selectGender.options[i].value.equals(val)){
-				selectGender.options[i].selected = true;
-				break;
-			}
-		}
-	}
-	
-	function checkForm(){
-
-		if(!document.updateMemberForm.password.value){
-			alert("비밀번호를 입력하세요");
-			return false;
-		}
-		if(document.updateMemberForm.password.value != document.updateMemberForm.password_confirm.value){
-			alert("비밀번호를 동일하게 입력하세요");
-			return false;
-		}
-	}
-</script>
+    
 </body>
 </html>

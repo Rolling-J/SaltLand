@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" href="main.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
+    <link rel= "stylesheet" href="/SaltProject/resources/css/main.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/a3555d8f42.js" crossorigin="anonymous"></script>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
@@ -25,11 +27,11 @@
       }
       setInterval(clock, 1000);
     </script>
-    <link rel="stylesheet" href="./resources/css/main.css" />
+    <link rel="stylesheet" href="/SaltProject/resources/css/main.css" />
      
 </head>
 <body>
-   <jsp:include page="menu.jsp"/>
+   <jsp:include page="/menu.jsp"/>
     <!-- 슬라이드 이미지 -->
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
@@ -106,7 +108,6 @@
            </div>
           </div>
 
-
           <!-- 예약 -->
           <div class="check">
              <div class="check_box">
@@ -136,17 +137,10 @@
               <i class="fas fa-bus"></i>
               <strong class="bus_station"><a href="bus.jsp">위치확인하기</a></strong>
              </div>
-
           </div>
-          
-          
         </div>        
       </div>
 
-
-      
-      
-    
       <!-- 어트랙션 미리보기 -->  
       <strong><div class="hr-play">다양한 어트랙션</div></strong>
      
@@ -181,9 +175,9 @@
             </div>
             <button id="play_btn2"><a href="attractions.jsp">더 많은 어트랙션보기</a></button>
         </div>
-  		<%response.setIntHeader("Refresh", 5);%>
+  		
         <!--하단 영역 -->
-        <jsp:include page="footer.jsp"/>
+        <jsp:include page="/footer.jsp"/>
 
 </body>
 </html>

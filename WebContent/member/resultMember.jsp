@@ -9,7 +9,7 @@
 <title>회원 정보</title>
 </head>
 <body>
-	<jsp:include page="../bar.jsp" />
+	<jsp:include page="/menu.jsp" />
 	<section id="reserve_main">
         <div class="background">
             <div class="wrap_body">

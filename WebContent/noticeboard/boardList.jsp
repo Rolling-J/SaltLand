@@ -10,7 +10,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/SaltProject/resources/css/boardList.css">
-    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 
     <title>공지 게시판</title>
 </head>
@@ -22,7 +23,7 @@
 	int pageNum = ((Integer) request.getAttribute("pageNum")).intValue();
 	int total_page = ((Integer) request.getAttribute("total_page")).intValue();
 %>
-    <jsp:include page="/bar.jsp"></jsp:include>
+    <jsp:include page="/menu.jsp"></jsp:include>
     <form action="<c:url value="./BoardListAction.do"/>" method="post">
 	    <div class="a_box">
 	        <p class="category"> 홈>이용가이드>공지 및 알림</p>
@@ -39,7 +40,7 @@
 	                    </select>
 	                    <input type="text" name="s_text">
 	                </div>
-	                <input type=submit class="search_btn" value="제목 검색">
+	                <input type=submit class="search_btn" value="검색">
 	            </div>
 	        </div>
 	    </div>

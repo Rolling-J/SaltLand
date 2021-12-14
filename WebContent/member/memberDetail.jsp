@@ -1,6 +1,9 @@
+<%@page import="dao.TicketDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+<%@ page import="java.util.*"%>
+<%@ page import="dto.Ticket"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +24,8 @@
     <title>회원 정보</title>
 </head>
 <body>
-    <jsp:include page="../bar.jsp"></jsp:include>
+	<script type="text/javascript" src="/SaltProject/resources/JS/memberDetailTab.js"></script>
+    <jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
@@ -31,12 +35,6 @@
                             <p>회원 정보</p>
                          </div>
                         <div class="divine"></div>
-                        <!-- two taps -->
-                        <div class="tap_box">
-                        	<a class="tapBtn selected">회원 정보</a>
-                        	<a class="tapBtn">티켓 예약 정보</a>
-                        </div>
-                        <!-- tap containers -->
                         <div class="info_box selected"> <!-- login tap container -->
                         	<c:forEach var="row" items="${resultSet.rows}">
 	                            <div class="ps_container">
@@ -70,17 +68,57 @@
 	                                        <p>전화번호 : <c:out value="${row.phone }" /></p>
 	                                    </div>
 	                                </div>
-	                                <!-- divineLine and TicketList will be here
-	                                <div class="divine_h"></div>
-	                                 -->
+	                                
+	                                	<div class="table_box">
+					                    	<table class="tbl_header">
+												<thead>
+											    	<tr>
+											        	<th>방문일</th>
+											            <th>인원 (성인/청소년/어린이)</th>
+											            <th>예약 일시</th>
+											        </tr>
+											    </thead>
+										         <tbody>
+										            <%
+										            	TicketDAO dao = TicketDAO.getInstance();
+														List<Ticket> ticketList = dao.getTicketList(sessionId);
+														
+														for(int j = 0; j <ticketList.size(); j++){
+															Ticket ticket = (Ticket) ticketList.get(j);
+													%>
+													<tr>
+														<td>
+															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
+																<%=ticket.getVisit_date() %>
+															</a>
+														</td>
+														<td>
+															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
+																<%=ticket.getAdult() %>/<%=ticket.getTeenager() %>/<%=ticket.getChildren() %>
+															</a>
+														</td>
+														<td>
+															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
+																<%=ticket.getReserve_time() %>
+															</a>
+														</td>
+													</tr>
+													<%
+														}
+													%>
+												</tbody>
+											</table>
+										</div>
+									
 	                            </div>
 	                            <div class="btn_box">
-	                                	<a href="updateMember.jsp" class="btn_a">회원수정</a>
-	                                	<a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
+	                                <a href="updateMember.jsp" class="btn_a">회원수정</a>
+	                                <a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
 	                            </div>
                             </c:forEach>
                         </div><!-- login tap container end -->
-                        <div class="info_box">
+                        <div class="info_box selected">
+                        	
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@
     <title>로그인</title>
 </head>
 <body>
-    <jsp:include page="../bar.jsp"></jsp:include>
+    <jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">

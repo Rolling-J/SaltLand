@@ -21,7 +21,7 @@
     <title>공지 글</title>
 </head>
 <body>
-    <jsp:include page="/bar.jsp"/>
+    <jsp:include page="/menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>이용가이드>공지 및 알림</p>
         <div class="center_box">

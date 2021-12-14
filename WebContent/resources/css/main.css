@@ -173,6 +173,7 @@
 .bus_line{
  padding: 0px 35px;
 }
+
 .train-line {
   width: 40px;
   height: 1px;
@@ -282,7 +283,7 @@
 	margin: 0px 16px;
 }
 
-/* �뜑 留롮� �뼱�듃�옓�뀡 */
+/* play cards */
 
 .play{
   background: url(https://adventure.lotteworld.com/common/images/icon/mainCon3_bg.jpg);
@@ -310,7 +311,7 @@
 }
 
 
-/* 移대뱶諛뺤뒪 */
+/* play cards */
 
 .card_box{
   margin: auto;
@@ -343,7 +344,7 @@
   float: left;
   margin: 15px 5px;
 }
-/* �뜑 留롮� �뼱�듃�옓�뀡 蹂닿린 踰꾪듉 */
+/* play btn */
 
 #play_btn2 a{
   text-decoration: none;
@@ -368,7 +369,6 @@
  
 }
  
-/* �븯�떒 �쁺�뿭 */
 
 
 

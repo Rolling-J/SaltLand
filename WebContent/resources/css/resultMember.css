@@ -5,14 +5,10 @@
     list-style: none;
     text-decoration: none;
 }
-/*head �꽕�젙*/
-#navbar{
-    background-color: indigo;
-    height: 50px;
-}
-/*諛곌꼍�꽕�젙*/
+
+/*background*/
 .background{
-    background-image: url(/SaltProject/resources/resources/image/event02.jpg);
+    background-image: url(/SaltProject/resources/image/event02.jpg);
     background-repeat: no-repeat;
     background-position: 50% 0;
     justify-content: center;

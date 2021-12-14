@@ -1,27 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
-
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/SaltProject/resources/css/attractions.css" />
+    <link rel="stylesheet" href="/SaltProject/resources/css/editAttraction.css" />
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/a3555d8f42.js" crossorigin="anonymous"></script>
-    <script type="text/javascript">
-	function search() {
-		var tb = document.getElementById("p_search");
-		var tbIndex = document.getElementById("p_search").options.selectedIndex;
-		
-		console.log("tb value : " + tb.options[tbIndex].value);
+
+<script type="text/javascript">
+	function deleteConfirm(name) {
+		if (confirm("해당 상품을 삭제합니다!!") == true)
+			location.href = "/SaltProject/attraction/deleteattraction.jsp?name=" + name;
+		else
+			return;
 	}
 </script>
+</head>
+<%
+	String edit = request.getParameter("edit");
+%>
 </head>
 <body>
 <div class="all">
@@ -38,7 +41,7 @@
     <div class="search_box">       
         <div class="inp">
             <h3>조건 검색</h3>
-            <form method="post" action="attractions.jsp" class="search" accept-charset="utf-8">
+            <form method="post" action="/SaltProject/attraction/editAttraction.jsp" class="search">
                 <select class="p_search" name="p_search">
                 	<option value="all" selected>(분류-전체)</option>
                     <option value="survival">서바이벌</option>
@@ -66,32 +69,18 @@
         </div>
     </div>
     		
-    <%
-    	String sessionId = (String)session.getAttribute("sessionId");	
-    %>		
-    
+    		
     <div class="card_box">
-    <%
-    	if(sessionId!=null){
-    %>
-    	<div class="btns">
-	     	<a href="/SaltProject/attraction/addAttraction.jsp">어트렉션 등록</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=update">어트렉션 수정</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=delete">어트렉션 삭제</a>
- 		</div>
-	<%
-    	}
-	%>
     <%@ include file="/resources/database/dbconn.jsp" %>
     <%
     	PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
+	
 		request.setCharacterEncoding("utf-8");
 		String p_search = request.getParameter("p_search");
 		String age_search = request.getParameter("age_search");
 		String tall_search = request.getParameter("tall_search");
-	
+		
 		String sql = "select * from attraction";
 		if ((p_search==null||p_search.equals("all")) && (age_search==null||age_search.equals("all")) && (tall_search==null||tall_search.equals("all"))){
 			sql = "select  * from attraction";
@@ -115,16 +104,17 @@
 				sql = sql + " where tall='"+tall_search+"'";
 			}
 		}
+		
 		System.out.println(sql); //sql console에서 확인
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
     %> 
-        <a href="./dp.jsp?id=<%=rs.getString("id")%>" class="card1">
+        <div class="card1">
             <div class="in_card">
                 <span class="tag">
-                	<%
+					<%
                 		switch(rs.getString("tag")){
                 			case "survival" :
                 				%>
@@ -160,14 +150,29 @@
                 				System.out.print("Warning : tag error");
                 		}
                 	%>
-                </span>
+				</span>
             </div>    
                  <img src="/SaltProject/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
             <div class="con">
                 <h4 class="con1"><%=rs.getString("name")%></h4>
-            </div>           
-        </a>
-      <%
+                <div class="btn_edit">
+    		<%
+             	if(edit.equals("update")){
+ 			%>
+            	<a href="/SaltProject/attraction/updateAttraction.jsp?id=<%=rs.getString("id") %>" class="eidt_btn" role= "button">수정</a>
+            <%
+             	} else if(edit.equals("delete")){
+            %>
+             	<a href="#" onclick="deleteConfirm('<%=rs.getString("name")%>')" class="eidt_btn" role= "button">삭제</a>
+            <%
+             	}
+            %>
+
+				</div>
+            </div>    
+        	
+        </div>     
+		<%
 			}
 		if (rs != null)
 			rs.close();
@@ -175,9 +180,10 @@
 			pstmt.close();
 		if (conn != null)
 			conn.close();
-    %>
+	%>
     </div>
 </div>
 <jsp:include page="/footer.jsp"/>
+
 </body>
 </html>

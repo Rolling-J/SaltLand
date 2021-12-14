@@ -8,7 +8,12 @@
 <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
 <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 
-<script type="text/javascript">
+
+
+<title>회원 가입</title>
+</head>
+<body>
+	<script type="text/javascript">
 	
 	function checkForm(){
 
@@ -21,12 +26,8 @@
 			return false;
 		}
 	}
-</script>
-
-<title>회원 가입</title>
-</head>
-<body>
-	<jsp:include page="../bar.jsp"></jsp:include>
+	</script>
+	<jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">

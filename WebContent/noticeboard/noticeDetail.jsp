@@ -20,7 +20,7 @@
     <title>공지 글</title>
 </head>
 <body>
-    <jsp:include page="/bar.jsp"/>
+    <jsp:include page="/menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>이용가이드>공지 및 알림</p>
         <div class="center_box">
@@ -52,7 +52,6 @@
                 <div class="board_body">
                     <div class="body_text">
                         <div class="board_img">
-                        	<c:out value="<%=notice.getFileName() %>" />
                             <img src="/SaltProject/resources/image/<%=notice.getFileName() %>">
                         </div>
                         <p><c:out value="<%=notice.getContent() %>" /></p>

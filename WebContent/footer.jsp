@@ -5,14 +5,12 @@
 <head>
 <meta charset="utf-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="./resources/css/footer.css" />
+<link rel="stylesheet" href="/resources/css/footer.css" />
 </head>
 <body>
 <footer>
     <div class="footer_box">
-
       <div class="footer_content">
-
         <div class="company">
           <h4>솔트랜드</h4>
           <div class="list">
@@ -22,7 +20,6 @@
             <p>jopixim237@jesdoit.com</p>
           </div>
         </div>
-        
         <div class="company">
           <h4>sns</h4>
           <div class="sns">
@@ -32,11 +29,8 @@
             <a href="#"><i class="fab fa-linkedin-in"></i></a>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
-  </div>
 </footer>
 </body>
 </html>

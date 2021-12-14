@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 	<security-role>
-		<description></description>
+		<description>Manager</description>
 		<role-name>admin</role-name>
 	</security-role>
 	<security-constraint>
 		<display-name>SaltLand Security</display-name>
 		<web-resource-collection>
-			<web-resource-name>SaltLand</web-resource-name>
+			<web-resource-name>SaltLand board Manage</web-resource-name>
 			<description></description>
-			<url-pattern>/reservation.html</url-pattern>
+			<url-pattern>/noticeboard/addNotice.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<description>권한관리자명</description>
@@ -19,8 +19,8 @@
 	<login-config>
 		<auth-method>FORM</auth-method>
 		<form-login-config>
-			<form-login-page>/login.html</form-login-page>
-			<form-error-page>/login_failed.jsp</form-error-page>
+			<form-login-page>/member/login.jsp</form-login-page>
+			<form-error-page>/member/login_failed.jsp</form-error-page>
 		</form-login-config>
 	</login-config>
 	

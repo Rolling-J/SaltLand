@@ -20,7 +20,7 @@
 		attractionbox dao = attractionbox.getInstance();
 		attraction attraction = dao.getattractionByname(name);
 	%>
-    <jsp:include page="bar.jsp"/>
+    <jsp:include page="menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>즐길거리>어트랙션</p>
         <div class="s_title">

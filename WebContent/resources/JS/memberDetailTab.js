@@ -1,5 +1,5 @@
-const tab_btn = document.querySelectorAll(".cont_block");
-const tab_cont = document.querySelectorAll(".event_cont");
+const tab_btn = document.querySelectorAll(".tapBtn");
+const tab_cont = document.querySelectorAll(".info_box");
 const tab1 = document.querySelector(".tab1");
 const tab2 = document.querySelector(".tab2");
 

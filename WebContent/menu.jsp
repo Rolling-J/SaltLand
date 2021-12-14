@@ -12,17 +12,13 @@
 </head>
 <body>
 <header>
-    <a class="logo" href="main.jsp"><img src="./resources/image/로고.png" alt="logo"></a>
+    <a class="logo" href="/SaltProject/main.jsp"><img src="/SaltProject/resources/image/logo.png" alt="logo"></a>
     <nav>
         <ul class="nav__links">
-            <li><a href="/attraction/attractions.jsp">어트랙션</a></li>
-            <li><a href="/ticket/reservation.jsp">예매</a></li>
-            <li><a href="/bus.jsp">오시는 길</a></li>
-            <li><a href="/member/memberDetail.jsp">회원정보</a></li>
-            <li><a href="add.jsp">어트렉션 등록</a></li>
-            <li><a href="./editattraction.jsp?edit=update">어트렉션 수정</a></li>
-            <li><a href="./editattraction.jsp?edit=delete">어트렉션 삭제</a></li>
-
+            <li><a href="/SaltProject/attraction/attractions.jsp">어트랙션</a></li>
+            <li><a href="/SaltProject/bus.jsp">오시는 길</a></li>
+            <li><a href="<c:url value="/BoardListAction.do?pageNum=1" />">공지사항</a></li>
+            <li><a href="/SaltProject/ticket/reservation.jsp">예매</a></li>
         </ul>
     </nav>
     <c:choose>

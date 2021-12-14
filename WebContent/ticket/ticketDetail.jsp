@@ -14,47 +14,64 @@
     <title>티켓 확인</title>
 </head>
 <body>
-	<jsp:include page="/bar.jsp"></jsp:include>
+<%
+	String reserve_num = request.getParameter("reserve_num");
+%>
+	<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234" />
+	<sql:query dataSource="${dataSource}" var="resultSet">
+		select * from ticket where reserve_num = ?
+		<sql:param value="<%=reserve_num %>" />
+
+	</sql:query>
+	
+	<jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
             <div class="wrap_body">
                 <div class="content_box">
                     <div class="box_wrap">
-                        <div class="box_head">
-                            <p>티켓 정보</p>
-                        </div>
-                        <div class="ticket_box">
-                            <div class="ticket_bg">
-                                <div class="ticket_title"> 
-                                    <p>Salt Land Ticket</p>
-                                </div> 
-                                <div class=ticket_info>
-                                    <div id="information" class="tkt_img">
-                                        <img src="./image/event02.jpg">
-                                    </div>
-                                    <div id="information" class="tkt_text">
-                                        <ul>
-                                            <li>
-                                                <p class="text_tl">방문 일자</p>
-                                                <p class="text_cont">2021. 10. 30 (토)</p>
-                                            </li>
-                                            <li>
-                                                <p class="text_tl">방문 인원</p>
-                                                <p class="text_cont">성인 3 명 / 청소년 2 명 / 어린이 1 명</p>
-                                            </li>
-                                            <li>
-                                                <p class="text_tl">티켓 가격</p>
-                                                <p class="text_cont">165,000 원</p>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="btn_box"> <!-- 로그인하러 가기 버튼-->
-                            <a href="#">예약 취소</a>
-                        </div>
+                    	<form class="detail_box" name="reserveTicket" action="/SaltProject/ticket/deleteTicket.jsp"  method="post">
+	                        <div class="box_head">
+	                            <p>티켓 정보</p>
+	                        </div>
+	                        <div class="ticket_box">
+	                            <div class="ticket_bg">
+	                                <div class="ticket_title"> 
+	                                    <p>Salt Land Ticket</p>
+	                                </div> 
+	                                <div class=ticket_info>
+	                                    <div id="information" class="tkt_img">
+	                                        <img src="./resources/image/event02.jpg">
+	                                    </div>
+	                                    <div id="information" class="tkt_text">
+	                                    	<c:forEach var="row" items="${resultSet.rows}">
+		                                        <ul>
+		                                            <li>
+		                                                <p class="text_tl">방문 일자</p>
+		                                                <p class="text_cont"><c:out value="${row.visit_date }"/></p>
+		                                            </li>
+		                                            <li>
+		                                                <p class="text_tl">방문 인원</p>
+		                                                <p class="text_cont">성인 <c:out value="${row.adult }"/> 명 / 청소년 <c:out value="${row.teenager }"/> 명 / 어린이 <c:out value="${row.children }"/> 명</p>
+		                                            </li>
+		                                            <li>
+		                                                <p class="text_tl">티켓 가격</p>
+		                                                <p class="text_cont"><c:out value="${row.charge }"/> 원</p>
+		                                            </li>
+		                                        </ul>
+		                                        <input type="hidden" name="reserve_num" value="${row.reserve_num }"/>
+	                                        </c:forEach>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="btn_box">
+	                            <a href="/SaltProject/ticket/deleteTicket.jsp?reserve_num=<%=reserve_num %>">예약 취소</a>
+	                            <!-- 
+	                            <input type="submit" value="예약 취소">
+	                             -->
+	                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

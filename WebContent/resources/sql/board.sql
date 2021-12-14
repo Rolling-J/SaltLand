@@ -30,4 +30,3 @@ insert into noticeboard values( null, 'admin', 'boardGM', 'notice','notice001','
 ( null, 'admin', 'boardGM', 'notice','notice008','content001','event02.jpg','2021.10.22', '000.000.000.000'),
 ( null, 'admin', 'Ghost', 'event','HappyHolloween','It is holloween. Trick or treat!','event03.jpg','2021.10.01', '000.000.000.000'),
 ( null, 'admin', 'boardGM', 'notice','notice009','content001','event02.jpg','2021.10.22', '000.000.000.000');
-insert into noticeboard values( null, 'admin', 'boardGM', 'notice','test notice','content001','event02.jpg','2021.10.30', '000.000.000.000');

@@ -8,7 +8,7 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	String filename = "";
+	String fileName = "";
 	String realFolder = "D:\\Study_Programming\\Web_programming\\SaltLand\\WebContent\\resources\\image";
 	String encType = "utf-8";
 	int maxSize = 5 * 1024 * 1024;
@@ -24,9 +24,10 @@
 	
 	Enumeration files = multi.getFileNames();
 	String fname = (String) files.nextElement();
-	String fileName = multi.getFilesystemName(fname);
+	fileName = multi.getFilesystemName(fname);
 	
 	PreparedStatement pstmt = null;
+
 
 	String sql = "insert into attraction values(?,?,?,?,?,?,?,?)";
 	pstmt= conn.prepareStatement(sql);
@@ -37,7 +38,7 @@
 	pstmt.setString(5, ride);
 	pstmt.setString(6, age);
 	pstmt.setString(7, tall );
-	pstmt.setString(8, filename);
+	pstmt.setString(8, fileName);
 	pstmt.executeUpdate();
 
 

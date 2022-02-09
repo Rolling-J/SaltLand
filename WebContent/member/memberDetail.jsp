@@ -9,18 +9,26 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
     <link rel="stylesheet" href="/SaltProject/resources/css/memberDetail.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-<%
-	String sessionId = (String)session.getAttribute("sessionId"); 
-%>
-<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234" />
-<sql:query dataSource="${dataSource}" var="resultSet">
-	select * from member where id = ?
-	<sql:param value="<%=sessionId %>" />
-</sql:query>
-
+	<%
+		String sessionId = (String)session.getAttribute("sessionId"); 
+	%>
+	<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234" />
+	<sql:query dataSource="${dataSource}" var="resultSet">
+		select * from member where id = ?
+		<sql:param value="<%=sessionId %>" />
+	</sql:query>
+	<script type="text/javascript">
+		function deleteConfirm(id) {
+			if (confirm(id+"님, 정말로 회원탈퇴 하시겠습니까?") == true)
+				location.href = "/SaltProject/member/deleteMember.jsp";
+			else
+				return;
+		}
+	</script>
     <title>회원 정보</title>
 </head>
 <body>
@@ -112,8 +120,8 @@
 									
 	                            </div>
 	                            <div class="btn_box">
-	                                <a href="updateMember.jsp" class="btn_a">회원수정</a>
-	                                <a href="deleteMember.jsp" class="btn_a">회원탈퇴</a>
+	                                <a href="/SaltProject/member/updateMember.jsp" class="btn_a">회원수정</a>
+	                                <a href="#" onclick="deleteConfirm('<%=sessionId %>')" class="btn_a" role= "button">회원탈퇴</a>
 	                            </div>
                             </c:forEach>
                         </div><!-- login tap container end -->

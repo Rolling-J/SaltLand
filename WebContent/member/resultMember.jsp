@@ -3,10 +3,11 @@
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <html>
 <head>
-<link rel="stylesheet" href="/SaltProject/resources/css/resultMember.css">
-<link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
-<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-<title>회원 정보</title>
+	<link rel="stylesheet" href="/SaltProject/resources/css/resultMember.css">
+	<link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
+	<script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
+	<title>회원 정보</title>
 </head>
 <body>
 	<jsp:include page="/menu.jsp" />

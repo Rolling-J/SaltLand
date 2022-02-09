@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <html>
 <head>
+	<script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
     <link rel="stylesheet" href="/SaltProject/resources/css/login.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">

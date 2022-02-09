@@ -10,21 +10,25 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/editAttraction.css" />
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/a3555d8f42.js" crossorigin="anonymous"></script>
-
-<script type="text/javascript">
-	function deleteConfirm(name) {
-		if (confirm("해당 상품을 삭제합니다!!") == true)
-			location.href = "/SaltProject/attraction/deleteattraction.jsp?name=" + name;
-		else
-			return;
-	}
-</script>
-</head>
-<%
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
+	<script type="text/javascript">
+		function deleteConfirm(id) {
+			if (confirm("해당 어트랙션을 삭제합니다!") == true)
+				location.href = "/SaltProject/attraction/deleteAttraction.jsp?id=" + id;
+			else
+				return;
+		}
+	</script>
+	<%
+	request.setCharacterEncoding("utf-8");
 	String edit = request.getParameter("edit");
-%>
+	String p_search = request.getParameter("p_search");
+	String age_search = request.getParameter("age_search");
+	String tall_search = request.getParameter("tall_search");
+	System.out.println("edit : "+edit);
+	%>
+	<title>어트랙션</title>
+
 </head>
 <body>
 <div class="all">
@@ -41,21 +45,21 @@
     <div class="search_box">       
         <div class="inp">
             <h3>조건 검색</h3>
-            <form method="post" action="/SaltProject/attraction/editAttraction.jsp" class="search">
+            <form method="post" action="/SaltProject/attraction/editAttraction.jsp?edit=<%=edit %>" class="search">
                 <select class="p_search" name="p_search">
                 	<option value="all" selected>(분류-전체)</option>
-                    <option value="survival">서바이벌</option>
-                    <option value="horror">호러</option>
-                    <option value="adventure">어드벤쳐</option>
-                    <option value="experience">체험관</option>
-                    <option value="kiddyzone">키디존</option>
-                    <option value="photozone">포토존</option>
+                    <option value="survival" >서바이벌</option>
+                    <option value="horror" >호러</option>
+                    <option value="adventure" >어드벤쳐</option>
+                    <option value="experience" >체험관</option>
+                    <option value="kiddyzone" >키디존</option>
+                    <option value="photozone" >포토존</option>
                 </select>
                 <select class="age_search" name="age_search">
                 	<option value="all" selected>(연령제한-전체)</option>
-                    <option value="0~8">0세~8세</option>
-        			<option value="9~64">9세~64세</option>
-        			<option value="none">제한 없음</option>
+                    <option value="0~8" >0세~8세</option>
+        			<option value="9~64" >9세~64세</option>
+        			<option value="none" >제한 없음</option>
                 </select>
                 <select class="tall_search" name="tall_search">
                 	<option value="all" selected>(키 제한-전체)</option>
@@ -68,18 +72,25 @@
             </form>
         </div>
     </div>
-    		
-    		
+    <%
+    	String sessionId = (String)session.getAttribute("sessionId");	
+    %>	
     <div class="card_box">
+    <%
+    	if(sessionId!=null){
+    %>
+    	<div class="btns">
+	     	<a href="/SaltProject/attraction/addAttraction.jsp">어트렉션 등록</a>
+	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=update">어트렉션 수정</a>
+	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=delete">어트렉션 삭제</a>
+ 		</div>
+	<%
+    	}
+	%>
     <%@ include file="/resources/database/dbconn.jsp" %>
     <%
     	PreparedStatement pstmt = null;
 		ResultSet rs = null;
-	
-		request.setCharacterEncoding("utf-8");
-		String p_search = request.getParameter("p_search");
-		String age_search = request.getParameter("age_search");
-		String tall_search = request.getParameter("tall_search");
 		
 		String sql = "select * from attraction";
 		if ((p_search==null||p_search.equals("all")) && (age_search==null||age_search.equals("all")) && (tall_search==null||tall_search.equals("all"))){
@@ -163,7 +174,7 @@
             <%
              	} else if(edit.equals("delete")){
             %>
-             	<a href="#" onclick="deleteConfirm('<%=rs.getString("name")%>')" class="eidt_btn" role= "button">삭제</a>
+             	<a href="#" onclick="deleteConfirm('<%=rs.getString("id")%>')" class="eidt_btn" role= "button">삭제</a>
             <%
              	}
             %>

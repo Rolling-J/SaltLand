@@ -28,6 +28,7 @@
 }
 .contents_wrap{
     height: 100%;
+    background-color: lightgray;
     color : black;  
 }
 /*contents-head*/
@@ -47,33 +48,44 @@
     padding-top: 10px;
 }
 /*divine*/
-.divine_h{
+.divine_5{
     height: 5px;
     background-color: lightgray;
 }
-
-/*contents-sellect*/
-/*1.sellect-head*/
-.contents_sellect{
+.divine_2{
+    height: 2px;
     background-color: lightgray;
 }
-.sellect_head{
-    background-color: white;
+/*select-head*/
+.select_head{
+	background-color: white;
     display: flex;
     justify-content: space-between;
-    padding: 20px 45px 15px;
+    text-align: center;
+    padding: 20px 0px;
+}
+.select_title{
+	margin: 0 auto;
 }
 .title_txt{
     font-size: 20px;
+    font-weight: bold;
+}
+.title_underbar{
+    height: 3px;
+    background-color: rgb(155, 89, 182);
+    margin-top: 2px;
 }
 
-/*2.sellect-date*/
-.sellect_date{
-    padding-top: 1px;
-}
-.wrap_date{
-    padding: 20px 50px 20px;
+/*contents-select*/
+.contents_select{
     background-color: white;
+    padding: 0 ;
+
+}
+/*2.select-date*/
+.select_date{
+    padding: 15px 150px;
 }
 .reserve_date{
     display: flex;
@@ -104,13 +116,12 @@
 }
 
 
-/*3.sellect-people*/
+/*3.select-people*/
 .count_people{
     margin-top: 1px;
     display: flex;
     justify-content: space-between;
-    padding: 25px 50px 30px;
-    background-color: white;
+    padding: 15px 150px;
 }
 .cnt_adult , .cnt_teenager , .cnt_child{
     display: flex;
@@ -143,24 +154,26 @@
 
 /*4.total charge*/
 .chargeBlock{
-    margin-top: 1px;
+    width: 240px;
     display: flex;
-    padding: 25px 50px 30px;
-    background-color: white;
+    justify-content: space-between;
 	font-size: 16px;
+	padding: 25px 50px 30px;
+	margin: 0 auto;
 }
 .charge_des{
 	padding-right: 10px;
 }
 .charge_nb{
+	
 	color:blue;
 }
 /* reserve button*/
 .reserve{
     background-color: white;
-    padding: 15px 0 30px;
     display: flex;
     justify-content: center;
+    padding: 15px 0 30px;
 }
 .reserve > input{
     height: 40px;

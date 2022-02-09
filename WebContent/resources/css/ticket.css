@@ -5,12 +5,8 @@
     list-style: none;
     text-decoration: none;
 }
-/*head �꽕�젙*/
-#navbar{
-    background-color: indigo;
-    height: 50px;
-}
-/*諛곌꼍�꽕�젙*/
+
+/*background*/
 .background{
     background-image: url(/SaltProject/resources/image/bg_pc_visual.png);
     background-repeat: no-repeat;
@@ -32,7 +28,7 @@
     width: 800px;
     margin: 0 auto;
     padding: 20px 15px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.842);
     border: 2px solid lightblue;
     border-radius: 15px;
 }
@@ -47,7 +43,7 @@
 
 /*ticket*/
 .ticket_box{
-    background-image: url(./image/paper_bg.jpg);
+    background-image: url(/SaltProject/resources/image/paper_bg.jpg);
     border-radius: 5px;
     padding: 15px 30px;
     margin-top: 20px;

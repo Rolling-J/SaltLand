@@ -46,7 +46,6 @@
 .ps_container{
     display: flex;
     justify-content: space-around;
-    background-color: lightblue;
     padding: 15px 30px;
     
 }
@@ -56,7 +55,7 @@
     font-size: 15px;
     margin-right:20px;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
 }
 #input_box{
     margin: 10px 0;

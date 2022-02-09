@@ -24,6 +24,7 @@
     color: white;
   }
   .a_box >.s_title{
+  	width: 1300px;
     position:absolute;
     top:50%;
     left:50%;
@@ -32,18 +33,31 @@
     color: white;
 }
 .a_box >.s_title> .a{
-  font-size: 50px;
-  text-shadow: 5px -3px 5px rgba(12, 11, 11, 0.342);
+	font-size: 50px;
+	text-shadow: 5px -3px 5px rgba(12, 11, 11, 0.342);
 }
 .pb{
-  margin-top: 10px;
+	margin-top: 10px;
 }
+/*  */
 .at_box{
-margin: 100px;
-display: flex;
+	width: 1300px;
+	display: flex;
+	justify-content: space-between;
+	margin: 100px auto;
+
 }
-.r_box{
-  margin: 50px;
+.ride, .ride_info{
+  width: 300px;
+  height: 350px;
+  text-align: center;
+  background-color: rgb(255, 255, 255);
+}
+.care{
+  text-align: center;
+  width: 500px;
+  height: 343px; 
+  background-color: rgb(255, 255, 255);
 }
 .fas{
   color: rgba(141, 53, 153, 0.8);
@@ -58,27 +72,9 @@ display: flex;
   margin-top: 50px;
   font-size: 35px;
 }
-.ride{
-  margin-left: 50px;
-  margin: auto;
-}
 
-.ride, .ride_info{
-  width: 220px;
-  height: 350px;
-  text-align: center;
-  background-color: rgb(255, 255, 255);
-}
-.ride_info{
-  margin-right: auto;
-}
-.care{
-  text-align: center;
-  margin-right: 15%;
-  width: 500px;
-  height: 343px; 
-  background-color: rgb(255, 255, 255);
-}
+
+
 .ti{
   text-align: center;
   font-size: 25px;

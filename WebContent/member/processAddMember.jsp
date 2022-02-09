@@ -17,11 +17,10 @@
 	String mail1 = request.getParameter("email1");
 	String mail2 = request.getParameter("email2");
 	String mail = mail1 + "@" + mail2;
-	String phone0 = request.getParameterValues("phone_0")[0];
 	String phone1 = request.getParameter("phone_1");
 	String phone2 = request.getParameter("phone_2");
 	String phone3 = request.getParameter("phone_3");
-	String phone = phone0 + " / " + phone1 + "-" + phone2 + "-" + phone3;
+	String phone = phone1 + "-" + phone2 + "-" + phone3;
 	
 	Date currentDatetime = new Date(System.currentTimeMillis());
 	java.sql.Date sqlDate = new java.sql.Date(currentDatetime.getTime());

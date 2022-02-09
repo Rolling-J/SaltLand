@@ -92,14 +92,19 @@ body {
     width: 100%;
     margin: 20px 0;
 }
-
+.board_img{
+    margin-bottom: 25px;
+}
+.board_img img{
+    max-width: 100%;
+}
 /* buttons*/
 .buttons{
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
 }
-.personal_btns input, .personal_btns a{
+.personal_btns input{
 	border: none;
     font-size: 14px;
     font-weight: 300;
@@ -115,13 +120,14 @@ body {
 .list_btn{
     text-align: center;
 }
-.list_btn a{
+.personal_btns a, .list_btn a{
 	display:inline-block;
     width: 80px;
     height: 30px;
     line-height: 30px;
     background-color: slateblue;
     text-decoration: none;
+    text-align: center;
     color: white;
     font-size: 14px;
     font-weight: 300;

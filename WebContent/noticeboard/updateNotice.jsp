@@ -15,8 +15,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/SaltProject/resources/css/noticeDetail.css">
-    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
+    <link rel="stylesheet" href="/SaltProject/resources/css/addNotice.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 
     <title>공지 글</title>
 </head>
@@ -39,8 +41,8 @@
                 <div class="board_header">
                     <div class="head_text">
                     	<select class="b_cat" name="category">
-                            <option value="notice">공지</option>
-                            <option value="event">이벤트</option>
+                            <option value="notice" <%if(notice.getCategory().equals("notice")){%>selected<%} %>>공지</option>
+                            <option value="event" <%if(notice.getCategory().equals("event")){%>selected<%} %>>이벤트</option>
                         </select>
                     	<input type="text" name="title" class="b_title" value=" <%=notice.getTitle() %>">
                     	<input type="text" name="name" class="b_name" value=" <%=notice.getName() %>">

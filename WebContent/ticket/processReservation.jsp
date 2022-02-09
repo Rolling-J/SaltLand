@@ -2,12 +2,16 @@
 <%@ page import = "java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-
-<% 
+<%
 	request.setCharacterEncoding("UTF-8");
-
-	String sessionId = (String)session.getAttribute("sessionId"); 
-	
+	String sessionId = (String)session.getAttribute("sessionId");
+	if(sessionId==null){
+%>
+	<script type="text/javascript">
+		window.open("/SaltProject/ticket/popupLogin.jsp","login_popup","width=450, height=300, left=700, top=200");
+	</script>		
+<%
+	}else{
 
 	String r_year = request.getParameter("r_year");
 	String r_month = request.getParameter("r_month");
@@ -17,15 +21,12 @@
 	int teenagerN = Integer.parseInt(request.getParameter("teenagerN"));
 	int childN = Integer.parseInt(request.getParameter("childN"));
 	int charge = Integer.parseInt(request.getParameter("totalC"));
-
 	
 	Date currentDatetime = new Date(System.currentTimeMillis());
 	java.sql.Date sqlDate = new java.sql.Date(currentDatetime.getTime());
 	java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());
 %>
-
 <sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
-
 <sql:update dataSource="${dataSource }" var="ticketResultSet">
 	insert into ticket(id, visit_date, adult, teenager, children, charge, reserve_time) values(?, ?, ?, ?, ?, ?, ?)
 	<sql:param value="<%=sessionId %>"/>
@@ -36,7 +37,9 @@
     <sql:param value="<%=charge %>"/>
 	<sql:param value="<%=timestamp %>"/>
 </sql:update>
-
 <c:if test="${ticketResultSet>=1}">
 	<c:redirect url="/member/memberDetail.jsp" />
 </c:if>
+<%
+	}
+%>

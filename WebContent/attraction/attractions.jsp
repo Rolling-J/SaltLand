@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/attractions.css" />
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/a3555d8f42.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
     <script type="text/javascript">
 	function search() {
 		var tb = document.getElementById("p_search");
@@ -21,7 +20,9 @@
 		
 		console.log("tb value : " + tb.options[tbIndex].value);
 	}
-</script>
+	</script>
+	
+	<title>어트랙션</title>
 </head>
 <body>
 <div class="all">
@@ -29,24 +30,30 @@
     <div class="a_box">
         <p class="category"> 홈>즐길거리>어트랙션</p>
         <div class="s_title">
-            <strong class="a" > 어트랙션</strong>
+            <strong class="a" >어트랙션</strong>
             <p class="pb">일상 속의 짜릿함을 느껴보세요.</p>
         </div>
     </div>
-    
+    <% 
+		request.setCharacterEncoding("utf-8");
+		String p_search = request.getParameter("p_search");
+		String age_search = request.getParameter("age_search");
+		String tall_search = request.getParameter("tall_search");
+		System.out.println("tag : "+p_search);
+	%>
     <!-- 검색 -->
     <div class="search_box">       
         <div class="inp">
             <h3>조건 검색</h3>
             <form method="post" action="attractions.jsp" class="search" accept-charset="utf-8">
                 <select class="p_search" name="p_search">
-                	<option value="all" selected>(분류-전체)</option>
-                    <option value="survival">서바이벌</option>
-                    <option value="horror">호러</option>
-                    <option value="adventure">어드벤쳐</option>
-                    <option value="experience">체험관</option>
-                    <option value="kiddyzone">키디존</option>
-                    <option value="photozone">포토존</option>
+                	<option value="all">(분류-전체)</option>
+                    <option value="survival" >서바이벌</option>
+                    <option value="horror" >호러</option>
+                    <option value="adventure" >어드벤쳐</option>
+                    <option value="experience" >체험관</option>
+                    <option value="kiddyzone" >키디존</option>
+                    <option value="photozone" >포토존</option>
                 </select>
                 <select class="age_search" name="age_search">
                 	<option value="all" selected>(연령제한-전체)</option>
@@ -65,11 +72,9 @@
             </form>
         </div>
     </div>
-    		
     <%
     	String sessionId = (String)session.getAttribute("sessionId");	
     %>		
-    
     <div class="card_box">
     <%
     	if(sessionId!=null){
@@ -87,10 +92,7 @@
     	PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		request.setCharacterEncoding("utf-8");
-		String p_search = request.getParameter("p_search");
-		String age_search = request.getParameter("age_search");
-		String tall_search = request.getParameter("tall_search");
+		
 	
 		String sql = "select * from attraction";
 		if ((p_search==null||p_search.equals("all")) && (age_search==null||age_search.equals("all")) && (tall_search==null||tall_search.equals("all"))){
@@ -115,58 +117,55 @@
 				sql = sql + " where tall='"+tall_search+"'";
 			}
 		}
-		System.out.println(sql); //sql console에서 확인
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
 		
 		while (rs.next()) {
     %> 
-        <a href="./dp.jsp?id=<%=rs.getString("id")%>" class="card1">
-            <div class="in_card">
-                <span class="tag">
-                	<%
-                		switch(rs.getString("tag")){
-                			case "survival" :
-                				%>
-                				서바이벌
-                				<%
-                				break;
-                			case "horror" :
-                				%>
-                				호러
-                				<%
-                				break;
-                			case "adventure" :
-                				%>
-                				어드벤쳐
-                				<%
-                				break;
-                			case "experience" :
-                				%>
-                				체험관
-                				<%
-                				break;
-                			case "kiddyzone" :
-                				%>
-                				키디존
-                				<%
-                				break;
-                			case "photozone" :
-                				%>
-                				포토존
-                				<%
-                				break;
-                			default :
-                				System.out.print("Warning : tag error");
-                		}
-                	%>
-                </span>
-            </div>    
-                 <img src="/SaltProject/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
+		<button class="card1" onclick="javascript:window.location='/SaltProject/attraction/dp.jsp?id=<%=rs.getString("id")%>'">
+			<span class="tag">
+				<%
+					switch(rs.getString("tag")){
+						case "survival" :
+				%>
+							서바이벌
+				<%
+							break;
+						case "horror" :
+				%>
+							호러
+				<%
+							break;
+						case "adventure" :
+	  			%>
+							어드벤쳐
+				<%
+	  						break;
+						case "experience" :
+				%>
+							체험관
+				<%
+							break;
+						case "kiddyzone" :
+				%>
+							키디존
+				<%
+							break;
+						case "photozone" :
+				%>
+							포토존
+				<%
+	 						break;
+	  					default :
+							System.out.print("Warning : tag error");
+					}
+				%>
+			</span>
+			<img src="/SaltProject/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
             <div class="con">
                 <h4 class="con1"><%=rs.getString("name")%></h4>
-            </div>           
-        </a>
+            </div>
+		</button>
       <%
 			}
 		if (rs != null)

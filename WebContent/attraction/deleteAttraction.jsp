@@ -3,7 +3,7 @@
 <%@ page import="java.sql.*"%>
 <%@ include file="/resources/database/dbconn.jsp" %>
 <%
-	String name = request.getParameter("name");
+	String id = request.getParameter("id");
 	
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
@@ -12,13 +12,13 @@
 	rs = pstmt.executeQuery();
 
 	if (rs.next()) {
-		sql = "delete from attraction where name = ?";
+		sql = "delete from attraction where id = ?";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, name);
+		pstmt.setString(1, id);
 		pstmt.executeUpdate();
 		
 	} else
-		out.println("일치하는 상품이 없습니다");
+		out.println("Error : 일치하는 상품이 없습니다");
 	
 	if (rs != null)
 		rs.close();
@@ -27,5 +27,5 @@
  	if (conn != null)
 		conn.close();
 	
- 	response.sendRedirect("editattraction.jsp?edit=delete");
+ 	response.sendRedirect("/SaltProject/attraction/editAttraction.jsp?edit=delete");
 %>

@@ -7,48 +7,52 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/reservation.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-    
-    
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>    
+    <script type="text/javascript" src="./resources/JS/validation_reservation.js"></script>
+    <script type="text/javascript">
+    	function autoDate(){
+    		var time = new Date();
+        	var year = time.getFullYear();
+        	var month = time.getMonth()+1;
+        	var date = time.getDate();
+        	
+        	document.getElementById("reserve_year").value = year;
+        	document.getElementById("reserve_month").value = month;
+        	document.getElementById("reserve_day").value = date+1;
+    	}
+    	function popupLogin(){
+    		<%
+				String sessionId = (String)session.getAttribute("sessionId");
+    			if(sessionId==null){
+			%>
+				window.open("/SaltProject/ticket/popupLogin.jsp","login_popup","width=450, height=300, left=700, top=200");
+			<%
+    			}
+    		%>
+    	}
+    	function chargeCal(){
+    		var adultN = document.getElementById("adultN").value;
+    		var teenagerN = document.getElementById("teenagerN").value;
+    		var childN = document.getElementById("childN").value;
+    		var costA = 10000;
+    		var costT = 7000;
+    		var costC = 4000;
+    		var totalCharge = adultN*costA + teenagerN*costT + childN*costC;
+    		
+    		document.getElementById("totalCharge").innerHTML =  totalCharge.toLocaleString('ko-KR') + " 원";
+    		document.getElementById("totalC").value = totalCharge;
+    	}
+    	
+    	function load(){
+    		autoDate();
+    		popupLogin();
+    	}
+    	setInterval(chargeCal, 1000);
+    </script>
     <title>티켓 예매</title>
 </head>
 
-<body onload="popupLogin()">
-<%
-	String sessionId = (String)session.getAttribute("sessionId"); 
-	System.out.println(sessionId);
-%>
-	<script type="text/javascript" src="./resources/JS/validation_reservation.js"></script>
-	<script type="text/javascript">
-    
-	    var time = new Date();
-	    var year = time.getFullYear();
-	    var month = time.getMonth()+1;
-	    var date = time.getDate();
-		var sessionId = <%=sessionId %>;
-	    
-        document.getElementById("reserve_year").placeholder = year;
-        document.getElementById("reserve_month").placeholder = month;
-        document.getElementById("reserve_day").placeholder = date+1;
-        
-        function popupLogin(){
-        		window.open("/SaltProject/ticket/popupLogin.html","login_popup","width=400, height=300, left=700, top=200 ")
-        }
-        
-        function chargeCal(){
-        	var adultN = document.getElementById("adultN").value;
-    		var teenagerN = document.getElementById("teenagerN").value;
-    		var childN = document.getElementById("childN").value;
-    		var totalCharge = adultN*10000 + teenagerN*7000 + childN*4000;
-    		document.getElementById("totalCharge").innerHTML =  totalCharge.toLocaleString('ko-KR') + " 원";
-    		document.getElementById("totalC").value = totalCharge;
-        }
-        
-        if(sessionId==null){
-        	popupLogin();
-        }
-        setInterval(chargeCal, 1000);
-
-    </script>
+<body onload="load()">
     <jsp:include page="/menu.jsp"></jsp:include>
     <section id="reserve_main">
         <div class="background">
@@ -57,44 +61,43 @@
                     <div class="contents_head">
                         <h1>티켓 예매</h1>
                     </div>
-                    <div class="divine_h"></div>
+                    <div class="divine_5"></div>
                     <form class="reserve_box" name="reserveTicket" action="/SaltProject/ticket/processReservation.jsp"  method="post">
-	                    <div class="contents_sellect">
-	                        <div class="sellect_head">
-	                            <div class="sellct_title">
-	                                <p class="title_txt">방문일자/인원 선택</p>
-	                            </div>
-	                        </div>
-	                        <div class="sellect_date">
-	                             <div class="wrap_date">
-	                                <ul class="reserve_date">
-	                                    <li class="cnt_date">
-	                                        <div class="cntD_input">
-	                                           <input type="text" name="r_year" class="nbrY_input" id="reserve_year">
-	                                        </div>
-	                                        <div class="cntD_txt">
-	                                            <p>연</p>
-	                                        </div>
-	                                    </li>
-	                                    <li class="cnt_date">
-	                                        <div class="cntD_input">
-	                                           <input type="text" name="r_month" class="nbrM_input" id="reserve_month">
-	                                        </div>
-	                                        <div class="cntD_txt">
-	                                            <p>월</p>
-	                                        </div>
-	                                    </li>
-	                                    <li class="cnt_date">
-	                                        <div class="cntD_input">
-	                                           <input type="text" name="r_day" class="nbrD_input" id="reserve_day">
-	                                        </div>
-	                                        <div class="cntD_txt">
-	                                            <p>일</p>
-	                                        </div>
-	                                    </li>
-	                                </ul>
-	                            </div>
-	                        </div>
+						<div class="contents_select">
+							<div class="select_head">
+								<div class="select_title">
+									<p class="title_txt">방문일자/인원 선택</p>
+								</div>
+							</div>
+							<div class="divine_2"></div>
+							<div class="select_date">
+								<ul class="reserve_date">
+									<li class="cnt_date">
+										<div class="cntD_input">
+											<input type="text" name="r_year" class="nbrY_input" id="reserve_year">
+										</div>
+										<div class="cntD_txt">
+											<p>연</p>
+										</div>
+									</li>
+									<li class="cnt_date">
+										<div class="cntD_input">
+											<input type="text" name="r_month" class="nbrM_input" id="reserve_month">
+										</div>
+										<div class="cntD_txt">
+											<p>월</p>
+										</div>
+									</li>
+									<li class="cnt_date">
+										<div class="cntD_input">
+											<input type="text" name="r_day" class="nbrD_input" id="reserve_day">
+										</div>
+										<div class="cntD_txt">
+											<p>일</p>
+										</div>
+									</li>
+								</ul>
+							</div>
 	                        <div class="sellect_people">
 	                            <ul class="count_people">
 	                                <li class="cnt_adult">
@@ -141,15 +144,16 @@
 	                                </li>
 	                            </ul>
 	                        </div>
+	                        <div class="divine_2"></div>
 	                    	<div class="chargeBlock">
 	                    		<p class="charge_des">총액 : </p>
 	                    		<p class="charge_nb" id="totalCharge">0 원</p>
 	                    		<input type="hidden" id="totalC" name="totalC" value=""/>
 	                    	</div>
 	                    </div>
-	                    <div class="divine_h"></div>
+	                    <div class="divine_5"></div>
 	                    <div class="reserve">
-	                    	<input type="submit" value="예매하기" onclick="chargeCal()">
+	                    	<input type="submit" value="예매하기">
 	                    </div>
                     </form>
                 </div>

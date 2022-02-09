@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/ticket.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
     <title>티켓 확인</title>
 </head>
 <body>
@@ -41,7 +42,7 @@
 	                                </div> 
 	                                <div class=ticket_info>
 	                                    <div id="information" class="tkt_img">
-	                                        <img src="./resources/image/event02.jpg">
+	                                        <img src="/SaltProject/resources/image/event02.jpg">
 	                                    </div>
 	                                    <div id="information" class="tkt_text">
 	                                    	<c:forEach var="row" items="${resultSet.rows}">

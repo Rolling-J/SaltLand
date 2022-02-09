@@ -18,3 +18,4 @@ insert into member value('testID','1234','noname1','1990/12/25','male','tester@d
 ('testID2','1234','noname2','1990/04/20','male','testMail2@daum.net','010-7894-4987','2021-10-29 12:20:25.22');
 
 select * from member;
+drop table member;

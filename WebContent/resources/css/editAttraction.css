@@ -10,7 +10,6 @@
 	font-family: "Noto Sans KR", sans-serif !important;
 }
 
-
   .a_box{
     height: 480px;
     background: url(https://adventure.lotteworld.com/common/images/icon/attraction_bg1.jpg) no-repeat 50% 0;
@@ -76,7 +75,31 @@
   margin-top:15px;
   margin-bottom:25px;
 }
-
+/* update buttons */
+.btns{
+	text-align: right;
+}
+.btns > a{
+	width: 120px;
+	height: 30px;
+	line-height: 24px;
+	font-size: 14px;
+	font-weight: 300;
+	border-radius: 10px;
+	display:inline-block;
+	color:black;
+	text-decoration: none;
+	text-align: center;
+	background-color: white;
+	border: 1px solid slateblue;
+	margin-left: 10px;
+	transition: all 0.2s ease 0s;
+}
+.btns > a:hover{
+  color: white;
+  background-color: slateblue;
+}
+/* attraction list - cards */
 .card_box>.card1{
    width: 300px;
    height: 380px;
@@ -98,12 +121,12 @@ a {
   color: #fff;
   text-align: center;
   background: rgba(0,0,0,0.5);
-  border-radius: 2px;
 }
 .con{
   padding: 15px 25px 30px;
   font-size: 22px;
 }
+/* edit buttons */
 .btn_edit{
 	text-align: center;
 }

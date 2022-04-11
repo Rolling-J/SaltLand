@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="java.sql.*"%>  
+<%@ page import="java.sql.*"%>
+<%@ page import="mvc.model.AttractionDTO" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,37 +16,28 @@
 	<title>어트랙션 수정</title>
 </head>
 <body>
+<%
+	AttractionDTO atr = (AttractionDTO) request.getAttribute("attraction");
+%>
 	<div class="all">
 		<jsp:include page="/menu.jsp"/>
-		<%@ include file="/resources/database/dbconn.jsp" %>>
-	 	<%
-			String id = request.getParameter("id");
-	  
-	 		PreparedStatement pstmt = null;
-		 	ResultSet rs = null;
-	
-			String sql = "select * from attraction where id=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-		%>
+	 	
 		<div class="a_box">
-			<form name ="attraction" action="/SaltProject/attraction/processUpdateAttraction.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
+			<form name ="attraction" action="./UpdateAttractionAction.do" class="form-horizontal" method="post" enctype="multipart/form-data">
 				<h1>어트랙션 등록</h1>
-				<input type="hidden" name="id" value='<%=rs.getString("id")%>' >
+				<input type="hidden" name="id" value='<%=atr.getId() %>' >
 			    <div class="search">
 					<label id="name-label" for="name">어트랙션 명</label>
-					<input type="text" name="name" id="name" class="s_box" value='<%=rs.getString("name")%>' placeholder="어트랙션 이름을 입력해주세요." required/>
+					<input type="text" name="name" id="name" class="s_box" value='<%=atr.getName() %>' placeholder="어트랙션 이름을 입력해주세요." required/>
 			    </div>
 				<div class="search">
 					<p>설명</p> 
-					<textarea id="info" name="info" class="info" rows="5" cols="50" placeholder="어트랙션 설명을 입력해주세요."> <%=rs.getString("info")%></textarea>
+					<textarea id="info" name="info" class="info" rows="5" cols="50" placeholder="어트랙션 설명을 입력해주세요."> <%=atr.getInfo() %></textarea>
 			    </div>
 			    <div class="search">
 					<p>테마</p> 
 					<%
-						String tag = rs.getString("tag");
+						String tag = atr.getTag();
 					%>
 					<label><input name="tag" value="survival" type="radio" class="tema_tags" <%if(tag.equals("survival")){ %>checked<%} %> />서바이벌</label>
 					<label><input name="tag" value="adventure" type="radio" class="tema_tags" <%if(tag.equals("adventure")){ %>checked<%} %> />어드벤쳐</label>
@@ -57,7 +49,7 @@
 			    <div class="search">
 					<p>탑승 인원</p>
 					<%
-						String ride = rs.getString("ride");
+						String ride = atr.getRide();
 					%>
 					<select id="ride" name="ride" class="s_box" required>
 						<option disabled selected>탑승 인원을 선택해주세요.</option>
@@ -72,7 +64,7 @@
 			    <div class="search">
 					<p>탑승 나이</p>
 					<%
-						String age = rs.getString("age");
+						String age = atr.getAge();
 					%>
 					<select id="age" name="age" class="s_box" required>
 						<option disabled selected>나이를 고르세요</option>
@@ -84,7 +76,7 @@
 				<div class="search">
 					<p>키</p>
 					<%
-						String tall = rs.getString("tall");
+						String tall = atr.getTall();
 					%>
 					<select id="tall" name="tall" class="s_box" required>
 						<option disabled selected>키를 고르세요</option>
@@ -93,9 +85,9 @@
 					</select>
 				</div>
 			    <div class="search">
-					<img src="/SaltProject/resources/image/<%=rs.getString("filename")%>">
+					<img src="/SaltProject/resources/image/<%=atr.getFilename() %>">
 					<p><br>이미지를 수정하시려면 아래에서 파일을 추가해주세요.</p>
-					<input type="file" name="filename" value='<%=rs.getString("filename")%>'>
+					<input type="file" name="filename" value='<%=atr.getFilename() %>'>
 			    </div>
 			    <div class="search">
 			    	<input type="button" class="submit-button" value="등록" onclick="return checkAttraction()">
@@ -103,15 +95,6 @@
 			    </div>
 			</form>
 		</div>
-		<%
-			}
-			if (rs != null)
-				rs.close();
-			if (pstmt != null)
-					pstmt.close();
-			if (conn != null)
-				conn.close();
-		%>
 		<jsp:include page="/footer.jsp"/>
 	</div>
 </body>

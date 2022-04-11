@@ -2,9 +2,10 @@ package dto;
 
 import java.io.Serializable;
 
-public class attraction implements Serializable {
+public class Attraction implements Serializable {
 	private static final long serialVersionUID = -4274700572038677000L;
-
+	
+	private int id;
 	private String name ;	
 	private String info;		
 	private String tag; 
@@ -14,17 +15,25 @@ public class attraction implements Serializable {
 	private String filename;
 	
 
-	public attraction() {
+	public Attraction() {
 		super();
 	}
 	
 
-	public attraction(String name, String tag) {
+	public Attraction(String name, String tag) {
 		this.name = name;
 		this.tag = tag;
 	}
 
+	public int getId() {
+		return id;
+	}
 
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}

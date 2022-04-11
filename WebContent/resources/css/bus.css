@@ -13,7 +13,7 @@
     margin: 0 auto;
   }
  
-  .a_box >.category{
+  .a_box .category{
     position: absolute;
     margin-top: 25px;
     margin-left: 10%;
@@ -26,12 +26,12 @@
     text-align: center;
     margin-top: 200px;
   }
-  .a_box >.s_title{
+  .a_box .s_title{
     text-align: center;
     color: white;
     padding: 30px 0;
 }
-  .a_box >.s_title> .a{
+  .a_box .s_title .a{
   font-size: 50px;
   text-shadow: 5px -3px 5px rgba(12, 11, 11, 0.342);
 }

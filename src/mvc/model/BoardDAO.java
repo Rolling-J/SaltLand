@@ -5,12 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 import mvc.database.DBConnection;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.*;
 
 public class BoardDAO {
 	
@@ -26,7 +23,9 @@ public class BoardDAO {
 		return instance;
 	}
 	
-	//board 테이블의 레코드 수 (조건에 맞는 게시판의 글 수를 sql에서 계산하여 숫자로 가져옴)
+	//getListCount(카테고리,검색어)
+	//역할: 검색조건에 맞는 게시판의 글 수를 가져옵니다.
+	//입력값: 카테고리, 검색어 / 출력값: 게시글 수
 	public int getListCount(String category, String text) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -48,7 +47,7 @@ public class BoardDAO {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			System.out.println(sql);
+			
 			if(rs.next())
 				x = rs.getInt(1); //count(*) 결과값이 1열로 나오므로 1번째 열 숫자를 받아옴
 		}catch(Exception ex){
@@ -65,38 +64,38 @@ public class BoardDAO {
 				throw new RuntimeException(ex.getMessage());
 			}
 		}
-		
 		return x;
 	}
 	
-	
-	//board 테이블의 레코드 가져오기(각 페이지에 들어갈 게시글 목록 가져오기)
+	//getBoardList(페이지,페이지당 최대 게시글 수, 카테고리, 검색어)
+	//역할: 각 페이지에 들어갈 게시글 목록 가져오기 (검색기능 사용시 조건에 맞는 목록 가져오기)
+	//입력값: 페이지, 페이지당 최대 게시글 수, 카테고리, 검색어 /  출력값:list (보드 리스트)
 	public ArrayList<BoardDTO> getBoardList(int page, int limit, String category, String text){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		int total_record = getListCount(category, text);
-		int start = (page - 1) * limit; //각 페이지의 첫 게시글의 순서번호를 가져오기 위한 숫자 변수.
+		int start = (page - 1) * limit; //아래 index를 구하기 위한 변수. 최소값은 0임.
 		int index = start + 1; //각 페이지의 첫 게시글의 순서번호.
 		
 		String sql;
 		
 		if((category == null||category.equals("all"))&& (text == null||text.equals("")))
+			// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
+			// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
+			// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
 			sql = "select * from noticeboard order by num desc";
 		else
 			sql = "select * from noticeboard where category='"+ category + "' and title like '%" + text + "%' order by num desc";
-		// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
-		// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
-		// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			System.out.println(sql);
-			while(rs.absolute(index)) { //absolute(숫자) : 해당 인덱스(저장요소)의 레코드로 바로 이동
+			//System.out.println(sql);
+			while(rs.absolute(index)) { //absolute(숫자) : boolean값
 				BoardDTO board = new BoardDTO();
 				
 				board.setNum(rs.getInt("num"));
@@ -108,15 +107,15 @@ public class BoardDAO {
 				board.setFileName(rs.getString("fileName"));
 				board.setRegist_day(rs.getString("regist_day"));
 				board.setIp(rs.getString("ip"));
-				list.add(board); //DTO 형태의 arraylist에 위 DTO 저장
+				list.add(board); //list에 위 DTO 저장
 			
-				if(index < (start + limit) && index <= total_record)
+				if(index < (start + limit) || index < total_record)
 					index++; 
-				//게시글의 순서번호 index가 페이지를 모두 채우기 전임 그리고 순서번호 index가 게시글 총 수 이하임
+				//게시글의 순서번호 index가 해당 페이지를 모두 채우기 전까지 && 순서번호 index가 게시글 총 수 이하까지
 				else
-					break; //while문 종료. 페이지의 게시글 모두 list에 추가됨.
+					break;
 			}
-			return list; //페이지에 포함된 게시글들을 담은 list 반환
+			return list;
 		}catch(Exception ex) {
 			System.out.println("getBoardList() 에러 : " + ex);
 		}finally {
@@ -136,7 +135,9 @@ public class BoardDAO {
 	}
 	
 	
-	//board 테이블에서 인증된 id의 사용자명 가져오기 (파라미터 id 바탕으로 member 테이블의 name 가져오기)
+	//getLoginNameById(아이디)
+	//역할 : member 테이블에서 사용자 이름 가져오기
+	//입력값: 아이디 / 출력값: 이름
 	public String getLoginNameById(String id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -148,12 +149,12 @@ public class BoardDAO {
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, id); //select 구문의 조건 id = ? 의 ?에 파라미터 id 입력
-			rs = pstmt.executeQuery(); //sql 입력 후 결과값 rs에 저장
+			pstmt.setString(1, id); 
+			rs = pstmt.executeQuery(); 
 			
 			if(rs.next())
 				name = rs.getString("name");
-				//rs에 저장된 name(사용자명)을 메서드 내의 변수 name에 저장
+
 			return name;
 		}catch(Exception ex) {
 			System.out.println("getLoginNameById() 에러 : " + ex);
@@ -173,12 +174,12 @@ public class BoardDAO {
 		return null;
 	}
 	
-	
-	//board 테이블에 새로운 글 삽입하기
+	//insertBoard(보드 DTO)
+	//역할: board 테이블에 새로운 글 삽입하기
+	//입력값:보드DTO / 출력값: 없음 (void 메서드)
 	public void insertBoard(BoardDTO board) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
 		
 		String sql = "insert into noticeboard values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
@@ -198,7 +199,7 @@ public class BoardDAO {
 			
 			pstmt.executeUpdate();
 		}catch(Exception ex){
-			System.out.println("insertBoard() 에러 : "+ ex);
+			System.out.println("insertBoard() 에러 : "+ ex); //메서드 에러 메세지
 		}finally {
 			try {
 				if(pstmt != null)
@@ -212,15 +213,14 @@ public class BoardDAO {
 		
 	}
 	
+	//getNumRecentBoard()
+	//역할: 가장 최신글의 게시글번호를 가져옵니다.
+	//입력값:없음 / 출력값:최신 게시글 번호
 	public int getNumRecentBoard() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
 		String sql = "select num from noticeboard order by num desc";
-		// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
-		// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
-		
 		int newNum = 0;
 		
 		try {
@@ -249,9 +249,10 @@ public class BoardDAO {
 		return newNum;
 	}
 	
-	
-	//선택된 글 상세 내용 가져오기 (num 받아 해당 번호의 글 DTO에 담기 / page는 왜받지)
-	public BoardDTO getBoardByNum(int num, int page) {
+	//getBoardByNum(글 번호)
+	//역할: 선택된 글 상세 내용 가져오기 (dto에 해당 글 정보 저장)
+	//입력값: 글 번호 / 출력값: 해당 글의 보드DTO
+	public BoardDTO getBoardByNum(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -298,8 +299,9 @@ public class BoardDAO {
 		return null;
 	}
 	
-	
-	//선택된 글 내용 수정하기
+	//updateBoard(보드DTO)
+	//역할: 선택된 글 내용 수정하기
+	//입력값: 보드DTO / 출력값: 없음 (void 메서드)
 	public void updateBoard(BoardDTO board) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -355,8 +357,9 @@ public class BoardDAO {
 		}
 	}
 	
-	
-	//선택된 글 삭제하기
+	//deleteBoard(글 번호)
+	//역할: 선택된 글 삭제하기
+	//입력값: 글 번호 / 출력값: 없음 (void 메서드)
 	public void deleteBoard(int num) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

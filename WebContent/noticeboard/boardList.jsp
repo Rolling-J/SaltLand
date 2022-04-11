@@ -67,34 +67,34 @@
 	        </table>
 	        <table class="tbl_content">
 	            <tbody>
-						<%
-							for(int j = 0; j <boardList.size(); j++){
-								BoardDTO notice = (BoardDTO) boardList.get(j);
-						%>
-						<tr>
-							<td><%=notice.getNum() %></td>
-							<td>
-								<c:set var="category" value="<%=notice.getCategory() %>" />
-	                    		<c:choose>
-		                    		<c:when test="${ category.equals('notice')}">
-		                    			<c:out value="공지" />
-		                    		</c:when>
-		                    		<c:when test="${ category.equals('event')}">
-		                    			<c:out value="이벤트" />
-		                    		</c:when>
-	                    		</c:choose>
-							</td>
-							<td>
-								<a href="./BoardViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>">
-									<%=notice.getTitle() %>
-								</a>
-							</td>
-							<td><%=notice.getRegist_day() %></td>
-							<td><%=notice.getName() %></td>				
-						</tr>
-						<%
-							}
-						%>
+					<%
+						for(int j = 0; j <boardList.size(); j++){
+							BoardDTO notice = (BoardDTO) boardList.get(j);
+					%>
+							<tr>
+								<td><%=notice.getNum() %></td>
+								<td>
+									<c:set var="category" value="<%=notice.getCategory() %>" />
+		                    		<c:choose>
+			                    		<c:when test="${ category.equals('notice')}">
+			                    			<c:out value="공지" />
+			                    		</c:when>
+			                    		<c:when test="${ category.equals('event')}">
+			                    			<c:out value="이벤트" />
+			                    		</c:when>
+		                    		</c:choose>
+								</td>
+								<td>
+									<a href="./BoardViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>">
+										<%=notice.getTitle() %>
+									</a>
+								</td>
+								<td><%=notice.getRegist_day() %></td>
+								<td><%=notice.getName() %></td>				
+							</tr>
+					<%
+						}
+					%>
 				</tbody>
 			</table>
 			<div class="paging">

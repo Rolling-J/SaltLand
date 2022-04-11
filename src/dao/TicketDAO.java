@@ -23,7 +23,10 @@ public class TicketDAO {
 		return instance;
 	}
 	
-	//get ticket list
+	//getTicketList(로그인된 아이디)
+	//기능 : 티켓 리스트 가져오기-로그인한 아이디로 예약된 티켓의 전체 리스트를 list에 담습니다.
+	//입력값:sessionId (로그인된 아이디) , 출력값:null (출력값없음)
+	//보조설명 : DTO Ticket에 잠시 저장한 티켓 정보를 list에 순서대로 저장합니다.
 	public ArrayList<Ticket> getTicketList(String sessionId ){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -33,7 +36,7 @@ public class TicketDAO {
 		String sql = "select * from ticket where id='"+ sessionId +"' order by reserve_num desc";
 		
 		ArrayList<Ticket> list = new ArrayList<Ticket>();
-		
+		//try-티켓정보를 하나씩 윗줄의 ArrayList list에 담습니다.
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -77,7 +80,9 @@ public class TicketDAO {
 	}
 
 	
-	//get ticket list count
+	//getTicketCount(로그인된 아이디)
+	//티켓의 수량 가져오기 - 로그인한 아이디로 예약된 티켓의 전체 수량을 가져옵니다.
+	//입력값:sessionId (로그인된 아이디) , 출력값: 예약된 티켓 수량
 	public int getTicketCount(String sessionId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page import="java.sql.*"%>
-<!DOCTYPE html>
+<%@ page import="java.util.*" %>
+<%@ page import="mvc.model.AttractionDTO" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -14,18 +16,18 @@
 	<script type="text/javascript">
 		function deleteConfirm(id) {
 			if (confirm("해당 어트랙션을 삭제합니다!") == true)
-				location.href = "/SaltProject/attraction/deleteAttraction.jsp?id=" + id;
+				location.href = "./DeleteAttraction.do?id=" + id;
 			else
 				return;
 		}
 	</script>
 	<%
-	request.setCharacterEncoding("utf-8");
-	String edit = request.getParameter("edit");
-	String p_search = request.getParameter("p_search");
-	String age_search = request.getParameter("age_search");
-	String tall_search = request.getParameter("tall_search");
-	System.out.println("edit : "+edit);
+		String sessionId = (String)session.getAttribute("sessionId");
+		String edit = request.getParameter("edit");
+		String tag_search = (String)request.getAttribute("tag_search");
+		String age_search = (String)request.getAttribute("age_search");
+		String tall_search = (String)request.getAttribute("tall_search");
+		List atrList = (List)request.getAttribute("atrList");
 	%>
 	<title>어트랙션</title>
 
@@ -45,8 +47,8 @@
     <div class="search_box">       
         <div class="inp">
             <h3>조건 검색</h3>
-            <form method="post" action="/SaltProject/attraction/editAttraction.jsp?edit=<%=edit %>" class="search">
-                <select class="p_search" name="p_search">
+            <form method="post" action="./EditAttractionView.do?edit=<%=edit %>" class="search">
+                <select class="p_search" name="tag_search">
                 	<option value="all" selected>(분류-전체)</option>
                     <option value="survival" >서바이벌</option>
                     <option value="horror" >호러</option>
@@ -72,126 +74,83 @@
             </form>
         </div>
     </div>
-    <%
-    	String sessionId = (String)session.getAttribute("sessionId");	
-    %>	
     <div class="card_box">
     <%
     	if(sessionId!=null){
     %>
     	<div class="btns">
-	     	<a href="/SaltProject/attraction/addAttraction.jsp">어트렉션 등록</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=update">어트렉션 수정</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=delete">어트렉션 삭제</a>
+	     	<a href="./AddAttractionForm.do">어트렉션 등록</a>
+	        <a href="./EditAttractionView.do?edit=update">어트렉션 수정</a>
+	        <a href="./EditAttractionView.do?edit=delete">어트렉션 삭제</a>
  		</div>
 	<%
     	}
-	%>
-    <%@ include file="/resources/database/dbconn.jsp" %>
-    <%
-    	PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String sql = "select * from attraction";
-		if ((p_search==null||p_search.equals("all")) && (age_search==null||age_search.equals("all")) && (tall_search==null||tall_search.equals("all"))){
-			sql = "select  * from attraction";
-		}else{
-			if(p_search!=null&&!p_search.equals("all")){
-			sql = sql + " where tag= '"+ p_search +"'";
-				if(age_search!=null&&!age_search.equals("all")){
-					sql = sql + " and age='" + age_search + "'";
-					if(tall_search!=null&&!tall_search.equals("all")){
-						sql = sql + " and tall='"+tall_search+"'";
-					}	
-				}else if(tall_search!=null&&!tall_search.equals("all")){
-					sql = sql + "and tall='"+tall_search+"'";
-				}
-			}else if(age_search!=null&&!age_search.equals("all")){
-				sql = sql + " where age='" + age_search + "'";
-				if(tall_search!=null&&!tall_search.equals("all")){
-					sql = sql + "and tall='"+tall_search+"'";
-				}	
-			}else if(tall_search!=null&&!tall_search.equals("all")){
-				sql = sql + " where tall='"+tall_search+"'";
-			}
-		}
-		
-		System.out.println(sql); //sql console에서 확인
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
-		
-		while (rs.next()) {
+		// 어트랙션 카드 리스트
+		for(int j = 0; j <atrList.size(); j++){
+			AttractionDTO atr = (AttractionDTO) atrList.get(j);
     %> 
-        <div class="card1">
-            <div class="in_card">
+		<div class="card1">
+			<div class="in_card">
                 <span class="tag">
 					<%
-                		switch(rs.getString("tag")){
+                		switch(atr.getTag()){
                 			case "survival" :
-                				%>
+                	%>
                 				서바이벌
-                				<%
+                	<%
                 				break;
                 			case "horror" :
-                				%>
+                	%>
                 				호러
-                				<%
+                	<%
                 				break;
                 			case "adventure" :
-                				%>
+                	%>
                 				어드벤쳐
-                				<%
+                	<%
                 				break;
                 			case "experience" :
-                				%>
+                	%>
                 				체험관
-                				<%
+                	<%
                 				break;
                 			case "kiddyzone" :
-                				%>
+                	%>
                 				키디존
-                				<%
+                	<%
                 				break;
                 			case "photozone" :
-                				%>
+                	%>
                 				포토존
-                				<%
+                	<%
                 				break;
                 			default :
                 				System.out.print("Warning : tag error");
                 		}
                 	%>
 				</span>
-            </div>    
-                 <img src="/SaltProject/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
+			</div>    
+			<img src="/SaltProject/resources/image/<%=atr.getFilename()%>" alt="play" style="width: 100%;">
             <div class="con">
-                <h4 class="con1"><%=rs.getString("name")%></h4>
-                <div class="btn_edit">
+				<h4 class="con1"><%=atr.getName()%></h4>
+				<div class="btn_edit">
     		<%
              	if(edit.equals("update")){
  			%>
-            	<a href="/SaltProject/attraction/updateAttraction.jsp?id=<%=rs.getString("id") %>" class="eidt_btn" role= "button">수정</a>
+            	<a href="./UpdateAttractionForm.do?id=<%=atr.getId() %>" class="eidt_btn" role= "button">수정</a>
             <%
              	} else if(edit.equals("delete")){
             %>
-             	<a href="#" onclick="deleteConfirm('<%=rs.getString("id")%>')" class="eidt_btn" role= "button">삭제</a>
+             	<a href="#" onclick="deleteConfirm('<%=atr.getId() %>')" class="eidt_btn" role= "button">삭제</a>
             <%
-             	}
-            %>
-
+            	}
+    		%>
 				</div>
-            </div>    
-        	
-        </div>     
-		<%
-			}
-		if (rs != null)
-			rs.close();
-		if (pstmt != null)
-			pstmt.close();
-		if (conn != null)
-			conn.close();
-	%>
+			</div>
+		</div> 
+    	<%
+		}
+		%>
     </div>
 </div>
 <jsp:include page="/footer.jsp"/>

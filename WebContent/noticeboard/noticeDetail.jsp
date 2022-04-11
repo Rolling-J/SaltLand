@@ -2,13 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import = "mvc.model.BoardDTO" %>
 
-<%
-	BoardDTO notice = (BoardDTO) request.getAttribute("board");
-	int num = ((Integer) request.getAttribute("num")).intValue();
-	int nowpage = ((Integer) request.getAttribute("page")).intValue();
-	String sessionId = (String) session.getAttribute("sessionId");
-%>
-
 <html>
 <head>
     <meta charset="UTF-8">
@@ -21,6 +14,12 @@
     <title>공지 글</title>
 </head>
 <body>
+<%
+	BoardDTO notice = (BoardDTO) request.getAttribute("board");
+	int num = ((Integer) request.getAttribute("num")).intValue();
+	int nowpage = ((Integer) request.getAttribute("page")).intValue();
+	String sessionId = (String) session.getAttribute("sessionId");
+%>
     <jsp:include page="/menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>이용가이드>공지 및 알림</p>

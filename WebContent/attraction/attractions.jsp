@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="java.sql.*"%>
+<%@ page import="java.util.*" %>
+<%@ page import="mvc.model.AttractionDTO" %>
 
 
 <!DOCTYPE html>
@@ -25,6 +26,13 @@
 	<title>어트랙션</title>
 </head>
 <body>
+<%
+	String tag_search = (String)request.getAttribute("tag_search");
+	String age_search = (String)request.getAttribute("age_search");
+	String tall_search = (String)request.getAttribute("tall_search");
+	String sessionId = (String)session.getAttribute("sessionId");
+	List atrList = (List)request.getAttribute("atrlist");
+%>
 <div class="all">
    <jsp:include page="/menu.jsp"/>
     <div class="a_box">
@@ -34,19 +42,12 @@
             <p class="pb">일상 속의 짜릿함을 느껴보세요.</p>
         </div>
     </div>
-    <% 
-		request.setCharacterEncoding("utf-8");
-		String p_search = request.getParameter("p_search");
-		String age_search = request.getParameter("age_search");
-		String tall_search = request.getParameter("tall_search");
-		System.out.println("tag : "+p_search);
-	%>
     <!-- 검색 -->
     <div class="search_box">       
         <div class="inp">
             <h3>조건 검색</h3>
-            <form method="post" action="attractions.jsp" class="search" accept-charset="utf-8">
-                <select class="p_search" name="p_search">
+            <form method="post" action="./AttractionList.do" class="search" accept-charset="utf-8">
+                <select class="p_search" name="tag_search">
                 	<option value="all">(분류-전체)</option>
                     <option value="survival" >서바이벌</option>
                     <option value="horror" >호러</option>
@@ -71,61 +72,26 @@
                 <input type="reset" value="다시" class="s_btn">
             </form>
         </div>
-    </div>
-    <%
-    	String sessionId = (String)session.getAttribute("sessionId");	
-    %>		
+    </div>	
     <div class="card_box">
     <%
     	if(sessionId!=null){
     %>
     	<div class="btns">
-	     	<a href="/SaltProject/attraction/addAttraction.jsp">어트렉션 등록</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=update">어트렉션 수정</a>
-	        <a href="/SaltProject/attraction/editAttraction.jsp?edit=delete">어트렉션 삭제</a>
+	     	<a href="./AddAttractionForm.do?">어트렉션 등록</a>
+	        <a href="./EditAttractionView.do?edit=update">어트렉션 수정</a>
+	        <a href=".//EditAttractionView.do?edit=delete">어트렉션 삭제</a>
  		</div>
 	<%
     	}
-	%>
-    <%@ include file="/resources/database/dbconn.jsp" %>
-    <%
-    	PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
-		
-	
-		String sql = "select * from attraction";
-		if ((p_search==null||p_search.equals("all")) && (age_search==null||age_search.equals("all")) && (tall_search==null||tall_search.equals("all"))){
-			sql = "select  * from attraction";
-		}else{
-			if(p_search!=null&&!p_search.equals("all")){
-			sql = sql + " where tag= '"+ p_search +"'";
-				if(age_search!=null&&!age_search.equals("all")){
-					sql = sql + " and age='" + age_search + "'";
-					if(tall_search!=null&&!tall_search.equals("all")){
-						sql = sql + " and tall='"+tall_search+"'";
-					}	
-				}else if(tall_search!=null&&!tall_search.equals("all")){
-					sql = sql + "and tall='"+tall_search+"'";
-				}
-			}else if(age_search!=null&&!age_search.equals("all")){
-				sql = sql + " where age='" + age_search + "'";
-				if(tall_search!=null&&!tall_search.equals("all")){
-					sql = sql + "and tall='"+tall_search+"'";
-				}	
-			}else if(tall_search!=null&&!tall_search.equals("all")){
-				sql = sql + " where tall='"+tall_search+"'";
-			}
-		}
-		pstmt = conn.prepareStatement(sql);
-		rs = pstmt.executeQuery();
-		
-		while (rs.next()) {
+    	for(int j = 0; j <atrList.size(); j++){
+			AttractionDTO atr = (AttractionDTO) atrList.get(j);
     %> 
-		<button class="card1" onclick="javascript:window.location='/SaltProject/attraction/dp.jsp?id=<%=rs.getString("id")%>'">
+		<button class="card1" onclick="javascript:window.location='./AttractionDetailView.do?id=<%=atr.getId() %>'">
 			<span class="tag">
 				<%
-					switch(rs.getString("tag")){
+					switch(atr.getTag()){
 						case "survival" :
 				%>
 							서바이벌
@@ -161,19 +127,13 @@
 					}
 				%>
 			</span>
-			<img src="/SaltProject/resources/image/<%=rs.getString("filename")%>" alt="play" style="width: 100%;">
+			<img src="/SaltProject/resources/image/<%=atr.getFilename() %>" alt="play" style="width: 100%;">
             <div class="con">
-                <h4 class="con1"><%=rs.getString("name")%></h4>
+                <h4 class="con1"><%=atr.getName() %></h4>
             </div>
 		</button>
       <%
 			}
-		if (rs != null)
-			rs.close();
-		if (pstmt != null)
-			pstmt.close();
-		if (conn != null)
-			conn.close();
     %>
     </div>
 </div>

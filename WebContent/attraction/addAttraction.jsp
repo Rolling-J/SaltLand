@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="dto.attraction"%>
-<%@ page import="dao.attractionbox"%>
+<%@ page import="mvc.model.AttractionDTO"%>
 <%@ page import="java.sql.*"%>
     
 <!DOCTYPE html>
@@ -22,7 +21,7 @@
 <jsp:include page="/menu.jsp"/>
 <div class="all">
 <div class="a_box">
-	<form name="attraction" action="/SaltProject/attraction/processAddAttraction.jsp" class="form-horizontal" method="post" enctype="multipart/form-data">
+	<form name="attraction" action="./AddAttractionAction.do" class="form-horizontal" method="post" enctype="multipart/form-data">
 		<h1>어트랙션 등록</h1>
 	    <div class="search">
 			<label id="name-label" for="name">어트랙션 명</label>

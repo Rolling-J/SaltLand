@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8" trimDirectiveWhitespaces="true"%>
-<%@ page import="dto.attraction"%>
-<%@ page import="dao.attractionbox"%>
+<%@ page import="mvc.model.AttractionDTO"%>
 
 
 <!DOCTYPE html>
@@ -14,41 +13,29 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/dp.css" />
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-    <%
-		String name = request.getParameter("id");	
-	%>
-	<%@ include file="/resources/database/dbconn.jsp" %>
-    <%  
-		PreparedStatement pstmt = null;
- 		ResultSet rs = null;
 
-		String sql = "select * from attraction where id=?";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, name);
-		rs = pstmt.executeQuery();
-		if (rs.next()) {
-		
-    %>
 	<title>어트랙션 상세</title> 
 </head>
 <body>
+    <%
+    	AttractionDTO atr = (AttractionDTO) request.getAttribute("attraction");
+		String name = request.getParameter("id");	
+	%>
 <div class="all">
     <jsp:include page="/menu.jsp"/>
     <div class="a_box"> 
         <div class="category"><p>홈>즐길거리>어트랙션</p></div>
         <div class="s_title">
-            <strong class="a"><%=rs.getString("name")%></strong>
-            <p class="pb"><%=rs.getString("info")%></p>
+            <strong class="a"><%=atr.getName() %></strong>
+            <p class="pb"><%=atr.getInfo() %></p>
         </div>
     </div>
-    
-
     <div class="at_box">  
         <div class="ride">
             <div class="r_box">
                 <i class="fas fa-user-circle"></i><br>
                 <p class="rp">탑승 인원</p><br>
-                <strong class="pe"><%=rs.getString("ride")%>명</strong>
+                <strong class="pe"><%=atr.getRide() %>명</strong>
             </div>
         </div>
         <div class="ride_info">
@@ -58,13 +45,13 @@
                 <p><br>키 제한 : </p> 
                 <p>
                 	<%
-                	if(rs.getString("tall").equals("none")){
+                	if(atr.getTall().equals("none")){
                 	%>
                 	제한 없음
                 	<%	
                 	}else{	
                 	%>
-                	<%=rs.getString("tall")%>
+                	<%=atr.getTall() %>
                 	<%
                 	}
                 	%>
@@ -72,13 +59,13 @@
 	            <p><br>연령 제한 : </p>
 	            <p>
 	                <%
-                	if(rs.getString("age").equals("none")){
+                	if(atr.getAge().equals("none")){
                 	%>
                 	제한 없음
                 	<%	
                 	}else{	
                 	%>
-                	<%=rs.getString("age")%>세
+                	<%=atr.getAge() %>세
                 	<%
                 	}
                 	%>
@@ -95,22 +82,11 @@
 	                    - 손님들의 안전을 위해 시설물 상태 및 기상 여건에 따라 갑작스럽게 운영이 정지될 수 있습니다.<br>
 	                </p>
                 </div>
-                <div class="ti3"><img src="https://wwwcdn.everland.com/web/upload/images/favorite/22_imgEtcLimit0.png" alt="조건" style="width:403px; height:50px;"></div>
+                <div class="ti3"><img src="/SaltProject/resources/image/atrLimit.png" alt="조건" style="width:403px; height:50px;"></div>
             </div>
         </div>
-   </div>
-   <%
-	}
-	if (rs != null)
-		rs.close();
-	if (pstmt != null)
-			pstmt.close();
-	if (conn != null)
-		conn.close();
-	%>
-   
-   
-   <jsp:include page="/footer.jsp"/>
-   </div>
+	</div>
+	<jsp:include page="/footer.jsp"/>
+	</div>
 </body>
 </html>

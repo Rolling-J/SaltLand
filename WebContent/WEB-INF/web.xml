@@ -34,11 +34,11 @@
 	</filter-mapping>
 	
 	<servlet>
-		<servlet-name>BoardController</servlet-name>
-		<servlet-class>mvc.controller.BoardController</servlet-class>
+		<servlet-name>Controller</servlet-name>
+		<servlet-class>mvc.controller.Controller</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>BoardController</servlet-name>
+		<servlet-name>Controller</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
 	

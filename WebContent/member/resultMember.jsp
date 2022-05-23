@@ -17,12 +17,14 @@
                 <div class="content_box">
                     <div class="login_wrap">
                         <%
-							String msg = request.getParameter("msg");
+                        	String loginId = (String)session.getAttribute("sessionId");
+                        	String msg = (String) request.getAttribute("msg");
+                        	System.out.println("resultMember.jsp message : msg = "+msg);
 						%>
+						
 						<c:set var="msg" value="<%=msg %>" />
-
 						<c:choose>
-							<c:when test="${msg.equals('0') }">
+							<c:when test="${msg.equals('1') }">
 								<div class="box_head">
 	                            	<p>회원정보 수정 완료</p>
 	                        	</div>
@@ -41,7 +43,7 @@
 			                        <a href="../main.jsp">홈으로</a>
 			                   </div>
 							</c:when>
-							<c:when test="${msg.equals('1') }">
+							<c:when test="${msg.equals('2') }">
 								<div class="box_head">
 	                            	<p>Salt Land 가입 완료</p>
 	                        	</div>
@@ -58,13 +60,13 @@
 			                                <div id="play_card">
 			                                    <p>놀이기구</p>
 			                                    <div>
-			                                        <img src="../resources/image/허리케인.jpg">
+			                                        <img src="/SaltProject/resources/image/hurricane.jpg">
 			                                    </div>
 			                                </div>
 			                                <div id="play_card">
 			                                    <p>체험</p>
 			                                    <div>
-			                                        <img src="../resources/image/체험.jpg">
+			                                        <img src="/SaltProject/resources/image/zombiescape.jpg">
 			                                    </div>
 			                                </div>
 			                            </div>
@@ -74,13 +76,13 @@
 			                        <a href="../main.jsp">홈으로</a>
 			                    </div>
 							</c:when>
-							<c:when test="${msg.equals('2') }">
+							<c:when test="${msg.equals('3') }">
 								<div class="box_head">
 	                            	<p>로그인 성공</p>
 	                        	</div>
 	                        	<div class="divine"></div>
 								<%
-								String loginId = (String)session.getAttribute("sessionId");
+								
 								%>
 								<div class="box_body">
 									<div class="welcome">
@@ -97,7 +99,7 @@
 		                            <a href="../main.jsp">홈으로</a>
 		                        </div>
 							</c:when>
-							<c:otherwise>
+							<c:when test="${msg.equals('4') }"> <!--  -->
 								<div class="box_head">
 	                            	<p>Salt Land 회원 탈퇴 완료</p>
 	                        	</div>
@@ -115,7 +117,7 @@
 		                        <div class="btn_box">
 		                            <a href="../main.jsp">홈으로</a>
 		                        </div>
-							</c:otherwise>
+							</c:when>
 						</c:choose>
                     </div>
                 </div>

@@ -19,14 +19,15 @@
                         </div>
                         <div class="divine"></div>
                         <%
-							String error=request.getParameter("error");
+                        	String error=(String)request.getAttribute("msg");
+                        	System.out.println("msg : "+error);
 							if(error!=null){
 								out.println("<div class='alert_login'>");
 								out.println("아이디와 비밀번호를 확인해 주십시오");
 								out.println("</div>");
 							}
 						%>
-                        <form class="login_box" action="./processLoginMember.jsp" method="post">
+                        <form class="login_box" action="./LoginAction.do" method="post">
                             <div id="input_box" class="id_box"> 
                                 <input type="text" name="id" placeholder="아이디">
                             </div>
@@ -41,7 +42,7 @@
                         <div class="regi_box">
                             <p>Salt Land 계정이 없으신가요?</p>
                             <div class="regi_btn">
-                                <a href="register.jsp">회원가입</a>
+                                <a href="./RegisterForm.do">회원가입</a>
                             </div>
                         </div>
                     </div>

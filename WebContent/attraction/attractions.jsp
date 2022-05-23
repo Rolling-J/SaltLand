@@ -31,7 +31,7 @@
 	String age_search = (String)request.getAttribute("age_search");
 	String tall_search = (String)request.getAttribute("tall_search");
 	String sessionId = (String)session.getAttribute("sessionId");
-	List atrList = (List)request.getAttribute("atrlist");
+	List<AttractionDTO> atrList = (List)request.getAttribute("atrList");
 %>
 <div class="all">
    <jsp:include page="/menu.jsp"/>
@@ -80,7 +80,7 @@
     	<div class="btns">
 	     	<a href="./AddAttractionForm.do?">어트렉션 등록</a>
 	        <a href="./EditAttractionView.do?edit=update">어트렉션 수정</a>
-	        <a href=".//EditAttractionView.do?edit=delete">어트렉션 삭제</a>
+	        <a href="./EditAttractionView.do?edit=delete">어트렉션 삭제</a>
  		</div>
 	<%
     	}

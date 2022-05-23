@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 	<script defer src="/SaltProject/resources/JS/validation_attraction.js"></script>
+	
 	<title>어트랙션 수정</title>
 </head>
 <body>
@@ -21,14 +22,12 @@
 %>
 	<div class="all">
 		<jsp:include page="/menu.jsp"/>
-	 	
 		<div class="a_box">
-			<form name ="attraction" action="./UpdateAttractionAction.do" class="form-horizontal" method="post" enctype="multipart/form-data">
-				<h1>어트랙션 등록</h1>
-				<input type="hidden" name="id" value='<%=atr.getId() %>' >
+			<form name ="attraction" action="./UpdateAttractionAction.do?id=<%=atr.getId() %>" class="form-horizontal" method="post" enctype="multipart/form-data">
+				<h1>어트랙션 수정</h1>
 			    <div class="search">
 					<label id="name-label" for="name">어트랙션 명</label>
-					<input type="text" name="name" id="name" class="s_box" value='<%=atr.getName() %>' placeholder="어트랙션 이름을 입력해주세요." required/>
+					<input type="text" name="name" id="name" class="s_box" value=<%=atr.getName() %> placeholder="어트랙션 이름을 입력해주세요." required/>
 			    </div>
 				<div class="search">
 					<p>설명</p> 
@@ -87,10 +86,11 @@
 			    <div class="search">
 					<img src="/SaltProject/resources/image/<%=atr.getFilename() %>">
 					<p><br>이미지를 수정하시려면 아래에서 파일을 추가해주세요.</p>
-					<input type="file" name="filename" value='<%=atr.getFilename() %>'>
+					<input type="file" name="filename" id="filename">
+					<input type="hidden" name="imageName" id="imageName" value="<%=atr.getFilename() %>">
 			    </div>
 			    <div class="search">
-			    	<input type="button" class="submit-button" value="등록" onclick="return checkAttraction()">
+			    	<input type="submit" class="submit-button" value="수정" onclick="return checkAttraction()">
 			    	<input type="reset" value="다시" class="s_btn">
 			    </div>
 			</form>

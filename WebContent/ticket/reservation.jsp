@@ -10,6 +10,9 @@
     <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>    
     <script type="text/javascript" src="./resources/JS/validation_reservation.js"></script>
     <script type="text/javascript">
+    	<%
+    		String sessionId = (String)session.getAttribute("sessionId");
+    	%>
     	function autoDate(){
     		var time = new Date();
         	var year = time.getFullYear();
@@ -22,7 +25,6 @@
     	}
     	function popupLogin(){
     		<%
-				String sessionId = (String)session.getAttribute("sessionId");
     			if(sessionId==null){
 			%>
 				window.open("/SaltProject/ticket/popupLogin.jsp","login_popup","width=450, height=300, left=700, top=200");
@@ -62,7 +64,7 @@
                         <h1>티켓 예매</h1>
                     </div>
                     <div class="divine_5"></div>
-                    <form class="reserve_box" name="reserveTicket" action="/SaltProject/ticket/processReservation.jsp"  method="post">
+                    <form class="reserve_box" name="reserveTicket" action="./ReservateTicket.do?sessionId=<%=sessionId %>"  method="post">
 						<div class="contents_select">
 							<div class="select_head">
 								<div class="select_title">
@@ -70,6 +72,7 @@
 								</div>
 							</div>
 							<div class="divine_2"></div>
+							<input type="hidden" name="id" id="id" value=<%=sessionId %>>
 							<div class="select_date">
 								<ul class="reserve_date">
 									<li class="cnt_date">

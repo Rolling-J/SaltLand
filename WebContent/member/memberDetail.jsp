@@ -1,9 +1,11 @@
-<%@page import="dao.TicketDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
 <%@ page import="java.util.*"%>
-<%@ page import="dto.Ticket"%>
+<%@page import="mvc.model.TicketDAO"%>
+<%@ page import="mvc.model.TicketDTO"%>
+<%@ page import="mvc.model.MemberDTO" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +16,14 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 	<%
-		String sessionId = (String)session.getAttribute("sessionId"); 
+		String sessionId = (String)session.getAttribute("sessionId");
+		MemberDTO member = (MemberDTO) request.getAttribute("member");
 	%>
-	<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand" driver="com.mysql.jdbc.Driver" user="root" password="1234" />
-	<sql:query dataSource="${dataSource}" var="resultSet">
-		select * from member where id = ?
-		<sql:param value="<%=sessionId %>" />
-	</sql:query>
+
 	<script type="text/javascript">
 		function deleteConfirm(id) {
 			if (confirm(id+"님, 정말로 회원탈퇴 하시겠습니까?") == true)
-				location.href = "/SaltProject/member/deleteMember.jsp";
+				location.href = "./DeleteMemberAction.do?id=<%=sessionId %>";
 			else
 				return;
 		}
@@ -44,24 +43,24 @@
                          </div>
                         <div class="divine"></div>
                         <div class="info_box selected"> <!-- login tap container -->
-                        	<c:forEach var="row" items="${resultSet.rows}">
 	                            <div class="ps_container">
 	                                <div class="personal_box">
 	                                    <div id="input_box" class="id_box"> 
-	                                        <p>아이디 : <c:out value="${row.id }"/></p>
+	                                        <p>아이디 : <c:out value="<%=member.getId() %>"/></p>
 	                                    </div>
 	                                    <div id="input_box" class="name" >
-	                                        <p>이름 : <c:out value="${row.name }" /></p>
+	                                        <p>이름 : <c:out value="<%=member.getName() %>" /></p>
 	                                    </div>
 	                                    <div id="input_box" class="birth">
-	                                        <p>생년월일 : <c:out value="${row.birth }" /></p>
+	                                        <p>생년월일 : <c:out value="<%=member.getBirth() %>" /></p>
 	                                    </div>
 	                                    <div id="input_box" class="gender" >
+	                                    	<c:set var="gender" value="<%=member.getGender() %>" />
 	                                        <c:choose>
-	                                        	<c:when test="${row.gender.equals('male') }">
+	                                        	<c:when test="${ gender.equals('male')}">
 	                                        		<p>성별 : 남</p>
 	                                        	</c:when>
-	                                        	<c:when test="${row.gender.equals('female') }">
+	                                        	<c:when test="${ gender.equals('female')}">
 	                                        		<p>성별 : 여</p>
 	                                        	</c:when>
 	                                        	<c:otherwise>
@@ -70,64 +69,72 @@
 	                                        </c:choose>
 	                                    </div>
 	                                    <div id="input_box" class="email" >
-	                                        <p>이메일 : <c:out value="${row.mail }" /></p>
+	                                        <p>이메일 : <c:out value="<%=member.getMail() %>" /></p>
 	                                    </div>
 	                                    <div id="input_box" class="phone" >
-	                                        <p>전화번호 : <c:out value="${row.phone }" /></p>
+	                                        <p>전화번호 : <c:out value="<%=member.getPhone() %>" /></p>
 	                                    </div>
 	                                </div>
-	                                
-	                                	<div class="table_box">
-					                    	<table class="tbl_header">
-												<thead>
-											    	<tr>
-											        	<th>방문일</th>
-											            <th>인원 (성인/청소년/어린이)</th>
-											            <th>예약 일시</th>
-											        </tr>
-											    </thead>
-										         <tbody>
-										            <%
-										            	TicketDAO dao = TicketDAO.getInstance();
-														List<Ticket> ticketList = dao.getTicketList(sessionId);
-														
+                                	<div class="table_box">
+				                    	<table class="tbl_header">
+											<thead>
+										    	<tr>
+										        	<th>방문일</th>
+										            <th>인원 (성인/청소년/어린이)</th>
+										            <th>예약 일시</th>
+										        </tr>
+										    </thead>
+									         <tbody>
+									            <%
+									            	TicketDAO dao = TicketDAO.getInstance();
+									            	List<TicketDTO> ticketList = (List<TicketDTO>) request.getAttribute("ticketList");
+									            	System.out.println("ticketList : "+ticketList);
+									            	//type safety : unchecked cast from List ... 알림 무시
+									            	if(ticketList.isEmpty()){
+												%>
+												<tr>
+													<td></td>
+													<td>
+														<p>예약된 티켓이 없습니다</p>
+													</td>
+													<td></td>
+												</tr>
+												<%
+													}else{
 														for(int j = 0; j <ticketList.size(); j++){
-															Ticket ticket = (Ticket) ticketList.get(j);
-													%>
-													<tr>
-														<td>
-															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
-																<%=ticket.getVisit_date() %>
-															</a>
-														</td>
-														<td>
-															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
-																<%=ticket.getAdult() %>/<%=ticket.getTeenager() %>/<%=ticket.getChildren() %>
-															</a>
-														</td>
-														<td>
-															<a href="/SaltProject/ticket/ticketDetail.jsp?reserve_num=<%=ticket.getReserve_num()%>">
-																<%=ticket.getReserve_time() %>
-															</a>
-														</td>
-													</tr>
-													<%
+															TicketDTO ticket = (TicketDTO) ticketList.get(j);
+												%>
+												<tr>
+													<td>
+														<a href="./TicketDetailView.do?reserve_num=<%=ticket.getReserve_num()%>">
+															<%=ticket.getVisit_date() %>
+														</a>
+													</td>
+													<td>
+														<a href="./TicketDetailView.do?reserve_num=<%=ticket.getReserve_num()%>">
+															<%=ticket.getAdult() %>/<%=ticket.getTeenager() %>/<%=ticket.getChildren() %>
+														</a>
+													</td>
+													<td>
+														<a href="./TicketDetailView.do?reserve_num=<%=ticket.getReserve_num()%>">
+															<%=ticket.getReserve_time() %>
+														</a>
+													</td>
+												</tr>
+												<%
 														}
-													%>
-												</tbody>
-											</table>
-										</div>
-									
+													}
+												%>
+											</tbody>
+										</table>
+										<!-- page button 자리 -->
+									</div>
 	                            </div>
 	                            <div class="btn_box">
-	                                <a href="/SaltProject/member/updateMember.jsp" class="btn_a">회원수정</a>
+	                                <a href="./UpdateMemberForm.do?sessionId=<%=sessionId %>" class="btn_a">회원수정</a>
 	                                <a href="#" onclick="deleteConfirm('<%=sessionId %>')" class="btn_a" role= "button">회원탈퇴</a>
 	                            </div>
-                            </c:forEach>
                         </div><!-- login tap container end -->
-                        <div class="info_box selected">
-                        	
-                        </div>
                     </div>
                 </div>
             </div>

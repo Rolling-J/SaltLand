@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import mvc.database.DBConnection;
-import dto.Attraction;
+import mvc.model.AttractionDTO;
 
 public class AttractionDAO {
 	
@@ -40,8 +40,6 @@ public class AttractionDAO {
 		
 		String sql = "select * from attraction";
 		sql = addSearchCondition(sql, tag, age, tall)+" order by id asc";//오름차순 검색문 추가
-		
-		//DB에서 조건에 맞춰 검색한 리스트를 ArrayList에 삽입
 		ArrayList<AttractionDTO> list = new ArrayList<AttractionDTO>();
 		try {
 			conn = DBConnection.getConnection();
@@ -69,7 +67,7 @@ public class AttractionDAO {
 			}
 			return list;
 		}catch(Exception ex) {
-			System.out.println("getAttractionList() 에러 : "+ex);
+			System.out.println("getAttractions() 에러 : "+ex);
 		}finally {
 			try {
 				if(rs!=null)
@@ -206,7 +204,7 @@ public class AttractionDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		
-		String sql = "insert into attraction values(?,?,?,?,?,?,?)";
+		String sql = "insert into attraction values(?,?,?,?,?,?,?,?)";
 
 		try {
 			conn = DBConnection.getConnection();
@@ -222,9 +220,9 @@ public class AttractionDAO {
 			pstmt.setString(8, atr.getFilename());//filename
 			
 			pstmt.executeUpdate();
-
+			System.out.println("add Attraction's image : "+atr.getFilename());
 		}catch(Exception ex) {
-			System.out.println("getAttractionList() 에러 : "+ex);
+			System.out.println("addAttraction() 에러 : "+ex);
 		}finally {
 			try {
 				if(pstmt!=null)
@@ -245,24 +243,23 @@ public class AttractionDAO {
 		PreparedStatement pstmt = null;
 		
 		String sql = "";
-		
+		System.out.println("updateAttraction() started");
 		try {
-			
 			if(atr.getFilename()!=null) {
 				sql = "update attraction set name=?, info=?, tag=?, ride=?, age=?, tall=?, fileName=? where id=?";
 				conn = DBConnection.getConnection();
 				pstmt = conn.prepareStatement(sql);
-				
+				System.out.println("updateAttraction() change the imageFile : true");
 				conn.setAutoCommit(false);
 				
-				pstmt.setInt(1, atr.getId());//id
-				pstmt.setString(2, atr.getName());//name
-				pstmt.setString(3, atr.getInfo());//info
-				pstmt.setString(4, atr.getTag());//tag
-				pstmt.setString(5, atr.getRide());//ride
-				pstmt.setString(6, atr.getAge());//age
-				pstmt.setString(7, atr.getTall());//tall
-				pstmt.setString(8, atr.getFilename());//filename
+				pstmt.setString(1, atr.getName());//name
+				pstmt.setString(2, atr.getInfo());//info
+				pstmt.setString(3, atr.getTag());//tag
+				pstmt.setString(4, atr.getRide());//ride
+				pstmt.setString(5, atr.getAge());//age
+				pstmt.setString(6, atr.getTall());//tall
+				pstmt.setString(7, atr.getFilename());//filename
+				pstmt.setInt(8, atr.getId());//id
 				
 				pstmt.executeUpdate();
 				conn.commit();
@@ -270,22 +267,22 @@ public class AttractionDAO {
 				sql = "update attraction set name=?, info=?, tag=?, ride=?, age=?, tall=? where id=?";
 				conn = DBConnection.getConnection();
 				pstmt = conn.prepareStatement(sql);
-				
+				System.out.println("updateAttraction() change the imageFile : false");
 				conn.setAutoCommit(false);
 				
-				pstmt.setInt(1, atr.getId());//id
-				pstmt.setString(2, atr.getName());//name
-				pstmt.setString(3, atr.getInfo());//info
-				pstmt.setString(4, atr.getTag());//tag
-				pstmt.setString(5, atr.getRide());//ride
-				pstmt.setString(6, atr.getAge());//age
-				pstmt.setString(7, atr.getTall());//tall
+				pstmt.setString(1, atr.getName());//name
+				pstmt.setString(2, atr.getInfo());//info
+				pstmt.setString(3, atr.getTag());//tag
+				pstmt.setString(4, atr.getRide());//ride
+				pstmt.setString(5, atr.getAge());//age
+				pstmt.setString(6, atr.getTall());//tall
+				pstmt.setInt(7, atr.getId());//id
 				
 				pstmt.executeUpdate();
 				conn.commit();
 			}
 		}catch(Exception ex){
-			System.out.println("updateBoard() 에러 : "+ ex);
+			System.out.println("updateAttraction() 에러 : "+ ex);
 		}finally {
 			try {
 				if(pstmt != null)
@@ -306,13 +303,13 @@ public class AttractionDAO {
 		PreparedStatement pstmt = null;
 		
 		String sql = "delete from attraction where id=?";
-
+		
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			pstmt.executeUpdate();
-
+			System.out.println("deleteAttraction() : delete attraction id - "+id);
 		}catch(Exception ex) {
 			System.out.println("deleteAttraction() 에러 : "+ex);
 		}finally {

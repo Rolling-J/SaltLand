@@ -6,24 +6,19 @@
 <%
 	request.setCharacterEncoding("UTF-8");
 
-	String id = request.getParameter("id");
-	String passwd = request.getParameter("password");
-%>
-
-<sql:setDataSource var="dataSource" url="jdbc:mysql://localhost:3306/SaltLand"
-	driver="com.mysql.jdbc.Driver" user="root" password="1234"/>
+	String id = (String) request.getAttribute("id");
+	int x = ((Integer)request.getAttribute("result")).intValue();
 	
-<sql:query dataSource="${dataSource }" var="resultSet">
-	Select * from member where id=? and password=?
-	<sql:param value="<%=id %>"/>
-	<sql:param value="<%=passwd %>"/>
-</sql:query>
-
-<c:forEach var="row" items="${resultSet.rows }">
-	<%
-		session.setAttribute("sessionId", id);
-	%>
-	<c:redirect url="resultMember.jsp?msg=2" />
-</c:forEach>
-
-<c:redirect url="loginMember.jsp?error=1" />
+%>
+<c:set var="x" value="<%=x %>" />
+<c:choose>
+	<c:when test="${x==1 }">
+		<%
+			session.setAttribute("sessionId", id);
+		%>
+		<c:redirect url="/MemberResultView.do?msg=3" />
+	</c:when>
+	<c:otherwise>
+		<c:redirect url="/LoginView.do?msg=0" />
+	</c:otherwise>
+</c:choose>

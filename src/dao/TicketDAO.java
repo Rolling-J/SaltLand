@@ -41,7 +41,7 @@ public class TicketDAO {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			System.out.println(sql);
+			System.out.println("getTicketList("+sessionId+") sql : "+sql);
 			while(rs.absolute(index)) {
 				Ticket ticket = new Ticket();
 				

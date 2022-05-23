@@ -16,7 +16,7 @@
 	<script type="text/javascript">
 		function deleteConfirm(id) {
 			if (confirm("해당 어트랙션을 삭제합니다!") == true)
-				location.href = "./DeleteAttraction.do?id=" + id;
+				location.href = "./DeleteAttraction.do?id="+id;
 			else
 				return;
 		}

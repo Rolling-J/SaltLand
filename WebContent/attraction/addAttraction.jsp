@@ -61,7 +61,7 @@
 			</select>
 	    </div>
 	    <div class="search">
-			<p>키</p>
+			<p>탑승 가능 신장</p>
 			<select id="tall" name="tall" class="s_box" required>
 				<option disabled selected>키를 고르세요</option>
 				<option value="130cm~190cm">130cm~190cm</option>
@@ -69,7 +69,7 @@
 			</select>
 	    </div>
 	    <div class="search">
-			<input type="file" name="filename">
+			<input type="file" name="filename" id="filename">
 	    </div>
 	    <div class="search">
 	    	<input type="submit" class="submit-button" value="등록" onclick="return checkAttraction()">

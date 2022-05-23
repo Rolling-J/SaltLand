@@ -1,9 +1,11 @@
 package mvc.controller;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +22,8 @@ import mvc.model.AttractionDAO;
 import mvc.model.AttractionDTO;
 import mvc.model.MemberDAO;
 import mvc.model.MemberDTO;
+import mvc.model.TicketDAO;
+import mvc.model.TicketDTO;
 
 public class Controller extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -131,27 +135,26 @@ public class Controller extends HttpServlet{
 		//어트랙션 등록
 		else if(command.equals("/AddAttractionAction.do")) {
 			requestAddAtr(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./AttractionList.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/AttractionList.do");
 			rd.forward(request, response);
 		}
 		//어트랙션 수정 업데이트
 		else if(command.equals("/UpdateAttractionAction.do")) {
 			requestUpdateAtr(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./AttractionList.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/AttractionList.do");
 			rd.forward(request, response);
 		}
 		//어트랙션 삭제
 		else if(command.equals("/DeleteAttraction.do")) {
 			requestAtrDelete(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./AttractionList.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/AttractionList.do");
 			rd.forward(request, response);
 		}
-		
-		
 		
 		// ** 사용자 컨트롤 **
 		//로그인 페이지 출력
 		if(command.equals("/LoginView.do")) {
+			requestGetResultMessage(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./member/login.jsp");
 			rd.forward(request, response);
 		}
@@ -162,69 +165,269 @@ public class Controller extends HttpServlet{
 		}
 		//회원 정보 페이지 출력
 		else if(command.equals("/MemberDetailView.do")) {
-			requestMemberId(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./member/boardList.jsp");
+			requestMemberAndTicketInfo(request);
+			RequestDispatcher rd = request.getRequestDispatcher("./member/memberDetail.jsp");
 			rd.forward(request, response);
 		}
 		//회원 정보 수정 페이지 출력
 		else if(command.equals("/UpdateMemberForm.do")) {
-			requestMemberId(request);
+			requestMemberAndTicketInfo(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./member/updateMember.jsp");
 			rd.forward(request, response);
 		}
 		//결과 페이지 출력
 		else if(command.equals("/MemberResultView.do")) {
-			
+			requestGetResultMessage(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./member/resultMember.jsp");
 			rd.forward(request, response);
 		}
 		//로그인 프로세스
 		else if(command.equals("/LoginAction.do")) {
-			
-			RequestDispatcher rd = request.getRequestDispatcher("./MemberResultView.do?msg=2");
+			requestLoginOkOrNot(request);
+			RequestDispatcher rd = request.getRequestDispatcher("./member/processLoginMember.jsp");
 			rd.forward(request, response);
 		}
 		//로그아웃 프로세스
 		else if(command.equals("/LogoutAction.do")) {
-			
-			RequestDispatcher rd = request.getRequestDispatcher("./member/resultMember.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("./member/processLogoutMember.jsp");
 			rd.forward(request, response);
 		}
 		//회원가입
 		else if(command.equals("/LoginAction.do")) {
-			
-			RequestDispatcher rd = request.getRequestDispatcher("./MemberResultView.do");
+			requestAddMember(request);
+			RequestDispatcher rd = request.getRequestDispatcher("/MemberResultView.do");
 			rd.forward(request, response);
 		}
 		//회원 정보 수정 업데이트
 		else if(command.equals("/UpdateMemberAction.do")) {
 			requestMemberUpdate(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./MemberResultView.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/MemberResultView.do");
 			rd.forward(request, response);
 		}
 		//회원 탈퇴
 		else if(command.equals("/DeleteMemberAction.do")) {
 			requestMemberDelete(request);
-			RequestDispatcher rd = request.getRequestDispatcher("./MemberResultView.do");
+			RequestDispatcher rd = request.getRequestDispatcher("/LogoutAction.do");
+			rd.forward(request, response);
+		}
+		
+		// ** 티켓 관련 컨트롤 **
+		//예약 페이지 출력
+		else if(command.equals("/ReservationFormView.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("./ticket/reservation.jsp");
+			rd.forward(request, response);
+		}
+		//티켓 상세페이지 출력
+		else if(command.equals("/TicketDetailView.do")) {
+			requestTicketInfo(request);
+			RequestDispatcher rd = request.getRequestDispatcher("./ticket/ticketDetail.jsp");
+			rd.forward(request, response);
+		}
+		//티켓 예약
+		else if(command.equals("/ReservateTicket.do")) {
+			requestReserving(request);
+			RequestDispatcher rd = request.getRequestDispatcher("/MemberDetailView.do");
+			rd.forward(request, response);
+		}
+		//티켓 취소
+		else if(command.equals("/CancleReservation.do")) {
+			requestCancleReservation(request);
+			RequestDispatcher rd = request.getRequestDispatcher("/MemberDetailView.do");
 			rd.forward(request, response);
 		}
 	}
 	
 	////** 사용자 관련 메서드 **
 	
-	//회원가입
+	//로그인 확인
+	public void requestLoginOkOrNot(HttpServletRequest request) {
+		MemberDAO dao = MemberDAO.getInstance();
+		String id = (String)request.getParameter("id");
+		String password = (String)request.getParameter("password");
+		
+		if(dao.loginTest(id, password)) {
+			request.setAttribute("result", 1);
+			request.setAttribute("id", id);
+		}else {
+			request.setAttribute("result", 0);
+		}
+	}
+
+	//결과 메세지 셋
+	public void requestGetResultMessage(HttpServletRequest request) {
+		System.out.println("resultMessage Attribute : "+request.getAttribute("msg"));
+		System.out.println("resultMessage Parameter : "+request.getParameter("msg"));
+		if(request.getAttribute("msg")==null) {
+			System.out.println("resultMessage Attribute null : get parameter msg and set Attribute");
+			String msg=request.getParameter("msg");
+			request.setAttribute("msg", msg);
+		}else {
+			System.out.println("resultMessage Attribute not null : get Attribute msg and set Attribute");
+			String msg=String.valueOf(request.getAttribute("msg")); //error 발생. 
+			//error message : class java.lang.Integer cannot be cast to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap')
+			System.out.println("resultMessage getAttribute setting complete.");
+			request.setAttribute("msg", msg);
+		}
+	}
 	
+	//회원가입
+	public void requestAddMember(HttpServletRequest request) {
+		MemberDAO dao = MemberDAO.getInstance();
+		MemberDTO member = new MemberDTO();
+		
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String year = request.getParameter("b_year");
+		String month = request.getParameter("b_month");
+		String day = request.getParameter("b_day");
+		String birth = year + "/" + month + "/" + day;
+		String gender = request.getParameter("gender");
+		String mail1 = request.getParameter("email1");
+		String mail2 = request.getParameter("email2");
+		String mail = mail1 + "@" + mail2;
+		String phone1 = request.getParameter("phone_1");
+		String phone2 = request.getParameter("phone_2");
+		String phone3 = request.getParameter("phone_3");
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+		
+		Date currentDatetime = new Date(System.currentTimeMillis());
+		java.sql.Timestamp timestamp = new java.sql.Timestamp(currentDatetime.getTime());
+		
+		DateTimeFormatter format = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+		String registDay = format.format(timestamp.toLocalDateTime());
+		
+		member.setId(id);
+		member.setPassword(password);
+		member.setName(name);
+		member.setBirth(birth);
+		member.setGender(gender);
+		member.setMail(mail);
+		member.setPhone(phone);
+		member.setRegistDay(registDay);
+		dao.addMember(member);
+		
+		request.setAttribute("msg",2);
+	}
 	//ID 바탕으로 사용자 정보 불러오기
-	public void requestMemberId(HttpServletRequest request) {
+	public void requestMemberAndTicketInfo(HttpServletRequest request) {
+		MemberDAO dao = MemberDAO.getInstance();
+		MemberDTO member = new MemberDTO();
+		TicketDAO ticketdao = TicketDAO.getInstance();
+		List<TicketDTO> ticketList = new ArrayList<TicketDTO>();
+		String id = request.getParameter("sessionId");
+		System.out.println("requestMemberAndTicketInfo message - member ID : "+id); //sessionId 파라미터 수신 테스트
+		
+		member = dao.getMemberById(id);
+		ticketList = ticketdao.getTicketList(id);
+		System.out.println("requestMemberAndTicketInfo message - name from DAO : "+member.getName()); //memberDTO 파라미터 수신 테스트
+		request.setAttribute("member", member);
+		request.setAttribute("ticketList", ticketList);
 		
 	}
 	//수정 내용 dto에 저장 및 DB 업데이트
 	public void requestMemberUpdate(HttpServletRequest request) {
+		MemberDAO dao = MemberDAO.getInstance();
+		MemberDTO member = new MemberDTO();
 		
+		String id = request.getParameter("id");
+		String password = request.getParameter("password");
+		String name = request.getParameter("name");
+		String year = request.getParameter("b_year");
+		String month = request.getParameter("b_month");
+		String day = request.getParameter("b_day");
+		String birth = year + "/" + month + "/" + day;
+		String gender = request.getParameter("gender");
+		String mail1 = request.getParameter("email1");
+		String mail2 = request.getParameter("email2");
+		String mail = mail1 + "@" + mail2;
+		String phone1 = request.getParameter("phone_1");
+		String phone2 = request.getParameter("phone_2");
+		String phone3 = request.getParameter("phone_3");
+		String phone = phone1 + "-" + phone2 + "-" + phone3;
+
+		System.out.println("requestMemberUpdate() test. id : "+id+" , birth : "+birth); //sessionId 파라미터 수신 테스트
+		member.setId(id);
+		member.setPassword(password);
+		member.setName(name);
+		member.setBirth(birth);
+		member.setGender(gender);
+		member.setMail(mail);
+		member.setPhone(phone);
+		dao.updateMember(member);
+		
+		request.setAttribute("msg",1);
 	}
 	//회원 탈퇴
 	public void requestMemberDelete(HttpServletRequest request) {
 		MemberDAO dao = MemberDAO.getInstance();
+		
+		String id = (String) request.getParameter("id");
+		System.out.println("requestMemberDelete got attribute id : "+id);
+		dao.deleteMember(id);
+		request.setAttribute("delete", true);
+		request.setAttribute("msg",4);
+	}
+	
+	//// ** 티켓 관련 메서드 **
+	
+	//티켓 상세 정보 가져오기
+	public void requestTicketInfo(HttpServletRequest request) {
+		TicketDAO dao = TicketDAO.getInstance();
+		TicketDTO ticket = new TicketDTO();
+		int ticketNumber = Integer.parseInt(request.getParameter("reserve_num"));
+		ticket = dao.getTicketInfo(ticketNumber);
+		System.out.println("Getting TicketDTO from TicketDAO succeed? Charge of Ticket : "+ticket.getCharge()); //TicketrDTO 파라미터 수신 테스트
+		
+		request.setAttribute("ticket", ticket);
+	}
+	//티켓 예약하기
+	public void requestReserving(HttpServletRequest request) {
+		TicketDAO dao = TicketDAO.getInstance();
+		TicketDTO ticket = new TicketDTO();
+		
+		//int reserve_num = Integer.parseInt(request.getParameter("reserve_num"));
+		String id = request.getParameter("id");
+		String r_year = request.getParameter("r_year");
+		String r_month = request.getParameter("r_month");
+		String r_day = request.getParameter("r_day");
+		String visit_date = r_year+"/"+r_month+"/"+r_day;
+		int adult=0;
+		int teenager=0;
+		int children=0;
+		int charge=0;
+		try {
+			adult = Integer.parseInt(request.getParameter("adultN"));
+			teenager = Integer.parseInt(request.getParameter("teenagerN"));
+			children = Integer.parseInt(request.getParameter("childrenN"));
+			charge = Integer.parseInt(request.getParameter("totalC"));
+		}catch(NumberFormatException ne) {
+			System.out.println("controller requestReserving error : "+ne);
+		}catch(Exception e) {
+			System.out.println("controller requestReserving error : "+e);
+		}
+		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyy/MM/dd(HH:mm:ss)");
+		String reserve_time = formatter.format(new java.util.Date());
+		
+		//ticket.setReserve_num(reserve_num);
+		ticket.setId(id);
+		ticket.setVisit_date(visit_date);
+		ticket.setAdult(adult);
+		ticket.setTeenager(teenager);
+		ticket.setChildren(children);
+		ticket.setCharge(charge);
+		ticket.setReserve_time(reserve_time);
+		
+		dao.reserveTicket(ticket);
+	}	
+	//티켓 취소하기 (삭제)
+	public void requestCancleReservation(HttpServletRequest request) {
+		TicketDAO dao = TicketDAO.getInstance();
+		
+		String id = request.getParameter("sessionId");
+		int ticketNumber = Integer.parseInt(request.getParameter("reserve_num"));
+		System.out.println("requestCancleReservation message - member ID : "+id); //sessionId 파라미터 수신 테스트
+		dao.cancleTicket(ticketNumber);
 	}
 	
 	//// ** 게시판 관련 메서드 **
@@ -408,7 +611,16 @@ public class Controller extends HttpServlet{
 	}
 	//수정 내용 dto에 저장 및 DB에 업데이트
 	public void requestUpdateAtr(HttpServletRequest request) throws IOException{
-		int id = Integer.parseInt(request.getParameter("id"));
+		int id=0;
+		
+		try {
+			id = Integer.parseInt(request.getParameter("id"));
+			//id = Integer.parseInt(request.getParameter("id"));
+		}catch(NumberFormatException ne) {
+			System.out.println("controller requestUpdateAtr error : "+ne);
+		}catch(Exception e) {
+			System.out.println("controller requestUpdateAtr error : "+e);
+		}
 		
 		AttractionDAO dao = AttractionDAO.getInstance();
 		AttractionDTO atr = new AttractionDTO();
@@ -430,8 +642,11 @@ public class Controller extends HttpServlet{
 		atr.setRide(multi.getParameter("ride"));
 		atr.setAge(multi.getParameter("age"));
 		atr.setTall(multi.getParameter("tall"));
-		atr.setFilename(fileName);
-		
+		if(fileName!=null) {
+			atr.setFilename(fileName);
+		}else {
+			atr.setFilename(null);
+		}
 		dao.updateAttraction(atr);
 	}
 	//어트랙션 삭제 기능

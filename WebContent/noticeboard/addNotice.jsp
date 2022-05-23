@@ -60,7 +60,7 @@
                         </select>
                         <input type="hidden" name="id" value="<%=sessionId %>">
                         <input type="text" name="title" class="b_title" placeholder="제목">
-                        <input type="text" name="name" placeholder="작성자명 [ex) boardGM]">
+                        <input type="text" name="name" placeholder="<%=name %>">
                     </div>
                 </div>
                 <div class="board_body">

@@ -22,7 +22,7 @@
 
 	<script type="text/javascript">
 		function deleteConfirm(id) {
-			if (confirm(id+"님, 정말로 회원탈퇴 하시겠습니까?") == true)
+			if (confirm(id+"님, 정말로 회원탈퇴 하시겠습니까?\n예약된 티켓이 있다면 모두 예약이 취소됩니다.") == true)
 				location.href = "./DeleteMemberAction.do?id=<%=sessionId %>";
 			else
 				return;

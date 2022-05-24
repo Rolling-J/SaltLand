@@ -27,7 +27,7 @@
     		<%
     			if(sessionId==null){
 			%>
-				window.open("/SaltProject/ticket/popupLogin.jsp","login_popup","width=450, height=300, left=700, top=200");
+				window.open("./LoginPopup.do","login_popup","width=450, height=300, left=700, top=200");
 			<%
     			}
     		%>
@@ -151,7 +151,7 @@
 	                    	<div class="chargeBlock">
 	                    		<p class="charge_des">총액 : </p>
 	                    		<p class="charge_nb" id="totalCharge">0 원</p>
-	                    		<input type="hidden" id="totalC" name="totalC" value=""/>
+	                    		<input type="hidden" id="totalC" name="totalC"/>
 	                    	</div>
 	                    </div>
 	                    <div class="divine_5"></div>

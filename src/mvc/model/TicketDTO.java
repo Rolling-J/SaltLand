@@ -11,7 +11,7 @@ public class TicketDTO implements Serializable{
 	private int adult;
 	private int teenager;
 	private int children;
-	private int charge;
+	private String charge;
 	private String reserve_time;
 	
 	public TicketDTO() {
@@ -67,11 +67,11 @@ public class TicketDTO implements Serializable{
 		this.children = children;
 	}
 
-	public int getCharge() {
+	public String getCharge() {
 		return charge;
 	}
 
-	public void setCharge(int charge) {
+	public void setCharge(String charge) {
 		this.charge = charge;
 	}
 

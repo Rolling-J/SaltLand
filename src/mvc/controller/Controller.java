@@ -42,12 +42,21 @@ public class Controller extends HttpServlet{
 		response.setContentType("text/html; charset = utf-8");
 		request.setCharacterEncoding("utf-8");
 	
-
 		
-		
+	// ** 전체 **
+		//메인 페이지 출력하기
+		if(command.equals("/MainPage.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("./main.jsp");
+			rd.forward(request, response);
+		}
+		//버스 정보 페이지 출력하기
+		else if(command.equals("/BusInfo.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("./bus.jsp");
+			rd.forward(request, response);
+		}
 	// ** 게시판 컨트롤 **
 		//등록된 글 목록 페이지 출력하기
-		if(command.equals("/BoardListAction.do")) {
+		else if(command.equals("/BoardListAction.do")) {
 			requestBoardList(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./noticeboard/boardList.jsp");
 			rd.forward(request, response);
@@ -193,7 +202,7 @@ public class Controller extends HttpServlet{
 			rd.forward(request, response);
 		}
 		//회원가입
-		else if(command.equals("/LoginAction.do")) {
+		else if(command.equals("/AddMemberAction.do")) {
 			requestAddMember(request);
 			RequestDispatcher rd = request.getRequestDispatcher("/MemberResultView.do");
 			rd.forward(request, response);
@@ -221,6 +230,11 @@ public class Controller extends HttpServlet{
 		else if(command.equals("/TicketDetailView.do")) {
 			requestTicketInfo(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./ticket/ticketDetail.jsp");
+			rd.forward(request, response);
+		}
+		//팝업 열기
+		else if(command.equals("/LoginPopup.do")) {
+			RequestDispatcher rd = request.getRequestDispatcher("./ticket/popupLogin.jsp");
 			rd.forward(request, response);
 		}
 		//티켓 예약
@@ -255,17 +269,12 @@ public class Controller extends HttpServlet{
 
 	//결과 메세지 셋
 	public void requestGetResultMessage(HttpServletRequest request) {
-		System.out.println("resultMessage Attribute : "+request.getAttribute("msg"));
-		System.out.println("resultMessage Parameter : "+request.getParameter("msg"));
 		if(request.getAttribute("msg")==null) {
-			System.out.println("resultMessage Attribute null : get parameter msg and set Attribute");
 			String msg=request.getParameter("msg");
 			request.setAttribute("msg", msg);
 		}else {
-			System.out.println("resultMessage Attribute not null : get Attribute msg and set Attribute");
 			String msg=String.valueOf(request.getAttribute("msg")); //error 발생. 
 			//error message : class java.lang.Integer cannot be cast to class java.lang.String (java.lang.Integer and java.lang.String are in module java.base of loader 'bootstrap')
-			System.out.println("resultMessage getAttribute setting complete.");
 			request.setAttribute("msg", msg);
 		}
 	}
@@ -316,11 +325,9 @@ public class Controller extends HttpServlet{
 		TicketDAO ticketdao = TicketDAO.getInstance();
 		List<TicketDTO> ticketList = new ArrayList<TicketDTO>();
 		String id = request.getParameter("sessionId");
-		System.out.println("requestMemberAndTicketInfo message - member ID : "+id); //sessionId 파라미터 수신 테스트
 		
 		member = dao.getMemberById(id);
 		ticketList = ticketdao.getTicketList(id);
-		System.out.println("requestMemberAndTicketInfo message - name from DAO : "+member.getName()); //memberDTO 파라미터 수신 테스트
 		request.setAttribute("member", member);
 		request.setAttribute("ticketList", ticketList);
 		
@@ -360,11 +367,13 @@ public class Controller extends HttpServlet{
 	}
 	//회원 탈퇴
 	public void requestMemberDelete(HttpServletRequest request) {
-		MemberDAO dao = MemberDAO.getInstance();
+		MemberDAO memberdao = MemberDAO.getInstance();
+		TicketDAO ticketdao = TicketDAO.getInstance();
 		
 		String id = (String) request.getParameter("id");
 		System.out.println("requestMemberDelete got attribute id : "+id);
-		dao.deleteMember(id);
+		memberdao.deleteMember(id);
+		ticketdao.cancleTicketByID(id);
 		request.setAttribute("delete", true);
 		request.setAttribute("msg",4);
 	}
@@ -377,7 +386,6 @@ public class Controller extends HttpServlet{
 		TicketDTO ticket = new TicketDTO();
 		int ticketNumber = Integer.parseInt(request.getParameter("reserve_num"));
 		ticket = dao.getTicketInfo(ticketNumber);
-		System.out.println("Getting TicketDTO from TicketDAO succeed? Charge of Ticket : "+ticket.getCharge()); //TicketrDTO 파라미터 수신 테스트
 		
 		request.setAttribute("ticket", ticket);
 	}
@@ -386,7 +394,7 @@ public class Controller extends HttpServlet{
 		TicketDAO dao = TicketDAO.getInstance();
 		TicketDTO ticket = new TicketDTO();
 		
-		//int reserve_num = Integer.parseInt(request.getParameter("reserve_num"));
+		System.out.println("requestReserving totalC parameter : "+request.getParameter("totalC"));
 		String id = request.getParameter("id");
 		String r_year = request.getParameter("r_year");
 		String r_month = request.getParameter("r_month");
@@ -395,12 +403,11 @@ public class Controller extends HttpServlet{
 		int adult=0;
 		int teenager=0;
 		int children=0;
-		int charge=0;
+		String charge=request.getParameter("totalC");
 		try {
 			adult = Integer.parseInt(request.getParameter("adultN"));
 			teenager = Integer.parseInt(request.getParameter("teenagerN"));
 			children = Integer.parseInt(request.getParameter("childrenN"));
-			charge = Integer.parseInt(request.getParameter("totalC"));
 		}catch(NumberFormatException ne) {
 			System.out.println("controller requestReserving error : "+ne);
 		}catch(Exception e) {

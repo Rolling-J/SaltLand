@@ -40,7 +40,7 @@
 			                        </div>
 			                   </div>
 			                   <div class="btn_box">
-			                        <a href="../main.jsp">홈으로</a>
+			                        <a href="./MainPage.do">홈으로</a>
 			                   </div>
 							</c:when>
 							<c:when test="${msg.equals('2') }">
@@ -73,7 +73,7 @@
 			                        </div>
 			                    </div>
 			                    <div class="btn_box">
-			                        <a href="../main.jsp">홈으로</a>
+			                        <a href="./MainPage.do">홈으로</a>
 			                    </div>
 							</c:when>
 							<c:when test="${msg.equals('3') }">
@@ -96,7 +96,7 @@
 		                            </div>
 		                     	</div>
 		                        <div class="btn_box">
-		                            <a href="../main.jsp">홈으로</a>
+		                            <a href="./MainPage.do">홈으로</a>
 		                        </div>
 							</c:when>
 							<c:when test="${msg.equals('4') }"> <!--  -->
@@ -115,7 +115,7 @@
 		                            </div>
 		                     	</div>
 		                        <div class="btn_box">
-		                            <a href="../main.jsp">홈으로</a>
+		                            <a href="./MainPage.do">홈으로</a>
 		                        </div>
 							</c:when>
 						</c:choose>

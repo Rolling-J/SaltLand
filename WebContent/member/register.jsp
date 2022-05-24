@@ -23,7 +23,7 @@
                             <p>Salt Land 계정 회원 가입</p>
                          </div>
                         <div class="divine"></div>
-                        <form class="login_box" name="member" action="/SaltProject/member/processAddMember.jsp" onsubmit="return checkForm()" method="post">
+                        <form class="login_box" name="member" action="./AddMemberAction.do" onsubmit="return checkForm()" method="post">
                             <div class="container">
                                 <div class="id_pw_box">
                                     <div id="input_box" class="id_box"> 

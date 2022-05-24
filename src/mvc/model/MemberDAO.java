@@ -143,7 +143,7 @@ public class MemberDAO {
 			pstmt.setString(8, member.getRegistDay());
 			
 			pstmt.executeUpdate();
-
+			System.out.println("addMember() complete");
 		}catch(Exception ex) {
 			System.out.println("addMember() ¿¡·¯ : "+ex);
 		}finally {

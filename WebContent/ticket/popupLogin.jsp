@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/popupLogin.css">
     <script>
         function toLogin(){
-        	opener.location.href="/SaltProject/member/login.jsp"
+        	opener.location.href="/SaltProject/LoginView.do"
             self.close();
         }
         function toMain(){
-        	opener.location.href="/SaltProject/main.jsp"
+        	opener.location.href="/SaltProject/MainPage.do"
         	self.close();
         }
     </script>

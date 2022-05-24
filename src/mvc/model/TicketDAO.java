@@ -22,11 +22,13 @@ public class TicketDAO {
 		return instance;
 	}
 	
+	
+	
 	//getTicketList(로그인된 아이디)
 	//기능 : 티켓 리스트 가져오기-로그인한 아이디로 예약된 티켓의 전체 리스트를 list에 담습니다.
 	//입력값:sessionId (로그인된 아이디) , 출력값:null (출력값없음)
 	//보조설명 : DTO Ticket에 잠시 저장한 티켓 정보를 list에 순서대로 저장합니다.
-	public ArrayList<TicketDTO> getTicketList(String sessionId ){
+	public ArrayList<TicketDTO> getTicketList(String sessionId){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -50,7 +52,7 @@ public class TicketDAO {
 				ticket.setAdult(rs.getInt("adult"));
 				ticket.setTeenager(rs.getInt("teenager"));
 				ticket.setChildren(rs.getInt("children"));
-				ticket.setCharge(rs.getInt("charge"));
+				ticket.setCharge(rs.getString("charge"));
 				ticket.setReserve_time(rs.getString("reserve_time"));
 				list.add(ticket);
 				
@@ -86,7 +88,7 @@ public class TicketDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int x = 0;
-		String sql = "select * from ticket where id='"+ sessionId +"'";
+		String sql = "select count(*) from ticket where id='"+ sessionId +"'";
 		
 		try {
 			conn = DBConnection.getConnection();
@@ -139,7 +141,7 @@ public class TicketDAO {
 				ticket.setAdult(rs.getInt("adult"));
 				ticket.setTeenager(rs.getInt("teenager"));
 				ticket.setChildren(rs.getInt("children"));
-				ticket.setCharge(rs.getInt("charge"));
+				ticket.setCharge(rs.getString("charge"));
 				ticket.setReserve_time(rs.getString("reserve_time"));
 				System.out.println("getMemberById working?");
 				System.out.println("Test - charge From DTO = "+ticket.getCharge());
@@ -182,7 +184,7 @@ public class TicketDAO {
 			pstmt.setInt(4, ticket.getAdult());
 			pstmt.setInt(5, ticket.getTeenager());
 			pstmt.setInt(6, ticket.getChildren());
-			pstmt.setInt(7, ticket.getCharge());
+			pstmt.setString(7, ticket.getCharge());
 			pstmt.setString(8, ticket.getReserve_time());
 			
 			pstmt.executeUpdate();
@@ -200,8 +202,6 @@ public class TicketDAO {
 		}
 		return null;
 	}
-	
-	
 	
 	//cancleTicket(티켓고유번호)
 	//기능 : 티켓고유번호를 받아 DB에서 해당 예약 정보 삭제
@@ -230,6 +230,84 @@ public class TicketDAO {
 				throw new RuntimeException(ex.getMessage());
 			}
 		}
-	}	
+	}
+	
+	//getReserveNums(로그인된 아이디)
+	//기능 : 로그인된 아이디로 예약되어있는 티켓 번호들을 array로 가져옵니다
+	//입력값:sessionId (로그인된 아이디) , 출력값:array (예약번호 배열)
+	//보조설명 : DB에서 검색된 티켓번호들을 array에 순서대로 저장합니다.
+	public int[] getReserveNums(String sessionId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int total_ticket = getTicketCount(sessionId);
+		int index = 1;
+		String sql = "select * from ticket where id='"+ sessionId +"' order by reserve_num desc";
+		
+		int[] arrayNum = new int[total_ticket];
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.absolute(index)) {
+				arrayNum[index-1] = rs.getInt("reserve_num");
+				if(index <= total_ticket)
+					index++;
+				else
+					break;
+			}
+			return arrayNum;
+		}catch(Exception ex) {
+			System.out.println("getReserveNums Error : " + ex);
+		}finally {
+			try {
+				if (rs != null) 
+					rs.close();							
+				if (pstmt != null) 
+					pstmt.close();				
+				if (conn != null) 
+					conn.close();
+			}catch(Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	//cancleTicketByID(로그인ID)
+	//기능 : 로그인ID를 받아 DB에서 해당 계정으로 예약된 티켓 정보 전체 삭제
+	//입력값 : ticketNumber (티켓고유번호) , 출력값:null (출력값없음)
+	public void cancleTicketByID(String sessionId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int[] arrayRNum = getReserveNums(sessionId);
+		int total_ticket = getTicketCount(sessionId);
+		int reserveNum=0;
+		String sql = "delete from ticket where reserve_num=?";
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			for(int i=0; i<total_ticket; i++) {
+				reserveNum = arrayRNum[i];
+				pstmt.setInt(1, reserveNum);
+				pstmt.executeUpdate();
+			}
+		}catch(Exception ex) {
+			System.out.println("cancleTicketByID() 에러 : "+ex);
+		}finally {
+			try {
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch(Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
+	}
+	
 	
 }

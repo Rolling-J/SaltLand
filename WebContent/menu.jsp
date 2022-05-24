@@ -10,11 +10,11 @@
 </head>
 <body>
 <header>
-	<a class="logo" href="/SaltProject/main.jsp"><img src="/SaltProject/resources/image/logo.png" alt="logo"></a>
+	<a class="logo" href="./MainPage.do"><img src="/SaltProject/resources/image/logo.png" alt="logo"></a>
 	<nav>
 		<ul class="nav__links">
 			<li><a href='<c:url value="./AttractionList.do"/>' >어트랙션</a></li>
-			<li><a href="/SaltProject/bus.jsp">오시는 길</a></li>
+			<li><a href="./BusInfo.do">오시는 길</a></li>
 			<li><a href="<c:url value="./BoardListAction.do?pageNum=1"/>">공지사항</a></li>
 			<li><a href="<c:url value="./ReservationFormView.do"/>">예매</a></li>
 		</ul>

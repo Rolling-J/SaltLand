@@ -13,9 +13,4 @@ create table ticket(
 ) default charset=utf8;
 
 select * from ticket;
-select * from ticket where reserve_num = 130447;
-select MAX(reserve_num) from ticket where id = 'testID';
-select * from ticket where id = 'testID' order by reserve_num desc limit 1 ;
-select * from ticket where id= 'testID' and reserve_time = '2021-10-15 14:15:00.000';
-drop table ticket;
-insert into ticket value(130447,'testID','2021/12/18',3,1,0,'37,000','2021-10-15 14:15:00.000');
+insert into ticket value(null,'testt','2022/5/30',3,1,0,'37000','2021-10-15 14:15:00.000');

@@ -13,10 +13,6 @@ create table noticeboard(
 )default charset=utf8;
 
 select * from noticeboard;
-select * from noticeboard where category='event' and name like '%%';
-select count(*) from noticeboard where category='event' and name like '%%';
-select * from noticeboard where category='notice' and title like '%%' order by num desc;
-select count(*) from noticeboard;
 insert into noticeboard values( null, 'admin', 'boardGM', 'notice','notice001','content001','event02.jpg','2021.10.22', '000.000.000.000'),
 ( null, 'admin', 'boardGM', 'notice','notice002','content001','event02.jpg','2021.10.22', '000.000.000.000'),
 ( null, 'admin', 'boardGM', 'notice','notice003','content001','event01.png','2021.10.22', '000.000.000.000'),

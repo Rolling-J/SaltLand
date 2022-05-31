@@ -7,21 +7,24 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/reservation.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
-    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>    
-    <script type="text/javascript" src="./resources/JS/validation_reservation.js"></script>
+    <script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
+    <script defer src="/SaltProject/resources/JS/validation_reservation.js"></script>
     <script type="text/javascript">
     	<%
     		String sessionId = (String)session.getAttribute("sessionId");
     	%>
-    	function autoDate(){
-    		var time = new Date();
-        	var year = time.getFullYear();
-        	var month = time.getMonth()+1;
-        	var date = time.getDate();
-        	
-        	document.getElementById("reserve_year").value = year;
-        	document.getElementById("reserve_month").value = month;
-        	document.getElementById("reserve_day").value = date+1;
+    	function checkResData(){
+    		<%
+				if(sessionId==null){
+			%>
+				popupLogin();
+			<%
+				}else{
+			%>
+	    		checkReservation();
+	    	<%
+				}
+			%>
     	}
     	function popupLogin(){
     		<%
@@ -32,6 +35,18 @@
     			}
     		%>
     	}
+    	function autoDate(){
+    		var time = new Date();
+    		var tomorrow = new Date(time);
+    		tomorrow.setDate(time.getDate()+1);
+        	var year = tomorrow.getFullYear();
+        	var month = tomorrow.getMonth()+1;
+        	var date = tomorrow.getDate();
+        	
+        	document.getElementById("reserve_year").value = year;
+        	document.getElementById("reserve_month").value = month;
+        	document.getElementById("reserve_day").value = date;
+    	}
     	function chargeCal(){
     		var adultN = document.getElementById("adultN").value;
     		var teenagerN = document.getElementById("teenagerN").value;
@@ -40,11 +55,10 @@
     		var costT = 7000;
     		var costC = 4000;
     		var totalCharge = adultN*costA + teenagerN*costT + childN*costC;
-    		
+
     		document.getElementById("totalCharge").innerHTML =  totalCharge.toLocaleString('ko-KR') + " 원";
-    		document.getElementById("totalC").value = totalCharge;
+    		document.getElementById("totalC").value = totalCharge.toLocaleString('ko-KR');
     	}
-    	
     	function load(){
     		autoDate();
     		popupLogin();
@@ -77,7 +91,7 @@
 								<ul class="reserve_date">
 									<li class="cnt_date">
 										<div class="cntD_input">
-											<input type="text" name="r_year" class="nbrY_input" id="reserve_year">
+											<input type="text" name="r_year" class="nbrY_input" maxlength="4" id="reserve_year">
 										</div>
 										<div class="cntD_txt">
 											<p>연</p>
@@ -85,7 +99,7 @@
 									</li>
 									<li class="cnt_date">
 										<div class="cntD_input">
-											<input type="text" name="r_month" class="nbrM_input" id="reserve_month">
+											<input type="text" name="r_month" class="nbrM_input" maxlength="2" id="reserve_month">
 										</div>
 										<div class="cntD_txt">
 											<p>월</p>
@@ -93,7 +107,7 @@
 									</li>
 									<li class="cnt_date">
 										<div class="cntD_input">
-											<input type="text" name="r_day" class="nbrD_input" id="reserve_day">
+											<input type="text" name="r_day" class="nbrD_input" maxlength="2" id="reserve_day">
 										</div>
 										<div class="cntD_txt">
 											<p>일</p>
@@ -156,7 +170,7 @@
 	                    </div>
 	                    <div class="divine_5"></div>
 	                    <div class="reserve">
-	                    	<input type="submit" value="예매하기">
+	                    	<input type="button" value="예매하기" onclick="checkResData()">
 	                    </div>
                     </form>
                 </div>

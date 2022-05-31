@@ -51,7 +51,7 @@
                                     </div>
                                     <div id="input_box" class="pw_box" >
                                         <p>비밀번호</p>
-                                        <input type="password" name="password" id="password" placeholder="비밀번호" value="<%=member.getPassword()%>">
+                                        <input type="password" name="password" id="password" placeholder="비밀번호(4~10자리 숫자 조합)" value="<%=member.getPassword()%>">
                                     </div>
                                     <div id="input_box" class="pw_box_2" >
                                         <p>비밀번호 확인</p>
@@ -76,6 +76,7 @@
                                     <div id="input_box" class="gender" >
                                         <p>성별</p>
                                         <select name="gender" id="gender">
+                                        	<option value="" disabled selected>성별 선택</option>
                                         	<option value="male" <%if(member.getGender().equals("male")){%>selected<%} %>>남</option>
                                         	<option value="female" <%if(member.getGender().equals("female")){%>selected<%} %>>여</option>
                                         </select>
@@ -84,6 +85,7 @@
                                         <p>이메일</p>
                                         <input type="text" name="email1" id="email1" placeholder="이메일"  value="<%=email1 %>"> @
                                         <select name="email2" id="email2">
+                                        	<option value="" disabled selected>email 선택</option>
                                         	<option value="naver.com" <%if(email2.equals("naver.com")){%>selected<%} %>>naver.com</option>
                                         	<option value="daum.net" <%if(email2.equals("daum.net")){%>selected<%} %>>daum.net</option>
                                         	<option value="nate.com" <%if(email2.equals("nate.com")){%>selected<%} %>>nate.com</option>
@@ -91,9 +93,9 @@
                                     </div>
                                     <div id="input_box" class="phone" >
                                         <p>전화번호</p>
-                                        <input type="text" name="phone_1" id="phone_1" maxlength="3" size="2" value="<%=phone_1 %>"> -
-                                        <input type="text" name="phone_2" id="phone_2" maxlength="4" size="3" value="<%=phone_2 %>"> -
-                                        <input type="text" name="phone_3" id="phone_3" maxlength="4" size="3" value="<%=phone_3 %>">
+                                        <input type="text" name="phone_1" id="phone_1" maxlength="3" size="2" value="<%=phone_1 %>" placeholder="010,011,016~9 입력 가능"> -
+                                        <input type="text" name="phone_2" id="phone_2" maxlength="4" size="3" value="<%=phone_2 %>" placeholder="3~4자리 숫자"> -
+                                        <input type="text" name="phone_3" id="phone_3" maxlength="4" size="3" value="<%=phone_3 %>" placeholder="4자리 숫자">
                                     </div>
                                 </div>
                             </div>

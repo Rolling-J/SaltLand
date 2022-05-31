@@ -11,15 +11,27 @@
     <link rel="stylesheet" href="/SaltProject/resources/css/noticeDetail.css">
     <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
+	<script type="text/javascript">
+	<%
+		BoardDTO notice = (BoardDTO) request.getAttribute("board");
+		int num = ((Integer) request.getAttribute("num")).intValue();
+		int nowpage = ((Integer) request.getAttribute("page")).intValue();
+		String sessionId = (String) session.getAttribute("sessionId");
+		
+		String content = notice.getContent();
+	%>
+	function textLine(text){
+		textLine = text.replace(/(\r\n|\r|\n)/g, '<br>');
+		return textLine;
+	}
+	
+	function load(){
+		textLine();
+	}
+	</script>
     <title>공지 글</title>
 </head>
-<body>
-<%
-	BoardDTO notice = (BoardDTO) request.getAttribute("board");
-	int num = ((Integer) request.getAttribute("num")).intValue();
-	int nowpage = ((Integer) request.getAttribute("page")).intValue();
-	String sessionId = (String) session.getAttribute("sessionId");
-%>
+<body onload="load()">
     <jsp:include page="/menu.jsp"/>
     <div class="a_box">
         <p class="category"> 홈>이용가이드>공지 및 알림</p>
@@ -54,7 +66,7 @@
                         <div class="board_img">
                             <img src="/SaltProject/resources/image/<%=notice.getFileName() %>">
                         </div>
-                        <p><c:out value="<%=notice.getContent() %>" /></p>
+                        <p id="contentText"><%=notice.getContent().replace("\n", "<br/>") %></p>
                     </div>
                 </div>
             </div>

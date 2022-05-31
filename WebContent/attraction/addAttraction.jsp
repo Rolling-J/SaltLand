@@ -43,7 +43,7 @@
 	    <div class="search">
 			<p>탑승 인원</p>
 			<select id="ride" name="ride" class="s_box" required>
-				<option disabled selected>탑승 인원을 선택해주세요.</option>
+				<option value="" disabled selected>탑승 인원을 선택해주세요.</option>
 				<option value="10">10명</option>
 				<option value="20">20명</option>
 				<option value="30">30명</option>
@@ -54,7 +54,7 @@
 	    <div class="search">
 			<p>탑승 연령</p>
 			<select id="age" name="age" class="s_box" required>
-				<option disabled selected>나이를 고르세요</option>
+				<option value="" disabled selected>나이를 고르세요</option>
 				<option value="0~8">0세~8세</option>
 				<option value="9~64">9세~64세</option>
 				<option value="none">제한 없음</option>
@@ -63,7 +63,7 @@
 	    <div class="search">
 			<p>탑승 가능 신장</p>
 			<select id="tall" name="tall" class="s_box" required>
-				<option disabled selected>키를 고르세요</option>
+				<option value="" disabled selected>키를 고르세요</option>
 				<option value="130cm~190cm">130cm~190cm</option>
 				<option value="none">제한 없음</option>
 			</select>

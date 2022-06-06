@@ -4,7 +4,7 @@
 <html>
 <head>
 	<link rel="stylesheet" href="/SaltProject/resources/css/resultMember.css">
-	<link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+	<link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 	<script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
 	<title>회원 정보</title>

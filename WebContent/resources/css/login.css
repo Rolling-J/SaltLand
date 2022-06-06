@@ -13,12 +13,7 @@
     background-position: 50% 0;
     justify-content: center;
 }
-/* alert */
-.alert_login{
-	background-color: white;
-	border: 2px solid red;
-	border-radius:10px;
-}
+
 /*contents-total*/
 .wrap_body{
     padding-top:50px;
@@ -47,12 +42,27 @@
     font-weight: bold;
     font-size: 20px;
 }
+/* login box */
 .login_box{
     padding: 20px 0;
 }
+/* login box - alert */
+.alert_login{
+	background-color: rgba(255, 100, 100, 1);;
+	font-size: 15px;
+	color: white;
+	text-align: center;
+	border: 2px solid red;
+	border-radius:5px;
+	padding: 5px 10px;
+}
 #input_box{
-    width: 60%;
-    margin: 10px 20%;
+	width: 60%;
+	margin: 10px auto;
+}
+#loginError{
+	width: 55%;
+	margin: 0px auto 20px;
 }
 #input_box input{
     width: 100%;

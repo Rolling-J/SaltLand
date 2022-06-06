@@ -3,7 +3,7 @@
 <head>
 	<script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
     <link rel="stylesheet" href="/SaltProject/resources/css/login.css">
-    <link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+    <link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
     <title>로그인</title>
 </head>
@@ -18,16 +18,17 @@
                             <p>Salt Land 계정으로 로그인</p>
                         </div>
                         <div class="divine"></div>
-                        <%
+                        
+                        <form class="login_box" action="./LoginAction.do" method="post">
+                        	<%
                         	String error=(String)request.getAttribute("msg");
                         	System.out.println("msg : "+error);
 							if(error!=null){
-								out.println("<div class='alert_login'>");
+								out.println("<div id='loginError' class='alert_login'>");
 								out.println("아이디와 비밀번호를 확인해 주십시오");
 								out.println("</div>");
 							}
-						%>
-                        <form class="login_box" action="./LoginAction.do" method="post">
+							%>
                             <div id="input_box" class="id_box"> 
                                 <input type="text" name="id" placeholder="아이디">
                             </div>

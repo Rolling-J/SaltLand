@@ -170,39 +170,6 @@ td a:visited{
     color: white;
 }
 
-
-/*
-a { 
-  text-decoration:none;
-  color: inherit;
-}
-
-.con{
-  padding: 27px 25px 30px;
-  font-size: 22px;
-}
-*/
-/* .card1:hover{
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0, 0.6);
-  transform: translateY(5px);
-  box-shadow: 2px 2px 26px 0px rgba(0,0,0,0.3);
-} */
-
-/* .card1{
-  color: rgb(12, 11, 11) ;
-  font-weight: bold ;
-  text-align: left ;
-  float: right;
-  margin: 15px 15px 0 0;
-  font-weight: bold;
-  padding: 10px 10px;
-  line-height: 20px;
-  margin: 25px;
-  width: 250px;
-  height: 250px;
-  background-color: rgb(194, 249, 255);
-} */
-
 #btn{
   width: 150px;
   height: 100px;

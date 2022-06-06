@@ -6,7 +6,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/SaltProject/resources/css/bar.css">
+	<link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 	<link rel="stylesheet" href="/SaltProject/resources/css/footer.css">
 	<link rel= "stylesheet" href="/SaltProject/resources/css/main.css">
 	<script src="https://kit.fontawesome.com/a3555d8f42.js"></script>
@@ -80,19 +80,18 @@
 				</div>   
 				<div class="theme_box">
 					<ul class="theme">
-						<li><button id="tema_btn" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=survival'">서바이벌</button></li>
-						<li><button id="tema_btn2" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=adventure'">어드벤쳐</button> </li>
-						<li><button id="tema_btn" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=kiddyzone'">키디존</button> </li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=survival'">서바이벌</button></li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=adventure'">어드벤쳐</button> </li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=kiddyzone'">키디존</button> </li>
 					</ul>
 					<ul class="theme">
-						<li><button id="tema_btn2" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=horror'">호러</button></li>
-						<li><button id="tema_btn" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=experience'">체험관</button> </li>
-						<li><button id="tema_btn2" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp?p_search=photozone'">포토존</button> </li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=horror'">호러</button></li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=experience'">체험관</button> </li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=photozone'">포토존</button> </li>
 					</ul>
 				</div>
 			</div>
 			<!-- 정보 - 게시글 -->
-
 			<div class="place">   
 				<div class="info_title">   
 					<strong class="title_text">공지사항</strong><hr>
@@ -113,7 +112,7 @@
 						<div class="clock"><strong></strong></div>
 					</div>
 				</div>
-				<button class="bus" onclick="javascript:window.location='/SaltProject/bus.jsp'">
+				<button class="bus" onclick="javascript:window.location='./BusInfo.do'">
 					<i class="fas fa-bus"></i>
 					<strong class="bus_station">오시는 길</strong>
 				</button>
@@ -122,6 +121,7 @@
 	</div>
 	
 	<!-- 어트랙션 미리보기 -->  
+	
 	<div class="titles"><strong>다양한 어트랙션</strong></div>
 	<div class="play">
 		<!-- 어트랙션 미리보기 - 카드박스 -->
@@ -145,7 +145,7 @@
 				</div>
 			</div>
 		</div>
-		<button id="play_btn2" onclick="javascript:window.location='/SaltProject/attraction/attractions.jsp'">더 많은 어트랙션보기</button>
+		<button id="play_btn2" onclick="javascript:window.location='./AttractionList.do'">더 많은 어트랙션보기</button>
 	</div>
 	<jsp:include page="/footer.jsp"/>
 </body>

@@ -27,7 +27,8 @@ import mvc.model.TicketDTO;
 
 public class Controller extends HttpServlet{
 	private static final long serialVersionUID = 1L;
-	static final int LISTCOUNT = 10;
+	static final int NOTICELISTCOUNT = 10;
+	static final int TICKETLISTCOUNT = 3;
 	
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		doPost(request, response);
@@ -318,18 +319,45 @@ public class Controller extends HttpServlet{
 		
 		request.setAttribute("msg",2);
 	}
-	//ID 바탕으로 사용자 정보 불러오기
+	//ID 바탕으로 사용자 정보 불러오기 (페이징 기능 추가)
 	public void requestMemberAndTicketInfo(HttpServletRequest request) {
-		MemberDAO dao = MemberDAO.getInstance();
-		MemberDTO member = new MemberDTO();
-		TicketDAO ticketdao = TicketDAO.getInstance();
-		List<TicketDTO> ticketList = new ArrayList<TicketDTO>();
 		String id = request.getParameter("sessionId");
 		
+		// 멤버 가입 정보 가져오기
+		MemberDAO dao = MemberDAO.getInstance();
+		MemberDTO member = new MemberDTO();
+		
 		member = dao.getMemberById(id);
-		ticketList = ticketdao.getTicketList(id);
-		request.setAttribute("member", member);
-		request.setAttribute("ticketList", ticketList);
+		
+		// 해당 회원의 티켓 예약 정보 가져오기 (페이징 기능 추가)
+		TicketDAO ticketdao = TicketDAO.getInstance();
+		List<TicketDTO> ticketList = new ArrayList<TicketDTO>();
+		int pageNum=1;
+		if(request.getParameter("pageNum") != null) { //페이지 버튼을 클릭했을 경우 선택한 페이지 파라미터 get
+			pageNum=Integer.parseInt(request.getParameter("pageNum"));
+		}
+		int limit=TICKETLISTCOUNT;
+		int total_ticket = ticketdao.getTicketCount(id);
+		
+		
+		ticketList = ticketdao.getTicketList(pageNum, limit, id); //페이지별 티켓리스트 가져오기
+		
+		//총 페이지 수 계산 (total_page 변수에 담기)
+		int total_page;
+		if(total_ticket % limit == 0) { //마지막 페이지의 티켓 수가 페이지별 표시가능한 수와 일치하는 경우
+			total_page = total_ticket/limit;
+			Math.floor(total_page);	
+		}else { //마지막 페이지의 티켓 수가 페이지별 표시가능한 수에 미달하는 경우
+			total_page = total_ticket/limit;
+			Math.floor(total_page);
+			total_page = total_page + 1;
+		}
+		
+		request.setAttribute("member", member); // 사용자 정보 전송
+		request.setAttribute("ticketList", ticketList); // 페이지별 표시될 티켓리스트 전송
+		request.setAttribute("total_ticket", total_ticket); // 페이지별 표시될 티켓리스트 전송
+		request.setAttribute("pageNum", pageNum); // request에서 가져온 파라미터 pageNum이 없으면 1, 있으면 해당 번호 전송.
+		request.setAttribute("total_page", total_page); // 계산한 총 페이지수 전송
 		
 	}
 	//수정 내용 dto에 저장 및 DB 업데이트
@@ -445,7 +473,7 @@ public class Controller extends HttpServlet{
 		List<BoardDTO> boardlist = new ArrayList<BoardDTO>();
 		
 		int pageNum=1;
-		int limit=LISTCOUNT;
+		int limit=NOTICELISTCOUNT;
 		
 		if(request.getParameter("pageNum") != null) {
 			pageNum=Integer.parseInt(request.getParameter("pageNum"));

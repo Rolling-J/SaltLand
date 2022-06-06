@@ -94,7 +94,7 @@ public class BoardDAO {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			//System.out.println(sql);
+			
 			while(rs.absolute(index)) { //absolute(숫자) : boolean값
 				BoardDTO board = new BoardDTO();
 				
@@ -109,7 +109,7 @@ public class BoardDAO {
 				board.setIp(rs.getString("ip"));
 				list.add(board); //list에 위 DTO 저장
 			
-				if(index < (start + limit) || index < total_record)
+				if(index < (start + limit) && index < total_record)
 					index++; 
 				//게시글의 순서번호 index가 해당 페이지를 모두 채우기 전까지 && 순서번호 index가 게시글 총 수 이하까지
 				else

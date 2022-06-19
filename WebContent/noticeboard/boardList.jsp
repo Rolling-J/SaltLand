@@ -85,7 +85,7 @@
 		                    		</c:choose>
 								</td>
 								<td>
-									<a href="./BoardViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=pageNum%>">
+									<a href="./BoardViewAction.do?num=<%=notice.getNum()%>">
 										<%=notice.getTitle() %>
 									</a>
 								</td>

@@ -5,7 +5,6 @@
 <%
 	BoardDTO notice = (BoardDTO) request.getAttribute("board");
 	int num = ((Integer) request.getAttribute("num")).intValue();
-	int nowpage = ((Integer) request.getAttribute("page")).intValue();
 %>
 <%
 	String sessionId = (String)session.getAttribute("sessionId");
@@ -36,7 +35,7 @@
         <div class="board_title">
             <p>게시글 수정</p>
         </div>
-        <form name="newUpdate" enctype="multipart/form-data" action="BoardUpdateAction.do?num=<%=notice.getNum() %>&pageNum=<%=nowpage %>" method="post">
+        <form name="newUpdate" enctype="multipart/form-data" action="BoardUpdateAction.do?num=<%=notice.getNum() %>" method="post">
             <div class="board_box">
                 <div class="board_header">
                     <div class="head_text">

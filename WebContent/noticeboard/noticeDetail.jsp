@@ -15,7 +15,6 @@
 	<%
 		BoardDTO notice = (BoardDTO) request.getAttribute("board");
 		int num = ((Integer) request.getAttribute("num")).intValue();
-		int nowpage = ((Integer) request.getAttribute("page")).intValue();
 		String sessionId = (String) session.getAttribute("sessionId");
 		
 		String content = notice.getContent();
@@ -42,7 +41,7 @@
         </div>
     </div>
     <div class="board_wrap">
-        <form name="newUpdate" action="UpdateViewAction.do?num=<%=notice.getNum()%>&pageNum=<%=nowpage%>" method="post">
+        <form name="newUpdate" action="UpdateViewAction.do?num=<%=notice.getNum()%>" method="post">
             <div class="board_box">
                 <div class="board_header">
                     <div class="head_text">

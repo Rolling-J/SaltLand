@@ -34,15 +34,23 @@ public class BoardDAO {
 		int x = 0;
 		String sql;
 		
-		System.out.println("category="+category);
-		System.out.println("text="+text);
+		System.out.println("getListCount message : category="+category); //테스트용 콘솔 문구
+		System.out.println("getListCount message : text="+text); //테스트용 콘솔 문구
 		
-		if((category == null||category.equals("all"))&& (text == null||text.equals(""))) {
-			sql = "select count(*) from noticeboard";
+		if(category == null||category.equals("all")) {
+			if(text == null||text.equals("")){
+				sql = "select count(*) from noticeboard";
+			}else {
+				sql = "select count(*) from noticeboard where title like '%" + text + "%'";
+			}
 		}else {
-			sql = "select count(*) from noticeboard where category='" + category + "' and title like '%" + text + "%' ";
+			if(text == null||text.equals("")){
+				sql = "select count(*) from noticeboard where category='" + category + "'";
+			}else {
+				sql = "select count(*) from noticeboard where category='" + category + "' and title like '%" + text + "%' ";
+			}
 		}
-		
+		System.out.println("getListCount message : sql="+sql); //테스트용 콘솔 문구 추가
 		try {
 			conn = DBConnection.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -64,30 +72,41 @@ public class BoardDAO {
 				throw new RuntimeException(ex.getMessage());
 			}
 		}
+		System.out.println("getListCount message : count of list ="+x); //테스트용 콘솔 문구 추가
 		return x;
 	}
 	
 	//getBoardList(페이지,페이지당 최대 게시글 수, 카테고리, 검색어)
 	//역할: 각 페이지에 들어갈 게시글 목록 가져오기 (검색기능 사용시 조건에 맞는 목록 가져오기)
 	//입력값: 페이지, 페이지당 최대 게시글 수, 카테고리, 검색어 /  출력값:list (보드 리스트)
-	public ArrayList<BoardDTO> getBoardList(int page, int limit, String category, String text){
+	public ArrayList<BoardDTO> getBoardList(int page, int limit, int total_record, String category, String text){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
-		int total_record = getListCount(category, text);
 		int start = (page - 1) * limit; //아래 index를 구하기 위한 변수. 최소값은 0임.
 		int index = start + 1; //각 페이지의 첫 게시글의 순서번호.
 		
 		String sql;
 		
-		if((category == null||category.equals("all"))&& (text == null||text.equals("")))
-			// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
-			// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
-			// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
-			sql = "select * from noticeboard order by num desc";
-		else
-			sql = "select * from noticeboard where category='"+ category + "' and title like '%" + text + "%' order by num desc";
+		
+		if(category == null||category.equals("all")) {
+			if(text == null||text.equals("")){
+				sql = "select * from noticeboard order by num desc";
+				// order by : select로 조회한 저장요소의 순서를 조건에 맞춰 정렬시키는 것.
+				// order by num : num 순서대로 내림차순 정렬, 오름차순(ASC) 또는 내림차순(DESC).
+				// 내림차순 정렬이므로, 최신글이 제일 앞에 위치할 것.
+			}else {
+				sql = "select * from noticeboard where title like '%" + text + "%' order by num desc";
+			}
+		}else {
+			if(text == null||text.equals("")){
+				sql = "select * from noticeboard where category='" + category + "' order by num desc";
+			}else {
+				sql = "select * from noticeboard where category='" + category + "' and title like '%" + text + "%' order by num desc";
+			}
+		}
+		System.out.println("getBoardList message : sql="+sql); //테스트용 콘솔 문구 추가
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
 		try {
@@ -134,6 +153,62 @@ public class BoardDAO {
 		return null;
 	}
 	
+	//getMPBoardList(최대 게시글 수)
+	//역할: 각 페이지에 들어갈 게시글 목록 가져오기 (검색기능 사용시 조건에 맞는 목록 가져오기)
+	//입력값: 페이지, 페이지당 최대 게시글 수, 카테고리, 검색어 /  출력값:list (보드 리스트)
+	public ArrayList<BoardDTO> getMPBoardList(int limit){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int index = 1;
+		
+		String sql;
+
+		// 내림차순 정렬이므로, 최신글이 제일 앞에 위치
+		sql = "select * from noticeboard order by num desc";
+
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.absolute(index)) {
+				BoardDTO board = new BoardDTO();
+				
+				board.setNum(rs.getInt("num"));
+				board.setName(rs.getString("name"));
+				board.setCategory(rs.getString("category"));
+				board.setTitle(rs.getString("title"));
+				board.setRegist_day(rs.getString("regist_day"));
+				list.add(board);
+			
+				if(index < limit)
+					index++; 
+				//게시글의 순서번호 index가 제한된 수 이하까지 index++ 수행
+				else
+					break;
+			}
+			return list;
+		}catch(Exception ex) {
+			System.out.println("getBoardList() 에러 : " + ex);
+		}finally {
+			try {
+				if (rs != null) 
+					rs.close();							
+				if (pstmt != null) 
+					pstmt.close();				
+				if (conn != null) 
+					conn.close();
+			}catch(Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
+		
+		return null;
+	}
 	
 	//getLoginNameById(아이디)
 	//역할 : member 테이블에서 사용자 이름 가져오기

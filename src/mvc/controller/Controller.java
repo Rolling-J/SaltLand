@@ -487,7 +487,7 @@ public class Controller extends HttpServlet{
 		
 		int total_record = dao.getListCount(category, text);
 		// dao.getListCount : board 테이블의 레코드 수 (조건에 맞는 게시판의 글 수를 sql에서 계산하여 숫자로 가져옴)
-		boardlist = dao.getBoardList(pageNum, limit, category, text);
+		boardlist = dao.getBoardList(pageNum, limit, total_record, category, text);
 		// dao.getBoardList : board 테이블의 레코드를 num 번호 순서대로(최신글 먼저) 가져오기(각 페이지에 들어갈 게시글 목록 가져오기)
 		int total_page;
 		

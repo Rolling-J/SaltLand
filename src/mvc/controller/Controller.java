@@ -27,6 +27,8 @@ import mvc.model.TicketDTO;
 
 public class Controller extends HttpServlet{
 	private static final long serialVersionUID = 1L;
+	static final int MAINPAGENOTICE = 8;
+	static final int MAINPAGEATR = 3;
 	static final int NOTICELISTCOUNT = 10;
 	static final int TICKETLISTCOUNT = 3;
 	
@@ -47,6 +49,7 @@ public class Controller extends HttpServlet{
 	// ** 전체 **
 		//메인 페이지 출력하기
 		if(command.equals("/MainPage.do")) {
+			RequestMainPage(request);
 			RequestDispatcher rd = request.getRequestDispatcher("./main.jsp");
 			rd.forward(request, response);
 		}
@@ -547,13 +550,11 @@ public class Controller extends HttpServlet{
 	public void requestSelectedBoard(HttpServletRequest request) {
 		BoardDAO dao = BoardDAO.getInstance();
 		int num = Integer.parseInt(request.getParameter("num"));
-		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		
 		BoardDTO board = new BoardDTO();
 		board = dao.getBoardByNum(num);
 		
 		request.setAttribute("num", num);
-		request.setAttribute("page", pageNum);
 		request.setAttribute("board", board);
 	}
 	//수정 내용 dto에 저장 및 DB에 업데이트
@@ -693,7 +694,27 @@ public class Controller extends HttpServlet{
 		dao.deleteAttraction(id);
 	}
 	
+	// ** total **
 	
+	//메인페이지에 최신공지, 최신어트랙션 정보 불러오기
+	public void RequestMainPage(HttpServletRequest request) {
+		//최신 공지사항 제목 list
+		BoardDAO boardDao = BoardDAO.getInstance();
+		List<BoardDTO> boardlist = new ArrayList<BoardDTO>();
+		int limit=MAINPAGENOTICE;
+		
+		boardlist = boardDao.getMPBoardList(limit);
+		
+		//최신 어트랙션 list
+		AttractionDAO atrDao = AttractionDAO.getInstance();
+		List<AttractionDTO> atrList = new ArrayList<AttractionDTO>();
+		int atrLimit = MAINPAGEATR;
+		
+		atrList = atrDao.getMPAttractions(atrLimit);
+		
+		request.setAttribute("boardlist", boardlist);
+		request.setAttribute("atrList", atrList);
+	}
 	
 	
 	

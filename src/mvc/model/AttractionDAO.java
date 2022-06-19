@@ -83,6 +83,63 @@ public class AttractionDAO {
 		return null;
 	}
 	
+	//getMPAttractions(제한수량)
+	//역할: 제한 수량만큼만 어트랙션 목록 가져오기
+	//입력값: 제한수량 / 출력값: 어트랙션 리스트
+	public ArrayList<AttractionDTO> getMPAttractions(int limit) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		int index = 1;
+		
+		String sql = "select * from attraction order by id desc";
+		ArrayList<AttractionDTO> list = new ArrayList<AttractionDTO>();
+		try {
+			conn = DBConnection.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.absolute(index)) {
+				AttractionDTO atr = new AttractionDTO();
+				
+				atr.setId(rs.getInt("id"));
+				atr.setName(rs.getString("name"));
+				atr.setInfo(rs.getString("info"));
+				atr.setTag(rs.getString("tag"));
+				atr.setRide(rs.getString("ride"));
+				atr.setAge(rs.getString("age"));
+				atr.setTall(rs.getString("tall"));
+				atr.setFilename(rs.getString("filename"));
+				list.add(atr);
+				
+				if(index < limit) {
+					System.out.println("getMPAttractions message : index="+index+" limit="+limit+" 이므로 반복합니다");
+					index++;
+				}else {
+					System.out.println("getMPAttractions message : index="+index+" limit="+limit+" 이므로 반복을 멈춥니다");
+					break;
+				}
+			}
+			return list;
+		}catch(Exception ex) {
+			System.out.println("getMPAttractions() 에러 : "+ex);
+		}finally {
+			try {
+				if(rs!=null)
+					rs.close();
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch(Exception ex) {
+				throw new RuntimeException(ex.getMessage());
+			}
+		}
+		return null;
+	}
+	
+	
 	//getListCount(태그조건, 연령조건, 신장조건)
 	//역할: 조건에 맞춘 어트랙션 수 계산해서 출력
 	//입력값: 태그조건, 연령조건, 신장조건 / 출력값: 어트랙션 수

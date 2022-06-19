@@ -53,20 +53,23 @@
 .p_search, .age_search, .tall_search{
   text-align: center;
   border: none;
-  border-radius: 15px;
   width: 150px;
   height: 20px;
   margin-top: 25px;
 }
 .s_btn{
-  margin: 15px;
+  margin: 20px;
   text-align: center;
+  background-color:white;
   border: none;
   border-radius: 35px;
   width: 65px;
   height: 20px;
 }
 
+.s_btn:hover{
+	cursor: pointer;
+}
 /* attraction list*/
 .card_box{
   width: 1300px;
@@ -74,7 +77,7 @@
   margin-top:15px;
   margin-bottom:25px;
 }
-/* update buttons */
+/* attraction list - update buttons */
 .btns{
 	text-align: right;
 }
@@ -99,13 +102,19 @@
   background-color: slateblue;
 }
 /* attraction list - cards */
-.card_box>.card1{
+.card_box> .card_innerbox{
+   width: 320px;
+   height: 370px;
+   display: inline-block;
+   padding: 10px;
+}
+.card_box> .card_innerbox> .card1{
    width: 300px;
    height: 350px;
-   background-color: rgba(255, 255, 255, 0.849);
+   background-color: rgb(255, 255, 255);
    border: 1px solid #e1e1e1;
-   display: inline-block;
-   margin: 10px;
+   position: absolute;
+   transition: 0.4s;
 }
 a { 
   text-decoration:none;
@@ -125,9 +134,11 @@ a {
   padding: 15px 25px 30px;
   font-size: 22px;
 }
-.card1:hover{
-  transform: translateY(5px);
-  box-shadow: 2px 2px 26px 0px rgba(0,0,0,0.3);
+.card_box> .card_innerbox> .card1:hover{
+  transform: scale(1.02);
+  border:none;
+  box-shadow: 2px 2px 15px 0px rgba(0,0,0,0.8);
   background-color: rgb(101, 39, 160);
   color: white;
+  cursor: pointer;
 } 

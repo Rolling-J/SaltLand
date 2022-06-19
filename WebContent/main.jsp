@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="mvc.model.BoardDTO"%>
+<%@ page import="mvc.model.AttractionDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,6 +35,14 @@
 	<title>메인 페이지</title>
 </head>
 <body>
+<div id="all">
+	<%
+		//SuppressWarnings("unchecked") : 확인되지않은 형변환 경고 무시. controller에서 정해진 형식의 Attribute만 전달받으므로 추가함 
+		@SuppressWarnings("unchecked")
+		List<BoardDTO> boardList = (List<BoardDTO>) request.getAttribute("boardlist");
+		@SuppressWarnings("unchecked")
+		List<AttractionDTO> atrList = (List<AttractionDTO>) request.getAttribute("atrList");
+	%>
 	<jsp:include page="/menu.jsp"/>
 
 	<!-- 슬라이드 이미지 -->
@@ -80,14 +91,14 @@
 				</div>   
 				<div class="theme_box">
 					<ul class="theme">
-						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=survival'">서바이벌</button></li>
-						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=adventure'">어드벤쳐</button> </li>
-						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=kiddyzone'">키디존</button> </li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?tag_search=survival'">서바이벌</button></li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?tag_search=adventure'">어드벤쳐</button> </li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?tag_search=kiddyzone'">키디존</button> </li>
 					</ul>
 					<ul class="theme">
-						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=horror'">호러</button></li>
-						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?p_search=experience'">체험관</button> </li>
-						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?p_search=photozone'">포토존</button> </li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?tag_search=horror'">호러</button></li>
+						<li><button id="tema_btn" onclick="javascript:window.location='./AttractionList.do?tag_search=experience'">체험관</button> </li>
+						<li><button id="tema_btn2" onclick="javascript:window.location='./AttractionList.do?tag_search=photozone'">포토존</button> </li>
 					</ul>
 				</div>
 			</div>
@@ -96,8 +107,26 @@
 				<div class="info_title">   
 					<strong class="title_text">공지사항</strong><hr>
 				</div>   
-				<div>
-					<p><a href="/BoardListAction.do?pageNum=1">공지사항 바로가기</a></p><hr>
+				<div class="notice_box">
+					<table>
+						<tbody>
+						<%
+							for(int j = 0; j <boardList.size(); j++){
+								BoardDTO notice = (BoardDTO) boardList.get(j);
+						%>
+							<tr>
+								<td><%=notice.getNum() %></td>
+								<td>
+									<a href="./BoardViewAction.do?num=<%=notice.getNum()%>">
+										<%=notice.getTitle() %>
+									</a>
+								</td>
+							</tr>
+						<%
+							}
+						%>
+						</tbody>
+					</table>
 				</div>
 			</div>
 
@@ -126,27 +155,61 @@
 	<div class="play">
 		<!-- 어트랙션 미리보기 - 카드박스 -->
 		<div class="card_box">
-			<div class="card">
-				<img src="/SaltProject/resources/image/hurricane.jpg" width="100%">
-				<div class="box">
-					<b>허리케인</b>
-                </div>
-			</div>
-			<div class="card">
-                <img src="/SaltProject/resources/image/merkings_marry_go_round.jpg" width="100%">
-                <div class="box">
-					<b>머킹의 회전목마</b>
-                </div>
-			</div>
-			<div class="card">
-				<img src="/SaltProject/resources/image/swing_pangpang.jpg" width="100%">
-				<div class="box">
-					<b>스윙팡팡</b>
-				</div>
-			</div>
+			<%
+			for(int j=0; j<atrList.size(); j++){
+				AttractionDTO atr = (AttractionDTO) atrList.get(j);
+			%>
+			<button class="card" onclick="javascript:window.location='./AttractionDetailView.do?id=<%=atr.getId() %>'">
+				<span class="tag">
+					<%
+						switch(atr.getTag()){
+							case "survival" :
+					%>
+								서바이벌
+					<%
+								break;
+							case "horror" :
+					%>
+								호러
+					<%
+								break;
+							case "adventure" :
+		  			%>
+								어드벤쳐
+					<%
+		  						break;
+							case "experience" :
+					%>
+								체험관
+					<%
+								break;
+							case "kiddyzone" :
+					%>
+								키디존
+					<%
+								break;
+							case "photozone" :
+					%>
+								포토존
+					<%
+		 						break;
+		  					default :
+								System.out.print("Warning : tag error");
+						}
+					%>
+				</span>
+				<img src="/SaltProject/resources/image/<%=atr.getFilename() %>" alt="play" style="width: 100%;">
+	            <div class="box">
+	                <b><%=atr.getName() %></b>
+	            </div>
+			</button>
+			<%
+			}
+			%>
 		</div>
 		<button id="play_btn2" onclick="javascript:window.location='./AttractionList.do'">더 많은 어트랙션보기</button>
 	</div>
 	<jsp:include page="/footer.jsp"/>
+</div>
 </body>
 </html>

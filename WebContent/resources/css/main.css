@@ -6,7 +6,10 @@
     list-style: none;
     text-decoration: none;
   }
-
+/* all */
+#all{
+	min-width:1200px;
+}
 /* time */
   .far{
     color: rebeccapurple;
@@ -61,11 +64,12 @@
   display: flex;
   justify-content: center;
 }
+
 /* information - theme buttons of attraction */
 #information .place{
   padding: 35px 20px 30px;
   box-sizing: border-box;
-  width: 325px;
+  min-width: 325px;
   height: 500px;
   background-color: #fff;
   margin: 0 35px;
@@ -83,7 +87,7 @@
     margin: 0;
     padding: 0;
   }
-  #tema_btn  ,#tema_btn2{
+  .theme_box .theme button{
     list-style: none;
     width: 100px;
     height: 50px;
@@ -92,17 +96,60 @@
     border-radius: 20px;
     margin: 30px 20px;
     border: none;
+    transition: 0.1s;
   }
 
+
 #tema_btn{
-    background-color: rgba(156, 89, 182, 0.589);
+    background-color: rgb(180, 130, 200);
     color: white;
+  }
+#tema_btn:hover{
+	transform: scale(1.05);
+  	box-shadow: 0px 0px 20px 0px rgb(180, 130, 200);
   }
 #tema_btn2{
     background-color: rgba(160, 160, 160, 0.589);
     color: white;
   }
-
+#tema_btn2:hover{
+	transform: scale(1.05);
+  	box-shadow: 0px 0px 20px 0px rgb(200, 200, 200);
+  }
+/* information - notice list */
+.notice_box{
+	width: 90%;
+	margin: 30px auto 0 auto;
+}
+.notice_box table{
+  border-collapse: collapse;
+  width: 100%;
+}
+.notice_box table tr{
+	height: 40px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+	border-bottom: 1px solid rgb(155, 89, 182);
+}
+.notice_box table tr:last-child{
+	border-bottom: none;
+}
+.notice_box table td:nth-child(1){
+	width: 40px;
+}
+.notice_box table a{
+	text-decoration: none;
+}
+.notice_box table a:hover{
+	text-decoration: underline;
+	color: black;
+}
+.notice_box table a:visited{
+	text-decoration: none;
+	color: black;
+	
+}
 /* information - time and track to us */
 #information .check_box  {
   box-sizing: border-box;
@@ -128,9 +175,11 @@
   width: 325px;
   height: 190px;
   border: solid #e6e6e6;
+  border-radius: 15px;
   border-width: 0 1px 2px;
   background-color: #fff;
   margin: 13px 35px;
+  transition: 0.4s;
 }
 
 .fa-bus{
@@ -140,8 +189,8 @@
   color: rgba(156, 89, 182, 0.589);
 }
 .bus:hover{
-	background-color:  rgb(127, 63, 153);
-	color: white;
+	background-color:  rgb(240, 220, 240);
+	box-shadow: inset 0px 0px 15px 0 rgba(127, 63, 153, 0.5);
 }
 .bus_station{
   font-size: 25px;
@@ -171,32 +220,8 @@
   background: url(https://adventure.lotteworld.com/common/images/icon/mainCon3_bg.jpg);
   padding: 15px; 
 }
-.play ul li a{
-  text-decoration: none;
-  color: white;
-}
-.tag{
-  display: flex;
-  list-style: none;
-  justify-content: center;
-  margin-top: 55px;
-}
-
-#play_btn{
-  width: 100px;
-  height: 35px;
-  border-radius: 20px;
-  margin: 0px 20px;
-  border: none;
-  background-color: rgba(156, 89, 182, 0.589);
-  color: white;
-}
-
-
-/* play cards */
-
 .card_box{
-	width: 1000px;
+  width: 1000px;
   margin: 100px auto;
   display: flex;
   justify-content: space-between;
@@ -204,22 +229,32 @@
 .card{
   border: none;
   box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
-  transition: 0.4s;
   width: 300px;
   background-color: white;
   text-align: center;
   font-size: 16px;
   float: left;
   margin: 10px;
+  transition: 0.4s;
 }
 .card:hover{
   transform: translateY(5px);
-  box-shadow: 2px 2px 26px 0px rgba(0,0,0,0.3);
+  box-shadow:0 4px 8px 0 rgba(0,0,0,0.6);
   background-color: rgb(101, 39, 160);
   color: white;
 }
+.tag{
+  position: absolute;
+  padding: 0 10px;
+  height: 36px;
+  line-height: 34px;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  background: rgba(0,0,0,0.5);
+}
 .card > img{
-	max-width: 500px;
+  max-width: 500px;
 }
 .box{
   height: 100px;
@@ -233,23 +268,24 @@
 /* play btn */
 
 #play_btn2{
+  display: block;
   width: 200px;
   height: 56px;
   text-decoration:none;
-  margin: 50px 0px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+  border: none;
   border-radius: 20px;
   font-size: 18px;
   color: #fff;
-  border: none;
   text-align: center;
   border-radius: 28px;
-  background-color: rgba(156, 89, 182, 0.589);
- 
+  background-color: rgb(156, 89, 182);
+  box-shadow:4px 4px 8px 0 grey, inset -3px -3px 5px rgb(127, 63, 153);
+  margin: 50px auto;
+  transition: 0s;
 }
- 
+#play_btn2:active{
+  box-shadow:4px 4px 8px 0 grey, inset 3px 3px 5px rgb(127, 63, 153);
+}  
 
 
 

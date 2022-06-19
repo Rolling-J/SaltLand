@@ -31,7 +31,8 @@
 	String age_search = (String)request.getAttribute("age_search");
 	String tall_search = (String)request.getAttribute("tall_search");
 	String sessionId = (String)session.getAttribute("sessionId");
-	List<AttractionDTO> atrList = (List)request.getAttribute("atrList");
+	@SuppressWarnings("unchecked") //SuppressWarnings("unchecked") : 확인되지않은 형변환 경고 무시. controller에서 정해진 형식의 Attribute만 전달받으므로 추가함
+	List<AttractionDTO> atrList = (List<AttractionDTO>)request.getAttribute("atrList");
 %>
 <div class="all">
    <jsp:include page="/menu.jsp"/>
@@ -67,7 +68,6 @@
                     <option value="130cm~190cm">130cm~190cm</option>
         			<option value="none">제한 없음</option>
                 </select>
-                <p></p>
                 <input type="submit" value="검색" class="s_btn">
                 <input type="reset" value="다시" class="s_btn">
             </form>
@@ -88,50 +88,53 @@
     	for(int j = 0; j <atrList.size(); j++){
 			AttractionDTO atr = (AttractionDTO) atrList.get(j);
     %> 
-		<button class="card1" onclick="javascript:window.location='./AttractionDetailView.do?id=<%=atr.getId() %>'">
-			<span class="tag">
-				<%
-					switch(atr.getTag()){
-						case "survival" :
-				%>
-							서바이벌
-				<%
-							break;
-						case "horror" :
-				%>
-							호러
-				<%
-							break;
-						case "adventure" :
-	  			%>
-							어드벤쳐
-				<%
-	  						break;
-						case "experience" :
-				%>
-							체험관
-				<%
-							break;
-						case "kiddyzone" :
-				%>
-							키디존
-				<%
-							break;
-						case "photozone" :
-				%>
-							포토존
-				<%
-	 						break;
-	  					default :
-							System.out.print("Warning : tag error");
-					}
-				%>
-			</span>
-			<img src="/SaltProject/resources/image/<%=atr.getFilename() %>" alt="play" style="width: 100%;">
-            <div class="con">
-                <h4 class="con1"><%=atr.getName() %></h4>
-            </div>
-		</button>
+    
+    	<div class="card_innerbox">
+			<button class="card1" onclick="javascript:window.location='./AttractionDetailView.do?id=<%=atr.getId() %>'">
+				<span class="tag">
+					<%
+						switch(atr.getTag()){
+							case "survival" :
+					%>
+								서바이벌
+					<%
+								break;
+							case "horror" :
+					%>
+								호러
+					<%
+								break;
+							case "adventure" :
+		  			%>
+								어드벤쳐
+					<%
+		  						break;
+							case "experience" :
+					%>
+								체험관
+					<%
+								break;
+							case "kiddyzone" :
+					%>
+								키디존
+					<%
+								break;
+							case "photozone" :
+					%>
+								포토존
+					<%
+		 						break;
+		  					default :
+								System.out.print("Warning : tag error");
+						}
+					%>
+				</span>
+				<img src="/SaltProject/resources/image/<%=atr.getFilename() %>" alt="play" style="width: 100%;">
+	            <div class="con">
+	                <h4 class="con1"><%=atr.getName() %></h4>
+	            </div>
+			</button>
+		</div>
       <%
 			}
     %>

@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="utf-8">
+<link rel="stylesheet" href="/SaltProject/resources/css/menu.css">
 </head>
 <body>
 <header>
